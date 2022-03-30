@@ -1,3 +1,4 @@
+/*
 package elements;
 import primitives.Color;
 
@@ -5,6 +6,7 @@ import primitives.Color;
  * AmbientLight of the scene
  *
  */
+/*
 public class AmbientLight{
 
 
@@ -13,6 +15,7 @@ public class AmbientLight{
      * @param Ia the color of ambientLight
      * @param Ka factor of the ambientLight
      */
+/*
     public AmbientLight(Color Ia , double Ka) {
         super(Ia.scale(Ka));
     }
@@ -20,9 +23,10 @@ public class AmbientLight{
     /**
      * default constructor that create ambientLight in black
      */
+/*
     public AmbientLight(){
         super(Color.BLACK);
     }
 
 
-}
+} */
