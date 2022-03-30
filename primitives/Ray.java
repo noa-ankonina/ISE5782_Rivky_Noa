@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * Class Ray is the basic class representing a ray of Euclidean geometry in Cartesian
  * ray system
@@ -60,6 +62,34 @@ public class Ray {
         catch (Exception exception) {
             return p0;
         }
+    }
+
+    /**
+     * The function find the closest points to P0 of the ray
+     * @param points
+     * @return Point the closes point
+     */
+
+    public Point findClosestPoint(List<Point> points) {
+
+        double minDistance = Double.MAX_VALUE;
+        double d;
+        Point closePoint = null;
+
+        if(points==null){
+            return null;
+        }
+
+        for (Point p : points) {
+
+            d = p.distance(p0);
+            //check if the distance of p is smaller then minDistance
+            if (d < minDistance) {
+                minDistance = d;
+                closePoint = p;
+            }
+        }
+        return closePoint;
     }
 
     @Override
