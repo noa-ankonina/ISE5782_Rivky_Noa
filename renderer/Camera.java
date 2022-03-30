@@ -1,6 +1,9 @@
 package renderer;
 
 import primitives.*;
+
+import java.util.MissingResourceException;
+
 import static primitives.Util.isZero;
 
 
@@ -33,6 +36,9 @@ public class Camera {
      * The distance between the camera and the view plane.
      */
     private double distance;
+
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracerBase;
     /**
      * Constructs a camera with location, to and up vectors.
      * The right vector is being calculated by the to and up vectors.
@@ -250,4 +256,31 @@ public class Camera {
 
         return this;
     }
+ public void renderImage(){
+     if(p0 == null)
+         throw new MissingResourceException("po is null","camera","");
+
+     if(vUp== null)
+         throw new MissingResourceException("vUp is null","camera","");
+
+     if(vTo== null)
+         throw new MissingResourceException("vTo is null","camera","");
+
+     if(vRight== null)
+         throw new MissingResourceException("vRight is null","camera","");
+
+     if(width == 0)
+         throw new MissingResourceException("width is 0","camera","");
+
+     if(height== 0)
+         throw new MissingResourceException("height is 0","camera","");
+
+     if(distance== 0)
+         throw new MissingResourceException("distance is 0","camera","");
+
+     if(rayTracerBase== null)
+         throw new MissingResourceException("rayTracerBase is null","camera","");
+
+    // throw new UnsupportedOperationException();
+ }
 }

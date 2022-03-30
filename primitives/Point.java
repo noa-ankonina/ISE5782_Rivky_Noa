@@ -9,7 +9,7 @@ import geometries.Sphere;
  */
 public class Point
 {
-    private static final Point ZERO = new Point(0,0,0);
+    public static final Point ZERO = new Point(0,0,0);
     protected final Double3 xyz;
 
     public Point(Double3 _xyz) {xyz=_xyz;}
