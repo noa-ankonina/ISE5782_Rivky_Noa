@@ -31,7 +31,5 @@ public abstract class RayTracerBase {
      * @return Color
      */
     public abstract Color traceRay(Ray ray);
-
-   // public abstract Color averageColor(LinkedList<Ray> rays);
 }
 

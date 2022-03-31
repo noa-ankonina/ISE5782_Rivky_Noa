@@ -1,6 +1,7 @@
 package renderer;
 
 import primitives.*;
+import scene.Scene;
 
 import java.util.MissingResourceException;
 
@@ -39,6 +40,8 @@ public class Camera {
 
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
+
+
     /**
      * Constructs a camera with location, to and up vectors.
      * The right vector is being calculated by the to and up vectors.
@@ -141,6 +144,14 @@ public class Camera {
         this.p0 = new Point(x, y, z);
         return this;
 
+    }
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return  this;
+    }
+    public Camera setRayTracer(RayTracerBase rayTracerBase) {
+        this.rayTracerBase = rayTracerBase;
+        return this;
     }
     /**
      * Set the new view plane's width.
@@ -257,30 +268,102 @@ public class Camera {
         return this;
     }
  public void renderImage(){
-     if(p0 == null)
-         throw new MissingResourceException("po is null","camera","");
+     //check that all the parameters OK
+     try {
+         if(p0 == null)
+             throw new MissingResourceException("po is null","camera","");
 
-     if(vUp== null)
-         throw new MissingResourceException("vUp is null","camera","");
+         if(vUp== null)
+             throw new MissingResourceException("vUp is null","camera","");
 
-     if(vTo== null)
-         throw new MissingResourceException("vTo is null","camera","");
+         if(vTo== null)
+             throw new MissingResourceException("vTo is null","camera","");
 
-     if(vRight== null)
-         throw new MissingResourceException("vRight is null","camera","");
+         if(vRight== null)
+             throw new MissingResourceException("vRight is null","camera","");
 
-     if(width == 0)
-         throw new MissingResourceException("width is 0","camera","");
+         if(width == 0)
+             throw new MissingResourceException("width is 0","camera","");
 
-     if(height== 0)
-         throw new MissingResourceException("height is 0","camera","");
+         if(height== 0)
+             throw new MissingResourceException("height is 0","camera","");
 
-     if(distance== 0)
-         throw new MissingResourceException("distance is 0","camera","");
+         if(distance== 0)
+             throw new MissingResourceException("distance is 0","camera","");
 
-     if(rayTracerBase== null)
-         throw new MissingResourceException("rayTracerBase is null","camera","");
+         if(rayTracerBase== null)
+             throw new MissingResourceException("rayTracerBase is null","camera","");
+         if (imageWriter == null) {
+             throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+         }
 
-    // throw new UnsupportedOperationException();
+         //Rendering the image
+         int nX = imageWriter.getNx();
+         int nY = imageWriter.getNy();
+
+         for (int i = 0; i < nY; i++) {
+             for (int j = 0; j < nX; j++) {
+                 Ray ray = constructRayThroughPixel(nX, nY, j, i);
+                 Color pixelColor = rayTracerBase.traceRay(ray);
+                 imageWriter.writePixel(j, i, pixelColor);
+             }
+         }
+     }
+     catch (MissingResourceException e){
+         throw new UnsupportedOperationException("Not implemented yet " + e.getClassName());
+     }
  }
+
+    /**
+     * Adds a grid to the image.
+     *
+     * @param interval num of the grid's lines
+     * @param color    the color of the grid's lines
+     */
+    public void printGrid(int interval, Color color) {
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
+                if (i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(j, i, color);
+                }
+            }
+        }
+    }
+
+    //Turn on the function of the imageWriter writeToImage
+    public void writeToImage(){
+
+        if(imageWriter==null) {
+            throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
+        }
+        imageWriter.writeToImage();
+
+    }
+    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
+        Point pC = (Point) p0.add(vTo.scale(distance));
+        Point pIJ=pC;
+
+        double rY = height / nY;
+        double rX = width / nX;
+
+        double yI = -(i - (nY - 1) / 2d) * rY;
+        double xJ = (j - (nX - 1) / 2d) * rX;
+
+        if(!isZero(xJ)){
+            pIJ = (Point) pIJ.add(vRight.scale(xJ));
+        }
+        if(!isZero(yI)){
+            pIJ = (Point) pIJ.add(vUp.scale(yI));
+        }
+
+        Vector vIJ=pIJ.substract(p0);
+
+        return new Ray(p0,vIJ);
+    }
+
+
 }
+
+

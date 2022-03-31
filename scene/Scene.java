@@ -3,7 +3,6 @@ package scene;
 import elements.AmbientLight;
 import geometries.Geometries;
 import primitives.Color;
-import primitives.Double3;
 
 public class Scene {
 
