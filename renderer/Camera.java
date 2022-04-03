@@ -153,6 +153,7 @@ public class Camera {
         this.rayTracerBase = rayTracerBase;
         return this;
     }
+
     /**
      * Set the new view plane's width.
      *
@@ -180,7 +181,6 @@ public class Camera {
         this.height = height;
         return this;
     }
-
 
     /**
      * Constructs a ray through a given pixel on the view plane.
@@ -225,6 +225,7 @@ public class Camera {
         }
         return pIJ;
     }
+
     /**
      * Adds the given amount to the camera's position
      *
@@ -234,6 +235,7 @@ public class Camera {
         p0 = (Point) p0.add(amount);
         return this;
     }
+
     /**
      * Adds x, y, z to the camera's position
      *
@@ -242,6 +244,7 @@ public class Camera {
     public Camera move(double x, double y, double z) {
         return move(new Vector(x, y, z));
     }
+
     /**
      * Rotates the camera around the axes with the given angles
      *
@@ -267,6 +270,7 @@ public class Camera {
 
         return this;
     }
+
  public void renderImage(){
      //check that all the parameters OK
      try {
@@ -293,6 +297,7 @@ public class Camera {
 
          if(rayTracerBase== null)
              throw new MissingResourceException("rayTracerBase is null","camera","");
+
          if (imageWriter == null) {
              throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
          }
@@ -307,6 +312,17 @@ public class Camera {
                  Color pixelColor = rayTracerBase.traceRay(ray);
                  imageWriter.writePixel(j, i, pixelColor);
              }
+
+
+         /*
+             for (int i = 0; i < nY; i++) {
+                 for (int j = 0; j < nX; j++) {
+                     Ray ray = this.constructRay(imageWriter.getNy(),imageWriter.getNx(),j,i);
+                     Color pixelColor = rayTracerBase.traceRay(ray);
+                     imageWriter.writePixel(i,j, rayTracerBase.traceRay(ray));
+                 }
+
+          */
          }
      }
      catch (MissingResourceException e){
@@ -341,6 +357,7 @@ public class Camera {
         imageWriter.writeToImage();
 
     }
+
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
         Point pC = (Point) p0.add(vTo.scale(distance));
         Point pIJ=pC;
@@ -362,8 +379,6 @@ public class Camera {
 
         return new Ray(p0,vIJ);
     }
-
-
 }
 
 

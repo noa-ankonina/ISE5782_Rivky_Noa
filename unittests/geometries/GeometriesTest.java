@@ -33,10 +33,10 @@ class GeometriesTest {
 
         //TC14: All shapes cut
         l = geo.findIntersections(new Ray(new Point(0.05, -2.5, -1), new Vector(-0.05, 4.5, 5)));
-        assertEquals( 3, l.size(),"Ray cut all shape");
+        assertEquals( 4, l.size(),"Ray cut all shape");
 
         //TC15: more then 1 shapes cut but no all of them
         l = geo.findIntersections(new Ray(new Point(0, 0, 4), new Vector(0, -2, -5)));
-        assertEquals( 2, l.size(),"Ray cut more then 1 shapes  but no all of them");
+        assertEquals( 3, l.size(),"Ray cut more then 1 shapes  but no all of them");
     }
 }
