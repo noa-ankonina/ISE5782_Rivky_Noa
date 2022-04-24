@@ -9,7 +9,7 @@ import java.util.List;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-public class Plane implements Geometry
+public class Plane extends Geometry
 {
     private final Point q0;
     private final Vector normal;
@@ -95,5 +95,40 @@ public class Plane implements Geometry
         Point point = ray.getPoint(t);
 
         return List.of(point);
+    }
+
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        //t=n*(q0-Po)/n*v
+        Vector v= ray.getDir();
+        Point p0=ray.getPoint();
+
+        //Ray on the plane
+        if(q0.equals(p0)){
+            return null;
+        }
+
+        double nqp=normal.dotProduct(q0.substract(p0));
+        //Ray on the plane
+        if(isZero(nqp)){
+            return null;
+        }
+
+        double nv= normal.dotProduct(v);
+
+        if(isZero(nv)){
+            return null;
+        }
+
+        double t=nqp/nv;
+
+        //Ray after the plane
+        if(t<0){
+            return null;
+        }
+
+        Point P=ray.getPointBy(t);
+        //Ray crosses the plane
+        return List.of(new GeoPoint(this,P));
     }
 }

@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
@@ -39,6 +41,11 @@ public class Cylinder extends Tube
 
         p0 = (Point) p0.add(v.scale(t));
         return point.substract(p0).normlize();
+    }
+
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return super.findGeoIntersections(ray);
     }
 
     @Override

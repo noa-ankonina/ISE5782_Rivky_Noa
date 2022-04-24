@@ -5,7 +5,7 @@ import primitives.*;
 import java.util.*;
 
 
-public class Geometries implements Intersectable
+public class Geometries extends Intersectable
 {
     public List<Intersectable> lstIntersectable;
 
@@ -46,5 +46,27 @@ public class Geometries implements Intersectable
         }
 
         return result;
+    }
+
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+
+        List<GeoPoint> intersections = null;
+
+        for (Intersectable item : lstIntersectable) {
+
+            // if there are elements in geoIntersections – add them to intersections
+            List<GeoPoint> geoIntersections = item.findGeoIntersections(ray);
+
+            if (geoIntersections != null) {
+
+                if (intersections == null) {
+                    intersections = new LinkedList<>();
+                }
+
+                intersections.addAll(geoIntersections);
+            }
+        }
+        return intersections;
     }
 }

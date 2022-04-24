@@ -10,7 +10,7 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 
-public class Tube implements Geometry
+public class Tube extends Geometry
 {
     final Ray axisRay;
     final double radius;
@@ -51,6 +51,10 @@ public class Tube implements Geometry
         return null;
     }
 
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return null;
+    }
 
         @Override
         public String toString ()
