@@ -61,16 +61,15 @@ public abstract class  Intersectable
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
         return null;
     }
+
     /**
      * @param ray intersection in geometries
      * @return list of intersectables the the ray intersecte in geometries
      */
-    /**
-     *  מוצא את נקודות החיתוך של הקרן עם הגופים
-     * @param ray
-     * @return List<Point>
-     */
-    public List<Point> findIntersections(Ray ray){
-        return null;
+    public List<Point> findIntersections(Ray ray) {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).toList();
     }
+
 }
