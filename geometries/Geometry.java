@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Color;
+import primitives.Material;
 import primitives.Point;
 import primitives.Vector;
 
@@ -14,6 +15,7 @@ public abstract class  Geometry extends Intersectable
      */
     protected Color emission =Color.BLACK;
 
+    Material material;
     /**
      * Returns the emission
      * @return return A shallow copy of the emission
