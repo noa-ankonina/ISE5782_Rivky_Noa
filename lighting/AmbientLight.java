@@ -1,6 +1,7 @@
 package lighting;
 
 import primitives.Color;
+import primitives.Double3;
 
 /**
  * AmbientLight of the scene
@@ -13,7 +14,7 @@ public class AmbientLight extends Light{
      * @param Ia the color of ambientLight
      * @param Ka factor of the ambientLight
      */
-    public AmbientLight(Color Ia , double Ka) {
+    public AmbientLight(Color Ia , Double3 Ka) {
         super(Ia.scale(Ka));
     }
 
