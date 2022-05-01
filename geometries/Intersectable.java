@@ -50,17 +50,26 @@ public abstract class  Intersectable
         }
     }
 
+    public List<GeoPoint> findGeoIntersections(Ray ray){
+        return findGeoIntersections(ray,Double.POSITIVE_INFINITY);
+    }
     /**
+     *
      * @param ray
+     * @param maxDistance
      * @return
      */
-    List<GeoPoint> findGeoIntersections (Ray ray){
-      return findGeoIntersectionsHelper(ray);
+    public List<GeoPoint> findGeoIntersections (Ray ray,double maxDistance){
+      return findGeoIntersectionsHelper(ray,maxDistance);
     }
 
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
-        return null;
-    }
+    /**
+     *
+     * @param ray
+     * @param maxDistance
+     * @return
+     */
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance);
 
     /**
      * @param ray intersection in geometries

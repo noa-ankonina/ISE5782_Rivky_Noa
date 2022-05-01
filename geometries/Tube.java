@@ -56,7 +56,17 @@ public class Tube extends Geometry
         return null;
     }
 
-        @Override
+    /**
+     * @param ray
+     * @param maxDistance
+     * @return
+     */
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        return null;
+    }
+
+    @Override
         public String toString ()
         {
             return "Tube{" +

@@ -26,4 +26,12 @@ public class AmbientLight extends Light{
     }
 
 
+    /**
+     * create AmbientLight of the scene
+     * @param Ia the color of ambientLight
+     * @param Ka factor of the ambientLight
+     */
+    public AmbientLight(Color Ia , double Ka) {
+        super(Ia.scale(Ka));
+    }
 }
