@@ -379,6 +379,35 @@ public class Camera {
 
         return new Ray(p0,vIJ);
     }
+
+    /**
+     * Chaining method for setting the view plane's size.
+     *
+     * @param width  The new view plane's width.
+     * @param height The new view plane's height.
+     * @return The camera itself.
+     */
+    public Camera setViewPlaneSize(double width, double height) {
+        setWidth(width);
+        setHeight(height);
+        return this;
+    }
+
+    /**
+     * Chaining method for setting the distance between the camera and the view plane.
+     *
+     * @param distance The new distance between the camera and the view plane.
+     * @return The camera itself.
+     * @throws IllegalArgumentException When distance illegal.
+     */
+    public Camera setDistance(double distance) {
+        if (distance <= 0) {
+            throw new IllegalArgumentException("Illegal value of distance");
+        }
+
+        this.distance = distance;
+        return this;
+    }
 }
 
 
