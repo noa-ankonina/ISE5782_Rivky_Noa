@@ -80,9 +80,11 @@ public class RayTracerBasic extends RayTracerBase{
                 specularN=((SpotLight) lightSource).getSpecularN();
             }
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                Color lightIntensity = lightSource.getIntensity(point.point);
-                color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-                        calcSpecular(ks, l, n,nl, v, nShininess, lightIntensity,specularN));
+                if(unshaded(lightSource,l,n,point)) {
+                    Color lightIntensity = lightSource.getIntensity(point.point);
+                    color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                            calcSpecular(ks, l, n, nl, v, nShininess, lightIntensity, specularN));
+                }
             }
         }
         return color;
