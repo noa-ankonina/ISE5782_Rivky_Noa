@@ -6,10 +6,11 @@ package primitives;
  */
 public class Material {
 
+
     /**
-     * factors of the diffuse and specular light
+     * factors of the diffuse,specular light,transparency and reflection
      */
-    public double kD=0,kS=0;
+    public double kD=0,kS=0,kT=0.0,kR=0.0;
     /**
      * factor of the shininess
      */
@@ -30,6 +31,22 @@ public class Material {
      */
     public Material setKs(double kS) {
         this.kS = kS;
+        return this;
+    }
+    /**
+     * @param kT factor of the Transparency of the material
+     * @return this Material
+     */
+    public Material setkT(double kT) {
+        this.kT = kT;
+        return this;
+    }
+    /**
+     * @param kR factor of the reflection of the material
+     * @return this Material
+     */
+    public Material setkR(double kR) {
+        this.kR = kR;
         return this;
     }
 

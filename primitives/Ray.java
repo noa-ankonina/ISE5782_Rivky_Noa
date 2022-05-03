@@ -4,6 +4,9 @@ import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * Class Ray is the basic class representing a ray of Euclidean geometry in Cartesian
  * ray system
@@ -12,6 +15,7 @@ import java.util.List;
 public class Ray {
     final Point p0;
     final Vector dir;
+    private static final double DELTA = 0.1;
 
     public Point getP0() {
         return p0;
@@ -24,6 +28,27 @@ public class Ray {
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normlize();
+    }
+
+    /**
+     * Creates a new ray by point,vector direction and normal.
+     * @param p0 head point of the ray
+     * @param dir direction of the ray
+     * @param normal normal of the ray
+     */
+    public Ray(Point p0, Vector dir, Vector normal) {
+        this.dir=dir;
+        // make sure the normal and the direction are not orthogonal
+        double nv = alignZero(normal.dotProduct(dir));
+
+        // if not orthogonal
+        if (!isZero(nv)) {
+            Vector moveVector = normal.scale(nv > 0 ? DELTA : -DELTA);
+            // move the head of the vector in the right direction
+            this.p0= (Point) p0.add(moveVector);
+        }
+        else
+            this.p0=p0;
     }
 
     public Point getPoint() {
