@@ -15,6 +15,7 @@ public class Color {
      */
     private final Double3 rgb;
 
+
     /**
      * Black color = (0,0,0)
      */
