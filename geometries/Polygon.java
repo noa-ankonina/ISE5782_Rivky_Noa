@@ -134,13 +134,4 @@ public class Polygon extends Geometry {
 		return List.of(new GeoPoint(this, result.get(0).point));
 	}
 
-	/**
-	 * @param ray
-	 * @param maxDistance
-	 * @return
-	 */
-	@Override
-	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-		return null;
-	}
 }

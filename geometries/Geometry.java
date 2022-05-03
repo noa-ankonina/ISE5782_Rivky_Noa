@@ -8,8 +8,7 @@ import primitives.Vector;
 /**
  *
  */
-public abstract class  Geometry extends Intersectable
-{
+public abstract class  Geometry implements Intersectable {
     /**
      * The emission light at first is black
      */

@@ -95,13 +95,4 @@ public class Plane extends Geometry
         return List.of(new GeoPoint(this,P));
     }
 
-    /**
-     * @param ray
-     * @param maxDistance
-     * @return
-     */
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-        return null;
-    }
 }

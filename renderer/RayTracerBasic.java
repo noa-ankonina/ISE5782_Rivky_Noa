@@ -125,7 +125,6 @@ public class RayTracerBasic extends RayTracerBase{
      * @param geopoint
      * @return
      */
-
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
