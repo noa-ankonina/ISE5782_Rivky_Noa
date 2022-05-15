@@ -107,5 +107,6 @@ class VectorTest<assertEquals>
                 "ERROR: the normalized vector is not parallel to the original one");
         assertFalse(v.dotProduct(u) < 0 ,
                 "ERROR: the normalized vector is opposite to the original one");
+
     }
 }
