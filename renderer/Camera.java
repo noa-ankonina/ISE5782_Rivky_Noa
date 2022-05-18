@@ -47,7 +47,7 @@ public class Camera {
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
 
-
+    private int numOfRays = 0; //num of rays in every pixel(default = 1)
     /**
      * Constructs a camera with location, to and up vectors.
      * The right vector is being calculated by the to and up vectors.
@@ -415,6 +415,16 @@ public class Camera {
         }
 
         this.distance = distance;
+        return this;
+    }
+
+    /**
+     *
+     * @param numOfRays
+     * @return
+     */
+    public Camera setNumOfRays(int numOfRays) {
+        this.numOfRays = numOfRays;
         return this;
     }
 }

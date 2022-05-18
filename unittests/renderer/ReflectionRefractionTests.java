@@ -29,7 +29,7 @@ public class ReflectionRefractionTests {
 	@Test
 	public void twoSpheres() {
 		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-				.setVPSize(150, 150).setVPDistance(1000);
+				.setVPSize(150, 150).setVPDistance(1000).setNumOfRays(50);
 
 		scene.geometries.add( //
 				new Sphere(new Point(0, 0, -50), 50d).setEmission(new Color(BLUE)) //
@@ -52,7 +52,7 @@ public class ReflectionRefractionTests {
 	@Test
 	public void twoSpheresOnMirrors() {
 		Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-				.setVPSize(2500, 2500).setVPDistance(10000); //
+				.setVPSize(2500, 2500).setVPDistance(10000).setNumOfRays(81); //
 
 		scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
@@ -116,33 +116,57 @@ public class ReflectionRefractionTests {
 		scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
 		scene.geometries.add( //
-				new Triangle(new Point(150, -150, -150), new Point(-150, 1500, -150),
-						new Point(67, 67, 300)) //
-						.setEmission(new Color(java.awt.Color.ORANGE)) //
-						.setMaterial(new Material().setkR(1).setkT(0.5)),
-				new Triangle(new Point(150, -150, -150), new Point(-1500, 1500, -1500),
-						new Point(-150, -150, -200)) //
-						.setEmission(new Color(0, 120, 220)) //
-						.setMaterial(new Material().setkR(1).setkT(0.5)),
-				new Sphere( new Point(70, -10, -100),10) //
+				new Sphere( new Point(140, 10, -100),25) //
 						.setEmission(new Color(java.awt.Color.cyan)) //
 						.setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setkR(0.4)),
-				new Sphere( new Point(75, 75, 50),30) //
-						.setEmission(new Color(java.awt.Color.yellow)) //
-						.setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setkT(0.6)),
-				new Polygon(new Point(100,100,0),new Point(-70, 70, -140),new Point(140, -140, -125)).setEmission(new Color(java.awt.Color.blue)) //
-						.setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.6))
+				new Sphere( new Point(140, 80, -100),15) //
+						.setEmission(new Color(java.awt.Color.cyan)) //
+						.setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setkR(0.4)),
+				new Sphere( new Point(-100, 150, 50),35) //
+						.setEmission(new Color(java.awt.Color.cyan)) //
+						.setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkR(1)),
+				new Sphere( new Point(-75, 100, 50),45) //
+						.setEmission(new Color(java.awt.Color.magenta)) //
+						.setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setkT(0.6)),
+				new Cylinder(new Ray(
+						new Point(-80, -45, 0),
+						new Vector(60, 85, 0)),
+						13, 50)
+						.setEmission(new Color(0,100,70))
+						.setMaterial(new Material()
+								.setKd(0.6).setKs(0.4)
+								.setShininess(50))
+				,
+				new Cylinder(new Ray(
+						new Point(-70, -61, 0),
+						new Vector(1, 0, 0)),
+						11, 140)
+						.setEmission(new Color(0,51,102))
+						.setMaterial(new Material()
+								.setKd(0.6).setKs(0.4).setkG(0.9)
+								.setShininess(50))
+
+
+
 
 		);
 
-		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0),new Vector(0, 0, -1)) //
-				.setKq(2E-7)); //.setKq(0.000005));
-		scene.lights.add(new SpotLight(new Color(1020, 400, 400),new Point(-750, -750, -150), new Vector(-1, -1, -4)));
+			scene.lights.add(new SpotLight(new Color(400, 400, 400), new Point(-50, 100, 100), new Vector(-0.5, -1, -0.5)).setKl(0.004).setKq(0.000006));
+			scene.lights.add(new SpotLight(new Color(0,250,350),new Point(-200, 100, 0),new Vector(1, 1, -2)).setSpecularN(40) //
+					.setKl(0.00000005).setKq(0.000000005));
+			scene.lights.add(new SpotLight(new Color(0,250,350),new Point(-200, 50, 0),new Vector(1, 0.5, -2)).setSpecularN(20) //
+					.setKl(0.00000005).setKq(0.000000005));
+			scene.lights.add(new SpotLight(new Color(0,250,350),new Point(-200, 55, 0), new Vector(1, 1, -2)).setSpecularN(10) //
+					.setKl(0.00000005).setKq(0.000000005));
+
 		ImageWriter imageWriter = new ImageWriter("exe11", 600, 600);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //
 		camera.writeToImage();
+
+
+
 
 
 	}

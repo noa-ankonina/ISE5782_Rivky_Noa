@@ -22,6 +22,7 @@ public class RayTracerBasic extends RayTracerBase{
     private static final double INITIAL_K = 1.0;
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
+    private int glossinessRays = 10;
 
     /**
      * A builder
@@ -29,6 +30,15 @@ public class RayTracerBasic extends RayTracerBase{
      */
     public RayTracerBasic(Scene scene){
         super(scene);
+    }
+
+    public RayTracerBasic setGlossinessRays(int glossinessRays) {
+        if (glossinessRays <= 0) {
+            throw new IllegalArgumentException("number of glossiness rays should be greater than 0");
+        }
+
+        this.glossinessRays = glossinessRays;
+        return this;
     }
 
 
