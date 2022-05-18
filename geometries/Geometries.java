@@ -6,7 +6,7 @@ import java.util.*;
 
 
 public class Geometries implements Intersectable {
-    public List<Intersectable> lstIntersectable;
+    public List<Intersectable> geometries;
 
     /**
      * Default constructor.
@@ -15,7 +15,7 @@ public class Geometries implements Intersectable {
     public Geometries()
     {
         //בחרתי דווקא ברשימה מקושרת מפני שכמעט ואין לנו מחיקה ולכן מבנה הנתונים הזה יעיל יותר
-        lstIntersectable = new LinkedList<>();
+        geometries = new LinkedList<>();
     }
 
     public Geometries(Intersectable... geometries) {
@@ -23,19 +23,15 @@ public class Geometries implements Intersectable {
     }
 
     public void add(Intersectable... geometries) {
-        Collections.addAll(lstIntersectable, geometries);
+        Collections.addAll(this.geometries, geometries);
     }
-
-
-    @Override
-    public List<Point> findIntersections(Ray ray) {return  null;}
 
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
 
         List<GeoPoint> intersections = null;
 
-        for (Intersectable item : lstIntersectable) {
+        for (Intersectable item : geometries) {
 
             // if there are elements in geoIntersections – add them to intersections
             List<GeoPoint> geoIntersections = item.findGeoIntersections(ray);

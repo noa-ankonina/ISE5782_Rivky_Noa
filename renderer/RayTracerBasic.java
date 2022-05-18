@@ -83,6 +83,7 @@ public class RayTracerBasic extends RayTracerBase{
         }
         return color;
     }
+
     /**
      *
      * @param ks factor of the specular
@@ -167,7 +168,6 @@ public class RayTracerBasic extends RayTracerBase{
         return ktr;
     }
 
-
     /**
      *calculate the color of the scene
      * @param intersection geo point intersections with the ray
@@ -183,6 +183,7 @@ public class RayTracerBasic extends RayTracerBase{
         color = color.add(calcLocalEffects(intersection, ray,k));
         return 1 == level ? color : color.add(calcGlobalEffects(intersection, ray, level, k));
     }
+
     /**
      * Calculate the color intensity on the point
      * @param gPoint on the geometry
@@ -192,8 +193,6 @@ public class RayTracerBasic extends RayTracerBase{
     private Color calcColor(GeoPoint gPoint, Ray ray) {
         return calcColor(gPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
     }
-
-
 
     /**
      * construct a reflected ray from the geometry
@@ -241,6 +240,7 @@ public class RayTracerBasic extends RayTracerBase{
         return color;
     }
 
+
     /**
      *help function to the recursion
      * @param ray from the geometry
@@ -256,17 +256,6 @@ public class RayTracerBasic extends RayTracerBase{
 
 
     /**
-     * construct the refracted ray of the point on the geometry
-     * @param n normal vector
-     * @param point on the geometry
-     * @param ray from the geometry
-     * @return new ray
-     */
-    private Ray constructRefractedRay(Vector n, Point point, Ray ray) {
-        return new Ray(point, ray.getDir(), n);
-    }
-
-    /**
      *find the closest intersection point of the ray with the geometry
      * @param ray on the geometry
      * @return the closest geo point
@@ -278,6 +267,17 @@ public class RayTracerBasic extends RayTracerBase{
         } else {
             return ray.findClosestGeoPoint(intersections);
         }
+    }
+
+    /**
+     * construct the refracted ray of the point on the geometry
+     * @param n normal vector
+     * @param point on the geometry
+     * @param ray from the geometry
+     * @return new ray
+     */
+    private Ray constructRefractedRay(Vector n, Point point, Ray ray) {
+        return new Ray(point, ray.getDir(), n);
     }
 
 }

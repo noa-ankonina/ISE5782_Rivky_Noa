@@ -58,9 +58,6 @@ public class Plane extends Geometry
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) { return null;}
-
-    @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         //t=n*(q0-Po)/n*v
         Vector v= ray.getDir();

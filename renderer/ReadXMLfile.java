@@ -46,13 +46,13 @@ public class ReadXMLfile {
             Element node = doc.getDocumentElement();
 
             //get the background color and set in the scene
-            Point backColor = getP(node.getAttribute("background-color"));
-            Color Cb = new Color(backColor.getX(), backColor.getY(), backColor.getZ());
+            Color Cb =  getColor(node.getAttribute("background-color"));
             scene.setBackground(Cb);
 
             //get the ambient light color and set in the scene
-            Point ambientColor = getP(((Element) doc.getElementsByTagName("ambient-light").item(0)).getAttribute("color"));
-            Color Ca = new Color(ambientColor.getX(), ambientColor.getY(), ambientColor.getZ());
+            Element ambientElement = (Element) doc.getElementsByTagName("ambient-light").item(0);
+            Double3 ambientColor = getDouble3(ambientElement.getAttribute("color"));
+            Color Ca = new Color(ambientColor);
             scene.setAmbientLight(new AmbientLight(Ca,new Double3(1,1,1)));
 
             //new geometries for the scene
@@ -183,6 +183,14 @@ public class ReadXMLfile {
      * @return Point
      */
     public static Point getP(String s) {
+        return new Point(getDouble3(s));
+    }
+
+    public static Color getColor(String s) {
+        return new Color(getDouble3(s));
+    }
+
+    public static Double3 getDouble3(String s) {
 
         Pattern p = Pattern.compile("-?\\d+");
         Matcher m = p.matcher(s);
@@ -192,8 +200,9 @@ public class ReadXMLfile {
         while (m.find()) {
             arr[i++] = Integer.parseInt(m.group());
         }
-        return new Point(arr[0], arr[1], arr[2]);
+        return new Double3(arr[0], arr[1], arr[2]);
     }
+
 }
 
 

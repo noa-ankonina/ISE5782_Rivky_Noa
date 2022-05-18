@@ -13,26 +13,32 @@ public class Camera {
      * Camera's location.
      */
     private Point p0;
+
     /**
      * Camera's upper direction.
      */
     private Vector vUp;
+
     /**
      * Camera's forward direction.
      */
     private Vector vTo;
+
     /**
      * Camera's right direction
      */
     private Vector vRight;
+
     /**
      * View plane's width.
      */
     private double width;
+
     /**
      * View plane's height.
      */
     private double height;
+
     /**
      * The distance between the camera and the view plane.
      */
@@ -137,6 +143,7 @@ public class Camera {
         this.distance = distance;
         return this;
     }
+
     /**
      * set 3 double number of the point
      */
@@ -145,10 +152,12 @@ public class Camera {
         return this;
 
     }
+
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
         return  this;
     }
+
     public Camera setRayTracer(RayTracerBase rayTracerBase) {
         this.rayTracerBase = rayTracerBase;
         return this;
