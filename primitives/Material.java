@@ -10,8 +10,25 @@ public class Material {
     /**
      * factors of the diffuse,specular light,transparency and reflection
      */
-    public double kD=0,kS=0,kT=0.0,kR=0.0,kG=1;
+    public double
+            kD=0, //Diffuse
+            kS=0, //Specular
+            kT=0.0, //Transparency
+            kR=0.0, //Reflection
+            kG=0.0; //Glossy
 
+    public double getkB() {
+        return kB;
+    }
+
+    public void setkB(double kB) {
+        this.kB = kB;
+    }
+
+    /**
+     * the Blurry glass parameter
+     */
+    public double kB=0.0;
     /**
      * factor of the shininess
      */
@@ -68,5 +85,12 @@ public class Material {
     public Material setShininess(int nShininess) {
         this.nShininess = nShininess;
         return this;
+    }
+
+    /**
+     * @return the shininess
+     */
+    public int getnShininess(){
+        return nShininess;
     }
 }

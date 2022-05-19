@@ -464,4 +464,25 @@ public class Camera {
         this.numOfRays = numOfRays;
         return this;
     }
+
+    /**
+     * Calculate Diffusive component of light reflection.
+     *
+     * @param kd diffusive component coef
+     * @param nl dot-product n*l
+     * @param ip light intensity at the point
+     * @return diffusive component of light reflection
+     * @author Dan Zilberstein
+     * The diffuse component is that dot product nâ€¢L that we discussed in class. It approximates light, originally
+     * from light source L, reflecting from a surface which is diffuse, or non-glossy. One example of a non-glossy
+     * surface is paper. In general, you'll also want this to have a non-gray color value,
+     * so this term would in general be a color defined as: [rd,gd,bd](nâ€¢L)
+     */
+    private Color calcDiffusive(double kd, double nl, Color ip) {
+        if (nl < 0) {
+            nl = -nl;
+        }
+
+        return ip.scale(nl * kd);
+    }
 }
