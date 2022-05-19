@@ -24,6 +24,8 @@ public class RayTracerBasic extends RayTracerBase{
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
     private int glossinessRays = 10;
+    private int numOfRays;
+    private static final double DISTANCE = 10;
 
     /**
      * A builder
@@ -31,6 +33,16 @@ public class RayTracerBasic extends RayTracerBase{
      */
     public RayTracerBasic(Scene scene){
         super(scene);
+    }
+
+    /**
+     * constructor that activate the father constructor
+     *
+     * @param scene Scene
+     */
+    public RayTracerBasic(Scene scene,int numOfRays) {
+        super(scene);
+        this.numOfRays=numOfRays;
     }
 
     public RayTracerBasic setGlossinessRays(int glossinessRays) {
@@ -54,6 +66,7 @@ public class RayTracerBasic extends RayTracerBase{
         //no points
         return scene.background;
     }
+
 
 
     /**
@@ -298,5 +311,31 @@ public class RayTracerBasic extends RayTracerBase{
         }
         return color.reduce(Double.valueOf(rays.size()));
     }
-
+    /**
+     * this function calculate the color of point with the help of beam
+     *
+     * @param color  the color of the intersection point
+     * @param n      The normal vector of the point where beam start
+     * @param refRay reflected/refracted ray
+     * @param level  The level of recursion
+     * @param k      kt/kr
+     * @param kk     kkt/kkr
+     * @param rad    radius/kMatte ,when radius is bigger the mattiut is more
+     *               intense
+     * @return The color
+     */
+    private Color calcBeamColor(Color color, Vector n, Ray refRay, int level, double k, double kk, double rad) {
+        Color addColor = Color.BLACK;
+        List<Ray> rays = refRay.generateBeam(n, rad, DISTANCE, numOfRays);
+        for (Ray ray : rays) {
+            GeoPoint refPoint = findClosestIntersection(ray);
+            if (refPoint != null) {
+                addColor = addColor.add(calcColor(refPoint, ray, level - 1, kk).scale(k));
+            }
+        }
+        int size = rays.size();
+        //calculate the color by average of all the beam
+        color = color.add(size > 1 ? addColor.reduce(size) : addColor);
+        return color;
+    }
 }

@@ -50,7 +50,7 @@ public class glossyTest {
 
 
         ImageWriter imageWriter = new ImageWriter("house", 500, 500);
-        Camera camera = new Camera(Point.ZERO, new Vector(0, 1, 0), new Vector(0, 0, -1))//
+        Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))//
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //
                 .setRayTracer(new RayTracerBasic(scene1));

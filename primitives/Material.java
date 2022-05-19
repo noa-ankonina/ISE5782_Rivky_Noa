@@ -15,7 +15,12 @@ public class Material {
             kS=0, //Specular
             kT=0.0, //Transparency
             kR=0.0, //Reflection
-            kG=0.0; //Glossy
+            kG=0.0, //Glossy glass
+            kB=0.0; // blurry glass
+    /**
+     * factor of the shininess
+     */
+    public int nShininess=0;
 
     public double getkB() {
         return kB;
@@ -24,15 +29,6 @@ public class Material {
     public void setkB(double kB) {
         this.kB = kB;
     }
-
-    /**
-     * the Blurry glass parameter
-     */
-    public double kB=0.0;
-    /**
-     * factor of the shininess
-     */
-    public int nShininess=0;
 
     /**
      * @param kD factor of the diffuse affect of the material

@@ -58,6 +58,7 @@ public class Camera {
         this.rayTracerBasic = rayTracerBasic;
         return this;
     }
+
     /**
      * @param camera of the scene
      * @return this render
@@ -485,4 +486,9 @@ public class Camera {
 
         return ip.scale(nl * kd);
     }
+
+    /**
+     * Default constructor for secondary Pixel objects
+     */
+
 }
