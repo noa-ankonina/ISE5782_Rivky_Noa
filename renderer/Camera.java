@@ -3,9 +3,11 @@ package renderer;
 import primitives.*;
 import scene.Scene;
 
+import java.util.LinkedList;
 import java.util.MissingResourceException;
 
 import static primitives.Util.isZero;
+import static primitives.Util.random;
 
 
 public class Camera {
@@ -43,9 +45,31 @@ public class Camera {
      * The distance between the camera and the view plane.
      */
     private double distance;
+    /**
+     * The camera in the scene
+     */
+    Camera camera;
+
+    /**
+     * @param rayTracerBasic from the camera
+     * @return this render
+     */
+    public Camera setRayTracer(RayTracerBasic rayTracerBasic) {
+        this.rayTracerBasic = rayTracerBasic;
+        return this;
+    }
+    /**
+     * @param camera of the scene
+     * @return this render
+     */
+    public Camera setCamera(Camera camera) {
+        this.camera = camera;
+        return this;
+    }
 
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
+     RayTracerBasic rayTracerBasic;
 
     private int numOfRays = 0; //num of rays in every pixel(default = 1)
     /**
@@ -280,65 +304,38 @@ public class Camera {
         return this;
     }
 
- public void renderImage(){
-     //check that all the parameters OK
-     try {
-         if(p0 == null)
-             throw new MissingResourceException("po is null","camera","");
+    /**
+     * Make the image from the elements
+     */
+    public void renderImage(){
+        //check that all the parameters OK
+        try {
+            if (imageWriter == null) {
+                throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+            }
 
-         if(vUp== null)
-             throw new MissingResourceException("vUp is null","camera","");
+            if (rayTracerBasic == null) {
+                throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
+            }
 
-         if(vTo== null)
-             throw new MissingResourceException("vTo is null","camera","");
+            //Rendering the image
+            int nX = imageWriter.getNx();
+            int nY = imageWriter.getNy();
+            LinkedList<Ray> rays;
+            // pass through each pixel and calculate the color
+            for (int i = 0; i < nY; i++) {
+                for (int j = 0; j < nX; j++) {
+                    rays=this.constructRayPixel(nX,nY,j,i);
+                    imageWriter.writePixel(j,i,rayTracerBasic.AverageColor(rays));
+                }
+            }
+        }
 
-         if(vRight== null)
-             throw new MissingResourceException("vRight is null","camera","");
+        catch (MissingResourceException e){
+            throw new UnsupportedOperationException("Not implemented yet " + e.getClassName());
+        }
 
-         if(width == 0)
-             throw new MissingResourceException("width is 0","camera","");
-
-         if(height== 0)
-             throw new MissingResourceException("height is 0","camera","");
-
-         if(distance== 0)
-             throw new MissingResourceException("distance is 0","camera","");
-
-         if(rayTracerBase== null)
-             throw new MissingResourceException("rayTracerBase is null","camera","");
-
-         if (imageWriter == null) {
-             throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
-         }
-
-         //Rendering the image
-         int nX = imageWriter.getNx();
-         int nY = imageWriter.getNy();
-
-         for (int i = 0; i < nY; i++) {
-             for (int j = 0; j < nX; j++) {
-                 Ray ray = constructRayThroughPixel(nX, nY, j, i);
-                 Color pixelColor = rayTracerBase.traceRay(ray);
-                 imageWriter.writePixel(j, i, pixelColor);
-             }
-
-
-         /*
-             for (int i = 0; i < nY; i++) {
-                 for (int j = 0; j < nX; j++) {
-                     Ray ray = this.constructRay(imageWriter.getNy(),imageWriter.getNx(),j,i);
-                     Color pixelColor = rayTracerBase.traceRay(ray);
-                     imageWriter.writePixel(i,j, rayTracerBase.traceRay(ray));
-                 }
-
-          */
-         }
-     }
-     catch (MissingResourceException e){
-         throw new UnsupportedOperationException("Not implemented yet " + e.getClassName());
-     }
- }
-
+    }
     /**
      * Adds a grid to the image.
      *
@@ -367,27 +364,22 @@ public class Camera {
 
     }
 
+    /**
+     * Constructs a ray through a given pixel on the view plane.
+     *
+     * @param nX Total number of pixels in the x dimension.
+     * @param nY Total number of pixels in the y dimension.
+     * @param j  The index of the pixel on the x dimension.
+     * @param i  The index of the pixel on the y dimension.
+     * @return A ray going through the given pixel.
+     */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
-        Point pC = (Point) p0.add(vTo.scale(distance));
-        Point pIJ=pC;
-
-        double rY = height / nY;
-        double rX = width / nX;
-
-        double yI = -(i - (nY - 1) / 2d) * rY;
-        double xJ = (j - (nX - 1) / 2d) * rX;
-
-        if(!isZero(xJ)){
-            pIJ = (Point) pIJ.add(vRight.scale(xJ));
-        }
-        if(!isZero(yI)){
-            pIJ = (Point) pIJ.add(vUp.scale(yI));
-        }
-
+        Point pIJ=CalculatCenterPointInPixel(nX,nY,j,i);
         Vector vIJ=pIJ.substract(p0);
 
         return new Ray(p0,vIJ);
     }
+
 
     /**
      * Chaining method for setting the view plane's size.
@@ -418,6 +410,51 @@ public class Camera {
         return this;
     }
 
+
+    public LinkedList<Ray> constructRayPixel(int nX, int nY, int j, int i) {
+        if (isZero(distance))
+            throw new IllegalArgumentException("distance can't be 0");
+
+        LinkedList<Ray> rays = new LinkedList<>();
+
+        double rX = width / nX;
+        double rY = height / nY;
+
+        double  randX,randY;
+
+        Point pCenterPixel = CalculatCenterPointInPixel(nX,nY,j,i);
+        rays.add(new Ray(p0, pCenterPixel.substract(p0)));
+
+        Point pInPixel;
+        for (int k = 0; k < numOfRays; k++) {
+            randX= random(-rX/2,rX/2);
+            randY =  random(-rY/2,rY/2);
+            pInPixel = new Point(pCenterPixel.getX()+randX,pCenterPixel.getY()+randY,pCenterPixel.getZ());
+            rays.add(new Ray(p0, pInPixel.substract(p0)));
+        }
+        return rays;
+    }
+
+
+    private Point CalculatCenterPointInPixel(int nX, int nY, int j, int i) {
+        Point pC = (Point) p0.add(vTo.scale(distance));
+        Point pIJ=pC;
+
+        double rY = height / nY;
+        double rX = width / nX;
+
+        double yI = -(i - (nY - 1) / 2d) * rY;
+        double xJ = (j - (nX - 1) / 2d) * rX;
+
+        if(!isZero(xJ)){
+            pIJ = (Point) pIJ.add(vRight.scale(xJ));
+        }
+        if(!isZero(yI)){
+            pIJ = (Point) pIJ.add(vUp.scale(yI));
+        }
+        return pIJ;
+    }
+
     /**
      *
      * @param numOfRays
@@ -428,5 +465,3 @@ public class Camera {
         return this;
     }
 }
-
-

@@ -5,6 +5,12 @@ import renderer.Camera;
 import geometries.*;
 import primitives.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Integration tests for {@link Camera} class.
  */
@@ -28,6 +34,9 @@ public class CameraIntegrationTest {
                 //TC05: the sphere is behind the camera , no ray should intersect(0).
                 new Sphere(new Point(0, 0, 1), 0.5)
         };
+        int[] expected = new int[]{2, 18, 10, 9, 0};
+
+        testIntersectsAndCamera(spheres, expected);
     }
 
     /**
@@ -43,6 +52,9 @@ public class CameraIntegrationTest {
                 //TC03: the plane is above the view plane's third row (6).
                 new Plane(new Point(0, 0, -3), new Vector(0, -1, 1))
         };
+        int[] expected = new int[]{9, 9, 6};
+
+        testIntersectsAndCamera(planes, expected);
     }
 
     /**
@@ -56,5 +68,55 @@ public class CameraIntegrationTest {
                 //TC02: only the center ray and the top-middle ray should intersect(2).
                 new Triangle(new Point(0, 20, -2), new Point(1, -1, -2), new Point(-1, -1, -2))
         };
+        int[] expected = new int[]{1, 2};
+
+        testIntersectsAndCamera(triangles, expected);
+    }
+
+    /**
+     * Helper method for testing intersectables and a camera.
+     * @param intersectables Intersectables to check the number of intersections for each one.
+     * @param expectedIntersections All expected intersections for the intersectables (in the same order of intersectables).
+     */
+    private void testIntersectsAndCamera(Intersectable[] intersectables, int[] expectedIntersections) {
+        int nX = 3, nY = 3;
+        Camera cam = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0))
+                .setDistance(1)
+                .setViewPlaneSize(3, 3);
+
+        List<List<Point>> intersections = new ArrayList<>(Collections.nCopies(intersectables.length, null));
+
+        for (int i = 0; i < nY; ++i) {
+
+            for (int j = 0; j < nX; ++j) {
+
+                Ray pixelRay = cam.constructRayThroughPixel(nX, nY, j, i);
+
+                // checking every intersectable to find intersections with each one.
+                for (int id = 0; id < intersectables.length; id++) {
+                    List<Point> list = intersectables[id].findIntersections(pixelRay);
+
+                    if (list == null) {
+                        continue;}
+
+                    if (intersections.get(id) == null) {
+                        intersections.set(id, new ArrayList<>());
+                    }
+                    intersections.get(id).addAll(list);
+                }
+            }
+        }
+
+        // checking each intersectable to assert the number of intersections.
+        for (int id = 0; id < intersectables.length; id++) {
+            int sumOfIntersection = 0;
+
+            if (intersections.get(id) != null) {
+                sumOfIntersection = intersections.get(id).size();
+            }
+
+            assertEquals(expectedIntersections[id],sumOfIntersection, "Wrong number of intersectables");
+        }
+
     }
 }

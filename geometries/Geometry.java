@@ -16,6 +16,8 @@ public abstract class  Geometry implements Intersectable {
 
     private Material material=new Material();
 
+
+
     /**
      * Returns the emission
      * @return return A shallow copy of the emission

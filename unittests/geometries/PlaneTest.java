@@ -143,7 +143,7 @@ public class PlaneTest {
         assertNull(plane.findIntersections(new Ray(new Point(1,0,0),new Vector(0,0,-1))),"Ray begins at the plane (p0 is in the plane, but not the ray)");
 
         //TC17: Ray begins in the plane's reference point
-        assertNull(plane.findIntersections(new Ray(plane.getQ0(),new Vector(1,0,0))),
+        assertNull(plane.findIntersections(new Ray(plane.getq0(),new Vector(1,0,0))),
                 "Ray begins in the plane's reference point");
     }
 }

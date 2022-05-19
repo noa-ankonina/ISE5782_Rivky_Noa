@@ -5,6 +5,7 @@ import lighting.SpotLight;
 import primitives.*;
 import scene.Scene;
 
+import java.util.LinkedList;
 import java.util.List;
 import geometries.Intersectable.GeoPoint;
 
@@ -288,6 +289,14 @@ public class RayTracerBasic extends RayTracerBase{
      */
     private Ray constructRefractedRay(Vector n, Point point, Ray ray) {
         return new Ray(point, ray.getDir(), n);
+    }
+
+    public Color AverageColor(LinkedList<Ray> rays){
+        Color color=Color.BLACK;
+        for( Ray ray:rays){
+            color=color.add(traceRay(ray));
+        }
+        return color.reduce(Double.valueOf(rays.size()));
     }
 
 }

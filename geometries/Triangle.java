@@ -13,8 +13,6 @@ public class Triangle extends Polygon
            super(p1, p2, p3);
        }
 
-       public List<Point> findIntsersections(Ray ray) {return null;}
-
        @Override
        public String toString() {
            return "Triangle{" +

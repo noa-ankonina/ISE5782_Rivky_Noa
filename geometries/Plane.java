@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -14,24 +12,45 @@ public class Plane extends Geometry
     private final Point q0;
     private final Vector normal;
 
-
+    /**
+     * Creates a new plane by a point on the plane and the plane's normal.
+     * @param _q0 A point on the plane.
+     * @param _normal The plane's normal.
+     */
     public Plane(Point _q0, Vector _normal)
     {
         q0 = _q0;
         normal = _normal;
     }
 
+    /**
+     * Creates a new plane by three different points on the plane.
+     * @param p1 A point on the plane.
+     * @param p2 A point on the plane.
+     * @param p3 A point on the plane.
+     *@exception IllegalArgumentException When at least two of the given points are equals.
+     */
     public Plane(Point p1, Point p2, Point p3)
     {
+        if(p1.equals(p2) || p1.equals(p3) || p2.equals(p3)) {
+            throw new IllegalArgumentException("All points should be different");
+        }
+
         q0 = p1;
 
         Vector v=p1.substract(p2);
         Vector u=p2.substract(p3);
-
         normal= v.crossProduct(u).normlize();
     }
 
-    public Point getQ0() { return q0;}
+    /**
+     * Returns a point on the plane.
+     * @return A shallow copy of the point.
+     */
+    public Point getq0()
+    {
+        return q0;
+    }
 
     /**
      * Returns the plane's normal.
