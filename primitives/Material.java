@@ -84,10 +84,4 @@ public class Material {
         return this;
     }
 
-    /**
-     * @return the shininess
-     */
-    public int getnShininess(){
-        return nShininess;
-    }
 }

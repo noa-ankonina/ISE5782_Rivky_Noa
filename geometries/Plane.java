@@ -1,10 +1,7 @@
 package geometries;
 
 import primitives.*;
-
 import java.util.List;
-
-import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 public class Plane extends Geometry
@@ -35,9 +32,7 @@ public class Plane extends Geometry
         if(p1.equals(p2) || p1.equals(p3) || p2.equals(p3)) {
             throw new IllegalArgumentException("All points should be different");
         }
-
         q0 = p1;
-
         Vector v=p1.substract(p2);
         Vector u=p2.substract(p3);
         normal= v.crossProduct(u).normlize();
@@ -81,34 +76,26 @@ public class Plane extends Geometry
         //t=n*(q0-Po)/n*v
         Vector v= ray.getDir();
         Point p0=ray.getPoint();
-
         //Ray on the plane
         if(q0.equals(p0)){
             return null;
         }
-
         double nqp=normal.dotProduct(q0.substract(p0));
         //Ray on the plane
         if(isZero(nqp)){
             return null;
         }
-
         double nv= normal.dotProduct(v);
-
         if(isZero(nv)){
             return null;
         }
-
         double t=nqp/nv;
-
         //Ray after the plane
         if(t<0){
             return null;
         }
-
         Point P=ray.getPointBy(t);
         //Ray crosses the plane
         return List.of(new GeoPoint(this,P));
     }
-
 }

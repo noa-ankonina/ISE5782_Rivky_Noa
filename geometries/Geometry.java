@@ -5,18 +5,13 @@ import primitives.Material;
 import primitives.Point;
 import primitives.Vector;
 
-/**
- *
- */
+
 public abstract class  Geometry implements Intersectable {
     /**
      * The emission light at first is black
      */
     protected Color emission =Color.BLACK;
-
     private Material material=new Material();
-
-
 
     /**
      * Returns the emission
@@ -43,18 +38,14 @@ public abstract class  Geometry implements Intersectable {
         return material;
     }
 
-
     /**
      * @param material of the Geometry
      * @return this Geometry
      */
-
     public Geometry setMaterial(Material material) {
         this.material = material;
         return this;
     }
-
-
 
     /**
      *
@@ -62,5 +53,4 @@ public abstract class  Geometry implements Intersectable {
      * @return
      */
     abstract public Vector getNormal(Point point);
-
 }

@@ -1,6 +1,5 @@
 package primitives;
 
-import geometries.Sphere;
 
 /**
  * Class Point is the basic class representing a point of Euclidean geometry in Cartesian

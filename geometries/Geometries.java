@@ -1,9 +1,7 @@
 package geometries;
 
 import primitives.*;
-
 import java.util.*;
-
 
 public class Geometries implements Intersectable {
     public List<Intersectable> geometriesLst;
@@ -14,20 +12,12 @@ public class Geometries implements Intersectable {
      */
     public Geometries()
     {
-        //בחרתי דווקא ברשימה מקושרת מפני שכמעט ואין לנו מחיקה ולכן מבנה הנתונים הזה יעיל יותר
         geometriesLst = new LinkedList<>();
-    }
-
-    public Geometries(Intersectable... geometries) {
-        add(geometries);
     }
 
     public void add(Intersectable... geometries) {
         Collections.addAll(this.geometriesLst, geometries);
     }
-
-
-
 
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {

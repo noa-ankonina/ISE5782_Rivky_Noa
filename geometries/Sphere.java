@@ -3,7 +3,6 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -54,35 +53,27 @@ public class Sphere extends Geometry {
     public List<Point> findIntersections(Ray ray) {
         Point p0 = ray.getPoint();
         Vector v = ray.getDir();
-
         if (p0.equals(center)) {
             return List.of(ray.getPointBy(radius));
         }
-
         Vector u = center.substract(p0);
         double tm =v.dotProduct(u);
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
-
         if (d >= radius) {
             return null;
         }
-
         double th = alignZero(Math.sqrt(radius * radius - d * d));
         double t1 = alignZero(tm - th);
         double t2 = alignZero(tm + th);
-
         if (t1 > 0 && t2 > 0) {
             return List.of(ray.getPointBy(t1), ray.getPointBy(t2));
         }
-
         if (t1 > 0) {
             return List.of(ray.getPointBy(t1));
         }
-
         if (t2 > 0) {
             return List.of(ray.getPointBy(t2));
         }
-
         return null;
     }
 
@@ -90,37 +81,28 @@ public class Sphere extends Geometry {
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         Point p0 = ray.getPoint();
         Vector v = ray.getDir();
-
         if (p0.equals(center)) {
             return List.of(new GeoPoint(this,ray.getPointBy(radius)));
         }
-
         Vector u = center.substract(p0);
         double tm =v.dotProduct(u);
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
-
         if (d >= radius) {
             return null;
         }
-
         double th = alignZero(Math.sqrt(radius * radius - d * d));
         double t1 = alignZero(tm - th);
         double t2 = alignZero(tm + th);
-
         if (t1 > 0 && t2 > 0) {
             return List.of(new GeoPoint(this, ray.getPointBy(t1)),new GeoPoint(this,ray.getPointBy(t2)));
         }
-
         if (t1 > 0) {
             return List.of(new GeoPoint(this,ray.getPointBy(t1)));
         }
-
         if (t2 > 0) {
             return List.of(new GeoPoint(this,ray.getPointBy(t2)));
         }
-
         return null;
     }
-
 }
 

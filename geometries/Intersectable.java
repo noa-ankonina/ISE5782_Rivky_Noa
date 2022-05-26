@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * מציאת נקודות חיתוך עם הגופים
+ *find intersections
  */
 public interface Intersectable {
 
@@ -24,11 +24,15 @@ public interface Intersectable {
          * @param point
          */
         public GeoPoint(Geometry geometry, Point point) {
-
             this.geometry = geometry;
             this.point=point;
         }
 
+        /***
+         *
+         * @param o
+         * @return
+         */
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -53,11 +57,9 @@ public interface Intersectable {
                 : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
     }
 
-
     /**
      * @param ray
      * @return
      */
     List<GeoPoint> findGeoIntersections (Ray ray);
-
 }

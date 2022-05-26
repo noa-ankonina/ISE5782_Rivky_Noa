@@ -99,48 +99,6 @@ public class Camera {
     public Point getP0() {
         return p0;
     }
-
-    /**
-     * Returns the camera's forward direction.
-     */
-    public Vector getvTo() {
-        return vTo;
-    }
-
-    /**
-     * Returns the camera's upper direction.
-     */
-    public Vector getvUp() {
-        return vUp;
-    }
-
-    /**
-     * Returns the camera's right direction.
-     */
-    public Vector getvRight() {
-        return vRight;
-    }
-
-    /**
-     * Returns the view plane's width.
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
-     * Returns the view plane's height.
-     */
-    public double getHeight() {
-        return height;
-    }
-
-    /**
-     * Returns the distance between the camera and the view plane.
-     */
-    public double getDistance() {
-        return distance;
-    }
     
     /**
      * Chaining method for setting the view plane's size.
@@ -171,15 +129,6 @@ public class Camera {
     }
 
     /**
-     * set 3 double number of the point
-     */
-    public Camera setP0(double x, double y, double z) {
-        this.p0 = new Point(x, y, z);
-        return this;
-
-    }
-
-    /**
      *
      * @param imageWriter
      * @return
@@ -187,16 +136,6 @@ public class Camera {
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
         return  this;
-    }
-
-    /**
-     *
-     * @param rayTracerBase
-     * @return
-     */
-    public Camera setRayTracer(RayTracerBase rayTracerBase) {
-        this.rayTracerBase = rayTracerBase;
-        return this;
     }
 
     /**
@@ -282,25 +221,6 @@ public class Camera {
     }
 
     /**
-     * Adds x, y, z to the camera's position
-     *
-     * @return the current camera
-     */
-    public Camera move(double x, double y, double z) {
-        return move(new Vector(x, y, z));
-    }
-
-    /**
-     * Rotates the camera around the axes with the given angles
-     *
-     * @param amount vector of angles
-     * @return the current camera
-     */
-    public Camera rotate(Vector amount) {
-        return rotate(amount.getX(), amount.getY(), amount.getZ());
-    }
-
-    /**
      * Rotates the camera around the axes with the given angles
      *
      * @param x angles to rotate around the x axis
@@ -380,7 +300,6 @@ public class Camera {
 
         return new Ray(p0,vIJ);
     }
-
 
     /**
      * Chaining method for setting the view plane's size.

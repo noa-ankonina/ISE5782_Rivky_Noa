@@ -139,29 +139,6 @@ public class RayTracerBasic extends RayTracerBase{
     }
 
     /**
-     *
-     * @param light
-     * @param l
-     * @param n
-     * @param geopoint
-     * @return
-     */
-    private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
-        Vector lightDirection = l.scale(-1); // from point to light source
-        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
-        Point point = (Point) geopoint.point.add(delta);
-        Ray lightRay = new Ray(point, lightDirection);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-        if (intersections == null) return true;
-        double lightDistance = light.getDistance(geopoint.point);
-        for (GeoPoint gp : intersections) {
-            if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0)
-                return false;
-        }
-        return true;
-    }
-
-    /**
      * calculate the transparency of the geometry
      * @param ls light source of the scene
      * @param l vector l
@@ -263,21 +240,6 @@ public class RayTracerBasic extends RayTracerBase{
         }
         return color;
     }
-
-
-    /**
-     *help function to the recursion
-     * @param ray from the geometry
-     * @param level of recursion
-     * @param kx parameter of the recursion
-     * @param kkx parameter of the recursion
-     * @return the calculate color
-     */
-    private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx) {
-        GeoPoint gp = findClosestIntersection(ray);
-        return (gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx)).scale(kx);
-    }
-
 
     /**
      *find the closest intersection point of the ray with the geometry

@@ -3,12 +3,9 @@ package geometries;
 import  primitives.Ray;
 import primitives.Vector;
 import primitives.Point;
-
 import java.util.List;
-
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
-
 
 public class Tube extends Geometry
 {
@@ -117,7 +114,6 @@ public class Tube extends Geometry
 
         return null;
     }
-
 
     @Override
         public String toString ()

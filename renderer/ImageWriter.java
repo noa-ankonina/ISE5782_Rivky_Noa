@@ -90,11 +90,6 @@ public class ImageWriter {
         image.setRGB(xIndex, yIndex, color.getColor().getRGB());
     }
 
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
 }
 
 
