@@ -16,6 +16,7 @@ import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
 import scene.Scene;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;

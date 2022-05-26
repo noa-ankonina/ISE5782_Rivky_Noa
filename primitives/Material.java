@@ -15,7 +15,7 @@ public class Material {
             kS=0, //Specular
             kT=0.0, //Transparency
             kR=0.0, //Reflection
-            kG=0.0, //Glossy glass
+            kG=1, //Glossy glass
             kB=0.0; // blurry glass
     /**
      * factor of the shininess
@@ -26,8 +26,9 @@ public class Material {
         return kB;
     }
 
-    public void setkB(double kB) {
+    public Material setkB(double kB) {
         this.kB = kB;
+        return this;
     }
 
     /**

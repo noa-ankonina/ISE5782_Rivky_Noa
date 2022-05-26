@@ -164,11 +164,6 @@ public class ReflectionRefractionTests {
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //
 		camera.writeToImage();
-
-
-
-
-
 	}
 
 	@Test
@@ -252,7 +247,76 @@ public class ReflectionRefractionTests {
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //
 		camera.writeToImage();
+	}
+
+	/**
+	 * Produce a picture of a few glasses with diffrent level of matte lighted by
+	 * spot light
+	 */
+	@Test
+	public void diffusedGlass() {
+		Scene scene = new Scene("my");
+		Camera camera=new Camera(new Point(-900, 50, 20), new Vector(1, 0, 0.02), new Vector(-0.02, 0, 1))
+				.setDistance(1000)
+				.setViewPlaneSize(300, 300);
+		scene.setBackground(new Color(java.awt.Color.red));
+		scene.setAmbientLight(Color.BLACK, 0);
+
+		// front wall
+		scene.geometries.add(new Plane(new Point(60, 0, 0), new Vector(1, 0, 0))
+				.setEmission(new Color(java.awt.Color.gray))
+				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
+		// floor
+		scene.geometries.add(new Plane(new Point(0, 0, 0), new Vector(0, 0, 1))
+				.setEmission(new Color(java.awt.Color.BLACK))
+				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
+		// ceiling
+		scene.geometries.add(new Plane(new Point(0, 0, 400), new Vector(0, 0, 1))
+				.setEmission(new Color(java.awt.Color.WHITE))
+				.setMaterial(new Material().setKd(0).setKs(1).setShininess(100)));//,
+
+		scene.geometries.add(new Sphere(new Point(50,140,45),15)
+						.setEmission(new Color(java.awt.Color.BLUE))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)),
+				new Sphere(new Point(50,97,45),15)
+						.setEmission(new Color(java.awt.Color.BLUE))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)),
+				new Sphere(new Point(50,55,45),15)
+						.setEmission(new Color(java.awt.Color.BLUE))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)),
+				new Sphere(new Point(50,13,45),15)
+						.setEmission(new Color(java.awt.Color.BLUE))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)),
+				new Sphere(new Point(50,-30,45),15)
+						.setEmission(new Color(java.awt.Color.BLUE))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
+
+		scene.geometries.add(
+				new Polygon(new Point(0, 150, 0),new Point(0, 150, 90), new Point(0, 120, 90), new Point(0, 120, 0))
+						.setEmission(new Color(10, 10, 10))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setkT(0.9).setkR(0).setkG(0.0).setkB(0.05)),
+				new Polygon( new Point(0, 110, 0),new Point(0, 110, 90), new Point(0, 80, 90), new Point(0, 80, 0))
+						.setEmission(new Color(10, 10, 10))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setkT(0.9).setkR(0).setkG(0.0).setkB(0.25)),
+				new Polygon(new Point(0, 70, 0),new Point(0, 70, 90), new Point(0, 40, 90), new Point(0, 40, 0))
+						.setEmission(new Color(10, 10, 10))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setkT(0.9).setkR(0).setkG(0.0).setkB(0.45)),
+				new Polygon(new Point(0, 30, 0),new Point(0, 30, 90), new Point(0, 0, 90), new Point(0, 0, 0))
+						.setEmission(new Color(10, 10, 10))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setkT(0.9).setkR(0).setkG(0.0).setkB(0.65)),
+				new Polygon(new Point(0, -40, 0),new Point(0, -40, 90), new Point(0, -10, 90), new Point(0, -10, 0))
+						.setEmission(new Color(10, 10, 10))
+						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setkT(0.9).setkR(0).setkG(0.0).setkB(1)));
+
+		scene.lights.add(new SpotLight(new Color(java.awt.Color.yellow), new Point(-100, 55, 150), new Vector(1, 0, 0))
+										.setKl(0.0000001).setKq(0.0000001));
 
 
+		ImageWriter imageWriter = new ImageWriter("try2", 1000, 1000);
+		camera.setImageWriter(imageWriter) //
+				.setCamera(camera) //
+				.setRayTracer(new RayTracerBasic(scene,300))//
+		.renderImage();
+		camera.writeToImage();
 	}
 }

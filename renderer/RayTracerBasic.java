@@ -3,11 +3,11 @@ package renderer;
 import lighting.LightSource;
 import lighting.SpotLight;
 import primitives.*;
-import scene.Scene;
 
 import java.util.LinkedList;
 import java.util.List;
 import geometries.Intersectable.GeoPoint;
+import scene.Scene;
 
 import static primitives.Util.alignZero;
 

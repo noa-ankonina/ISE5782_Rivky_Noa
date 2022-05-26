@@ -1,7 +1,6 @@
 package renderer;
 
 import primitives.*;
-import scene.Scene;
 
 import java.util.LinkedList;
 import java.util.MissingResourceException;
@@ -45,6 +44,13 @@ public class Camera {
      * The distance between the camera and the view plane.
      */
     private double distance;
+
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracerBase;
+    RayTracerBasic rayTracerBasic;
+
+    private int numOfRays = 0; //num of rays in every pixel(default = 1)
+
     /**
      * The camera in the scene
      */
@@ -68,11 +74,6 @@ public class Camera {
         return this;
     }
 
-    private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase;
-     RayTracerBasic rayTracerBasic;
-
-    private int numOfRays = 0; //num of rays in every pixel(default = 1)
     /**
      * Constructs a camera with location, to and up vectors.
      * The right vector is being calculated by the to and up vectors.
@@ -178,11 +179,21 @@ public class Camera {
 
     }
 
+    /**
+     *
+     * @param imageWriter
+     * @return
+     */
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
         return  this;
     }
 
+    /**
+     *
+     * @param rayTracerBase
+     * @return
+     */
     public Camera setRayTracer(RayTracerBase rayTracerBase) {
         this.rayTracerBase = rayTracerBase;
         return this;
@@ -312,12 +323,10 @@ public class Camera {
         //check that all the parameters OK
         try {
             if (imageWriter == null) {
-                throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
-            }
+                throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");}
 
             if (rayTracerBasic == null) {
-                throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
-            }
+                throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");}
 
             //Rendering the image
             int nX = imageWriter.getNx();
@@ -327,16 +336,12 @@ public class Camera {
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
                     rays=this.constructRayPixel(nX,nY,j,i);
-                    imageWriter.writePixel(j,i,rayTracerBasic.AverageColor(rays));
-                }
-            }
-        }
+                    imageWriter.writePixel(j,i,rayTracerBasic.AverageColor(rays));}}}
 
         catch (MissingResourceException e){
-            throw new UnsupportedOperationException("Not implemented yet " + e.getClassName());
-        }
-
+            throw new UnsupportedOperationException("Not implemented yet " + e.getClassName());}
     }
+
     /**
      * Adds a grid to the image.
      *
@@ -349,20 +354,15 @@ public class Camera {
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
                 if (i % interval == 0 || j % interval == 0) {
-                    imageWriter.writePixel(j, i, color);
-                }
-            }
-        }
+                    imageWriter.writePixel(j, i, color);}}}
     }
 
     //Turn on the function of the imageWriter writeToImage
     public void writeToImage(){
 
         if(imageWriter==null) {
-            throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
-        }
+            throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");}
         imageWriter.writeToImage();
-
     }
 
     /**
@@ -404,8 +404,7 @@ public class Camera {
      */
     public Camera setDistance(double distance) {
         if (distance <= 0) {
-            throw new IllegalArgumentException("Illegal value of distance");
-        }
+            throw new IllegalArgumentException("Illegal value of distance");}
 
         this.distance = distance;
         return this;
@@ -431,12 +430,18 @@ public class Camera {
             randX= random(-rX/2,rX/2);
             randY =  random(-rY/2,rY/2);
             pInPixel = new Point(pCenterPixel.getX()+randX,pCenterPixel.getY()+randY,pCenterPixel.getZ());
-            rays.add(new Ray(p0, pInPixel.substract(p0)));
-        }
+            rays.add(new Ray(p0, pInPixel.substract(p0)));}
         return rays;
     }
 
-
+    /**
+     *
+     * @param nX
+     * @param nY
+     * @param j
+     * @param i
+     * @return
+     */
     private Point CalculatCenterPointInPixel(int nX, int nY, int j, int i) {
         Point pC = (Point) p0.add(vTo.scale(distance));
         Point pIJ=pC;
@@ -448,11 +453,9 @@ public class Camera {
         double xJ = (j - (nX - 1) / 2d) * rX;
 
         if(!isZero(xJ)){
-            pIJ = (Point) pIJ.add(vRight.scale(xJ));
-        }
+            pIJ = (Point) pIJ.add(vRight.scale(xJ));}
         if(!isZero(yI)){
-            pIJ = (Point) pIJ.add(vUp.scale(yI));
-        }
+            pIJ = (Point) pIJ.add(vUp.scale(yI));}
         return pIJ;
     }
 
@@ -481,14 +484,8 @@ public class Camera {
      */
     private Color calcDiffusive(double kd, double nl, Color ip) {
         if (nl < 0) {
-            nl = -nl;
-        }
+            nl = -nl; }
 
         return ip.scale(nl * kd);
     }
-
-    /**
-     * Default constructor for secondary Pixel objects
-     */
-
 }

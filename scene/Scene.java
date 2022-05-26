@@ -21,16 +21,17 @@ public class Scene {
     /**
      * The default of ambient light is black
      */
-    public AmbientLight ambientLight = new AmbientLight();
+    public static AmbientLight ambientLight = new AmbientLight();
     /**
      * The geometry object in context of the scene
      */
     public Geometries geometries = null;
-
     /**
      * A list of all the light source
      */
-    public List<LightSource> lights=new LinkedList<>();
+    public List<LightSource> lights= new LinkedList<LightSource>();
+
+
 
     /**
      * create Scene
@@ -58,6 +59,17 @@ public class Scene {
         this.ambientLight = ambientLight;
         return this;
     }
+    /**
+     * setter for the AmbientLight
+     *
+     * @param color the color
+     * @param ka    double to scale the color
+     * @return the scene
+     */
+    public Scene setAmbientLight(Color color, double ka) {
+        ambientLight = new AmbientLight(color, ka);
+        return this;
+    }
 
     /**
      * @param geometries, set the geometries of the scene
@@ -75,15 +87,5 @@ public class Scene {
     public Scene setLights(List<LightSource> lights) {
         this.lights = lights;
         return this;
-    }
-
-    /**
-     * Add some lightSource to list
-     *
-     * @param lights some LightSource
-     **/
-    public void addLights(LightSource... lights) {
-        for (LightSource lightSource : lights)
-            this.lights.add(lightSource);
     }
 }
