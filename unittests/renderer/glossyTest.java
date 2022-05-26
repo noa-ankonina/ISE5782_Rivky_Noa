@@ -1,7 +1,6 @@
 package unittests.renderer;
 
 import geometries.*;
-import lighting.AmbientLight;
 import lighting.DirectionalLight;
 import lighting.PointLight;
 import lighting.SpotLight;
@@ -60,11 +59,14 @@ public class glossyTest {
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)),
                 new Sphere(new Point(50, 90, 20), 8)
                         .setEmission(new Color(java.awt.Color.MAGENTA))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)),
+                new Sphere(new Point(50, 0, 90), 13)
+                        .setEmission(new Color(java.awt.Color.white))
+                        .setMaterial(new Material().setKd(0).setKs(0).setShininess(0)));
 
 
         scene.lights.add(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0.1, 0)));
-        scene.lights.add(new SpotLight(new Color(java.awt.Color.pink), new Point(100, 55, 150), new Vector(0, 9, 0))
+        scene.lights.add(new SpotLight(new Color(java.awt.Color.white), new Point(50, 0, 90), new Vector(50, 0, 90))
                 .setKl(0.0000001).setKq(0.0000001));
         scene.lights.add(new PointLight(trCL, trPL).setKl(0.001).setKq(0.0002));
 
