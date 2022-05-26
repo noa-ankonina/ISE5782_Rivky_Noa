@@ -18,9 +18,9 @@ class GeometriesTest {
         //TC11: Empty list
         assertNull(  geo.findIntersections(new Ray(new Point(3, 1, 0.5), new Vector(1, 1, 0))),"list Empty");
 
-        geo.geometries.add(new Triangle(new Point(-2, 0, 0), new Point(0, -4, 0), new Point(2, 0, 0)));
-        geo.geometries.add(new Plane(new Point(0, 0, 6), new Point(-8, 0, 0),new Point(0, 6, 0)));
-        geo.geometries.add(new Sphere(new Point(0, 0, 2), 1));
+        geo.geometriesLst.add(new Triangle(new Point(-2, 0, 0), new Point(0, -4, 0), new Point(2, 0, 0)));
+        geo.geometriesLst.add(new Plane(new Point(0, 0, 6), new Point(-8, 0, 0),new Point(0, 6, 0)));
+        geo.geometriesLst.add(new Sphere(new Point(0, 0, 2), 1));
 
         //TC12: No shape cut
         assertEquals( null, geo.findIntersections(new Ray(new Point(-4,0 , 0), new Vector(-2, -4, 0))),"Ray not cut any shape");

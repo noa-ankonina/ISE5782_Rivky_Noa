@@ -55,7 +55,7 @@ public class ShadowTests {
 	 */
 	@Test
 	public void sphereTriangleMove1() {
-		sphereTriangleHelper("shadowSphereTriangleMove2", //
+		sphereTriangleHelper("shadowSphereTriangleMove1", //
 				new Triangle(new Point(-62, -32, 0), new Point(-32, -62, 0), new Point(-60, -60, -4)), //
 				new Point(-100, -100, 200));
 	}
@@ -65,7 +65,7 @@ public class ShadowTests {
 	 */
 	@Test
 	public void sphereTriangleMove2() {
-		sphereTriangleHelper("shadowSphereTriangleMove1", //
+		sphereTriangleHelper("shadowSphereTriangleMove2", //
 				new Triangle(new Point(-49, -19, 0), new Point(-19, -49, 0), new Point(-47, -47, -4)), //
 				new Point(-100, -100, 200));
 	}
