@@ -131,7 +131,7 @@ public class ReflectionRefractionTests {
 				new Cylinder(new Ray(
 						new Point(-80, -45, 0),
 						new Vector(60, 85, 0)),
-						13, 50)
+						13, 3)
 						.setEmission(new Color(0,100,70))
 						.setMaterial(new Material()
 								.setKd(0.6).setKs(0.4)

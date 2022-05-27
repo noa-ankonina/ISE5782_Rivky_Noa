@@ -56,6 +56,9 @@ public class Camera {
      */
     Camera camera;
 
+    public void setP0(double v, int i, double v1) {
+        p0=new Point(v,i,v1);
+    }
     /**
      * @param rayTracerBasic from the camera
      * @return this render
@@ -407,4 +410,6 @@ public class Camera {
 
         return ip.scale(nl * kd);
     }
+
+
 }
