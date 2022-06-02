@@ -220,7 +220,7 @@ public class glossyTest {
                         .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(30).setkT(0.3))
         );
 
-        //scene.lights.add(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0.1, 0)));
+        scene.lights.add(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0.1, 0)));
         scene.lights.add(new SpotLight(new Color(java.awt.Color.white), new Point(200, 0, 20), new Vector(0, 0, -1))
                 .setKl(0.0000001).setKq(0.0000001));
         //scene.lights.add(new PointLight(trCL, trPL).setKl(0.001).setKq(0.0002));

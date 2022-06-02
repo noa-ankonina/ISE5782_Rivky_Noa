@@ -15,8 +15,13 @@ public class Geometries implements Intersectable {
         geometriesLst = new LinkedList<>();
     }
 
-    public void add(Intersectable... geometries) {
-        Collections.addAll(this.geometriesLst, geometries);
+    /**
+     * Adds a list of given intersectables to the current list.
+     *
+     * @param intersectables List of intersectables to add
+     */
+    public void add(Intersectable... intersectables) {
+        this.geometriesLst.addAll(Arrays.asList(intersectables));
     }
 
     @Override
