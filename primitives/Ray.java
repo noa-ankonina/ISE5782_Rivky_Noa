@@ -77,6 +77,9 @@ public class Ray {
         }
     }
 
+
+
+
     /**
      * Gets a point on the ray by calculating p0 + t*v.
      *
