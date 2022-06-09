@@ -2,6 +2,7 @@ package renderer;
 
 import multiThreding.ThreadPool;
 import primitives.*;
+import scene.Scene;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +49,17 @@ public class Camera {
     private double distance;
 
     private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase;
+    private RayTracerBase rayTracerBase=new RayTracerBase(new Scene("not initialized scene")) {
+        @Override
+        public Color traceRay(Ray ray) {
+            return new Color(java.awt.Color.BLACK);
+        }
+
+        @Override
+        public Color averageColor(LinkedList<Ray> rays) {
+            return new Color(java.awt.Color.BLACK);
+        }
+    };
     RayTracerBasic rayTracerBasic;
 
     private int numOfRays = 0; //num of rays in every pixel(default = 1)
