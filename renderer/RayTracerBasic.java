@@ -129,18 +129,6 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     * @param kd             diffuse factor
-     * @param l              vector of the
-     * @param n              normal vector of the geometry point
-     * @param lightIntensity color of the intensity
-     * @return calculate color
-     */
-    private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
-        double ln = Math.abs(n.dotProduct(l));
-        return lightIntensity.scale(kd * ln);
-    }
-
-    /**
      * calculate the transparency of the geometry
      *
      * @param ls       light source of the scene
@@ -198,22 +186,6 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcColor(GeoPoint gPoint, Ray ray) {
         return calcColor(gPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
-    }
-
-    /**
-     * construct a reflected ray from the geometry
-     *
-     * @param n     normal vector of the point on the geometry
-     * @param point on the geometry
-     * @param ray   from the geometry
-     * @return new reflected ray
-     */
-    private Ray constructReflectedRay(Vector n, Point point, Ray ray) {
-        Vector v = ray.getDir();
-        Vector vn = n.scale(-2 * v.dotProduct(n));
-        Vector r = v.add(vn);
-        // use the constructor with 3 arguments to move the head
-        return new Ray(point, r, n);
     }
 
     /**
@@ -411,4 +383,16 @@ public class RayTracerBasic extends RayTracerBase {
         return randomVectors;
     }
 
+    /**
+     * calculate the diffusive light of the scene
+     * @param kd diffuse factor
+     * @param l vector of the
+     * @param n normal vector of the geometry point
+     * @param lightIntensity color of the intensity
+     * @return calculate color
+     */
+    private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
+        double ln=Math.abs(n.dotProduct(l));
+        return lightIntensity.scale(kd*ln);
+    }
 }

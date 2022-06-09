@@ -153,11 +153,10 @@ public class LightsTests {
 				.renderImage(); //
 		camera1.writeToImage(); //
 	}
-	//
 	/**
 	 * Produce a picture of a two triangles lighted by a multiple lights
 	 */
-	/**@Test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	@Test
 	public void TrianglesMultiLight() {
 		scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(300)), //
 				triangle2.setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(300)));
@@ -176,5 +175,5 @@ public class LightsTests {
 				.setRayTracer(new RayTracerBasic(scene2)) //
 				.renderImage(); //
 		camera2.writeToImage(); //
-	}*/
+	}
 }
