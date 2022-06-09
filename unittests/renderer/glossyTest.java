@@ -255,7 +255,7 @@ public class glossyTest {
 
             ImageWriter imageWriter = new ImageWriter("MP1", 1000, 1000);
             camera.setImageWriter(imageWriter) //
-                    .setCamera(camera) //
+                    //.setCamera(camera) //
                     .setRayTracer(new RayTracerBasic(scene).setGlossinessRays(20))
                     .renderImage();
             camera.writeToImage();

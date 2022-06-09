@@ -35,10 +35,10 @@ public class Scene {
 
     /**
      * create Scene
-     * @param name of the scene
+     * @param name1 of the scene
      */
-    public Scene(String name) {
-        this.name = name;
+    public Scene(String name1) {
+        this.name = name1;
         this.geometries = new Geometries();
     }
 

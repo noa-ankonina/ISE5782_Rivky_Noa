@@ -135,7 +135,7 @@ class ProjectTest {
 
         ImageWriter imageWriter = new ImageWriter("MP1", 1000, 1000);
         camera.setImageWriter(imageWriter) //
-                .setCamera(camera) //
+                //.setCamera(camera) //
                 .setRayTracer(new RayTracerBasic(scene))
                 .renderImage();
         camera.writeToImage();
@@ -154,7 +154,7 @@ class ProjectTest {
         setLights(scene);
         setGeometries(scene);
 
-                camera.setCamera(camera) //
+                camera//.setCamera(camera) //
                // .setMultithreading(3)
                 .setRayTracer(new RayTracerBasic(scene).setGlossinessRays(20));
 
