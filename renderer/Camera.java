@@ -51,6 +51,11 @@ public class Camera {
 
     private int numOfRays = 0; //num of rays in every pixel(default = 1)
 
+    private boolean focus = false;
+    private Point focalPix = null;
+    public double disFocal = 0;
+    private int amountRowPixels;
+    private int amountColumnPixels;
     /**
      * The camera in the scene
      */
@@ -94,6 +99,8 @@ public class Camera {
         this.vTo = vTo.normlize();
         this.vUp = vUp.normlize();
         vRight = vTo.crossProduct(vUp);
+        amountRowPixels = 0;
+        amountColumnPixels = 0;
     }
 
     /**
@@ -166,6 +173,12 @@ public class Camera {
             throw new IllegalArgumentException("Illegal value of width");
         }
         this.height = height;
+        return this;
+    }
+
+    public Camera setPixels(int amountRowPixels, int amountColumnPixels){
+        this.amountRowPixels = amountRowPixels;
+        this.amountColumnPixels = amountColumnPixels;
         return this;
     }
 
@@ -259,10 +272,10 @@ public class Camera {
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
                     rays=this.constructRayPixel(nX,nY,j,i);
-                    imageWriter.writePixel(j,i,rayTracerBasic.AverageColor(rays));}}}
+                    imageWriter.writePixel(j,i,rayTracerBasic.averageColor(rays));}}}
 
         catch (MissingResourceException e){
-            throw new UnsupportedOperationException("Not implemented yet " + e.getClassName());}
+            throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());}
     }
 
     /**
@@ -409,5 +422,19 @@ public class Camera {
             nl = -nl; }
 
         return ip.scale(nl * kd);
+    }
+
+    /**
+     * set the focus
+     *
+     * @param fp     point
+     * @param length
+     * @return the camera itself.
+     */
+    public Camera setFocus(Point fp, double length) {
+        focalPix = fp;
+        disFocal = length;
+        focus = true;
+        return this;
     }
 }

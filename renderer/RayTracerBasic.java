@@ -19,7 +19,7 @@ public class RayTracerBasic extends RayTracerBase{
     /**
      * constant number for size moving first rays for shading rays
      */
-    private static final double DELTA = 0.1;
+
     private static final double INITIAL_K = 1.0;
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
@@ -242,6 +242,17 @@ public class RayTracerBasic extends RayTracerBase{
     }
 
     /**
+     * construct the refracted ray of the point on the geometry
+     * @param n normal vector
+     * @param point on the geometry
+     * @param ray from the geometry
+     * @return new ray
+     */
+    private Ray constructRefractedRay(Vector n, Point point, Ray ray) {
+        return new Ray(point, ray.getDir(), n);
+    }
+
+    /**
      *find the closest intersection point of the ray with the geometry
      * @param ray on the geometry
      * @return the closest geo point
@@ -255,18 +266,9 @@ public class RayTracerBasic extends RayTracerBase{
         }
     }
 
-    /**
-     * construct the refracted ray of the point on the geometry
-     * @param n normal vector
-     * @param point on the geometry
-     * @param ray from the geometry
-     * @return new ray
-     */
-    private Ray constructRefractedRay(Vector n, Point point, Ray ray) {
-        return new Ray(point, ray.getDir(), n);
-    }
 
-    public Color AverageColor(LinkedList<Ray> rays){
+    @Override
+    public Color averageColor(LinkedList<Ray> rays){
         Color color=Color.BLACK;
         for( Ray ray:rays){
             color=color.add(traceRay(ray));
@@ -300,4 +302,5 @@ public class RayTracerBasic extends RayTracerBase{
         color = color.add(size > 1 ? addColor.reduce(size) : addColor);
         return color;
     }
+
 }

@@ -20,10 +20,10 @@ public class LightsTests {
 			.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
 	private Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 			.setVPSize(150, 150) //
-			.setVPDistance(1000);
+			.setVPDistance(1000).setNumOfRays(81);
 	private Camera camera2 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 			.setVPSize(200, 200) //
-			.setVPDistance(1000);
+			.setVPDistance(1000).setNumOfRays(81);
 
 	private Point[] p = { // The Triangles' vertices:
 			new Point(-110, -110, -150), // the shared left-bottom
@@ -157,7 +157,7 @@ public class LightsTests {
 	/**
 	 * Produce a picture of a two triangles lighted by a multiple lights
 	 */
-	@Test
+	/**@Test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	public void TrianglesMultiLight() {
 		scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(300)), //
 				triangle2.setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(300)));
@@ -171,9 +171,10 @@ public class LightsTests {
 				.setKl(0.0005).setKq(0.0005));
 
 		ImageWriter imageWriter = new ImageWriter("MultiLightTriangles", 500, 500);
-		camera2.setImageWriter(imageWriter) //
+		camera2.setImageWriter(imageWriter)
+				.setMultithreading(5)//
 				.setRayTracer(new RayTracerBasic(scene2)) //
 				.renderImage(); //
 		camera2.writeToImage(); //
-	}
+	}*/
 }
