@@ -74,26 +74,26 @@ public class Camera {
     /**
      * The camera in the scene
      */
-    Camera camera=null;
+     Camera camera;
 
     public void setP0(double v, int i, double v1) {
         p0=new Point(v,i,v1);
     }
     /**
-     * @param rayTracerBasic from the camera
+     * @param rayTracerBasicc from the camera
      * @return this render
      */
-    public Camera setRayTracer(RayTracerBasic rayTracerBasic) {
-        this.rayTracerBasic = rayTracerBasic;
+    public Camera setRayTracer(RayTracerBasic rayTracerBasicc) {
+        this.rayTracerBasic = rayTracerBasicc;
         return this;
     }
 
     /**
-     * @param camera of the scene
+     * @param camera1 of the scene
      * @return this render
      */
-    public Camera setCamera(Camera camera) {
-        this.camera = camera;
+    public Camera setCamera(Camera camera1) {
+        this.camera = camera1;
         return this;
     }
 
@@ -113,6 +113,7 @@ public class Camera {
         this.p0 = p0;
         this.vTo = vTo.normlize();
         this.vUp = vUp.normlize();
+
         vRight = vTo.crossProduct(vUp);
     }
 
@@ -264,8 +265,8 @@ public class Camera {
      *
      * @throws UnsupportedOperationException when the render didn't receive all the arguments.
      */
-
-    /**public void renderImage() {
+    /*
+    public void renderImage() {
         try {
             if (imageWriter == null) {
                 throw new MissingResourceException("Missing resource", ImageWriter.class.getName(), "");
@@ -273,7 +274,7 @@ public class Camera {
             if (camera == null) {
                 throw new MissingResourceException("Missing resource", Camera.class.getName(), "");
             }
-            if (rayTracerBase == null) {
+            if (rayTracerBasic == null) {
                 throw new MissingResourceException("Missing resource", RayTracerBase.class.getName(), "");
             }
 
@@ -303,7 +304,7 @@ public class Camera {
         }
 
     }
-     */
+*/
     /**
      * Make the image from the elements
      */
@@ -324,11 +325,29 @@ public class Camera {
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
                     rays=this.constructRayPixel(nX,nY,j,i);
-                    imageWriter.writePixel(j,i,rayTracerBasic.averageColor(rays));}}}
+                    imageWriter.writePixel(j,i,rayTracerBasic.averageColor(rays));}}
+            //rendering the image with multi-threaded
+            if (threadPool != null) {
+                nextPixel = new Pixel(0, 0);
+                threadPool.execute();
 
-        catch (MissingResourceException e){
-            throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());}
+                printPercentMultithreaded(); // blocks the main thread until finished and prints the progress
+
+                threadPool.join();
+                return;
+            }
+
+            // rendering the image when single-threaded
+            adaptive(0, nY / 2, nX / 2, 0, nX, nY, 1);
+
+            // prints the 100% percent
+            printPercent(nX * nY, nX * nY, lastPercent);
+        } catch (MissingResourceException e) {
+            throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());
+        }
+
     }
+
 
     /**
      * Prints the progress in percents only if it is greater than the last time printed the progress.

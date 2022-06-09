@@ -162,7 +162,7 @@ class ProjectTest {
         //double angle = 360d / frames;
         //double angleRadians = 2 * Math.PI / frames;
 
-        double radius = camera.getP0().substract(Point.ZERO).length();
+        double radius = camera.getP0().subtract(Point.ZERO).length();
           /*
         for (int i = 0; i < frames; i++) {
             System.out.println("Start frame " + (i + 1));
