@@ -260,5 +260,4 @@ public class glossyTest {
                     .renderImage();
             camera.writeToImage();
         }
-
 }
