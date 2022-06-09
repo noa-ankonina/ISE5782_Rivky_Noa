@@ -197,7 +197,7 @@ public class Ray {
                     randomPoint = (Point) randomPoint.add(nX.scale(x));
                 if (y != 0)
                     randomPoint = (Point) randomPoint.add(nY.scale(y));
-                Vector tPoint = randomPoint.substract(p0);
+                Vector tPoint = randomPoint.subtract(p0);
                 double nt = alignZero(n.dotProduct(tPoint));
                 if (nv * nt > 0) {
                     rays.add(new Ray(p0, tPoint));

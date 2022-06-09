@@ -33,8 +33,8 @@ public class Plane extends Geometry
             throw new IllegalArgumentException("All points should be different");
         }
         q0 = p1;
-        Vector v=p1.substract(p2);
-        Vector u=p2.substract(p3);
+        Vector v=p1.subtract(p2);
+        Vector u=p2.subtract(p3);
         normal= v.crossProduct(u).normlize();
     }
 
@@ -80,7 +80,7 @@ public class Plane extends Geometry
         if(q0.equals(p0)){
             return null;
         }
-        double nqp=normal.dotProduct(q0.substract(p0));
+        double nqp=normal.dotProduct(q0.subtract(p0));
         //Ray on the plane
         if(isZero(nqp)){
             return null;

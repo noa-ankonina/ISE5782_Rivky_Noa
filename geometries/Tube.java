@@ -35,10 +35,10 @@ public class Tube extends Geometry
     @Override
     public Vector getNormal(Point point)
     {
-        Vector v = point.substract(axisRay.getP0());
+        Vector v = point.subtract(axisRay.getP0());
         double t = axisRay.getDir().dotProduct(v);//finding scaler for the projection of point on axisRay
         Point O = (Point) axisRay.getP0().add(axisRay.getDir().scale(t));
-        Vector N = point.substract(O);
+        Vector N = point.subtract(O);
         return N.normlize();
     }
 
@@ -61,14 +61,14 @@ public class Tube extends Geometry
             if (v.equals(v0vv0)) {
                 return null;
             }
-            temp1 = v.substract(v0vv0);
+            temp1 = v.subtract(v0vv0);
         }
 
         // Calculating temp2 = dp - v0 * (dp,v0) where dp = p0 - p
         double temp1DotTemp2 = 0;
         double squaredTemp2 = 0;
         if (!ray.getPoint().equals(axisRay.getPoint())) {
-            Vector dp = ray.getPoint().substract(axisRay.getPoint());
+            Vector dp = ray.getPoint().subtract(axisRay.getPoint());
             Vector temp2 = dp;
             double dpv0 = dp.dotProduct(v0);
             if (isZero(dpv0)) {
@@ -78,7 +78,7 @@ public class Tube extends Geometry
             else {
                 Vector v0dpv0 = v0.scale(dpv0);
                 if (!dp.equals(v0dpv0)) {
-                    temp2 = dp.substract(v0dpv0);
+                    temp2 = dp.subtract(v0dpv0);
                     temp1DotTemp2 = temp1.dotProduct(temp2);
                     squaredTemp2 = temp2.lengthSquared();
                 }

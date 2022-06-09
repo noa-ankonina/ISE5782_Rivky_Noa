@@ -3,6 +3,7 @@ package renderer;
 import primitives.*;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
 
 import static primitives.Util.isZero;
@@ -191,10 +192,10 @@ public class Camera {
      * @param i  The index of the pixel on the y dimension.
      * @return A ray going through the given pixel.
      */
-    public Ray constructRay(int nX, int nY, int j, int i)
+    public Ray constructOneRay(int nX, int nY, int j, int i)
     {
         Point pIJ = CalculateCenterPointInPixel(nX, nY, j, i);
-        Vector vIJ = pIJ.substract(p0);
+        Vector vIJ = pIJ.subtract(p0);
         return new Ray(p0, vIJ);
     }
 
@@ -293,6 +294,81 @@ public class Camera {
                     imageWriter.writePixel(j, i, color);}}}
     }
 
+    /**
+     * Calculate the corner ray in pixel
+     *
+     * @param center point
+     * @param nX     Total number of pixels in the x dimension.
+     * @param nY     Total number of pixels in the y dimension.
+     * @param j      The index of the pixel on the x dimension.
+     * @param i      The index of the pixel on the y dimension.
+     * @return List of rays
+     */
+    private List<Ray> CalculatCornerRayInPixel(Point center, int nX, int nY, int j, int i) {
+
+        Point p = center;
+        List<Ray> lcorner = new LinkedList<>();
+
+        //up
+        double yu = nY / (height * 2);
+        //right
+        double xr = nX / (width * 2);
+
+
+        //left up
+        if (!isZero(xr)) {
+            p = (Point) center.add(vRight.scale(-xr));
+        }
+        if (!isZero(yu)) {
+            p = (Point) center.add(vUp.scale(yu));
+        }
+        lcorner.add(new Ray(p0, p.subtract(p0)));
+        p = center;
+
+        //right up
+        p = (Point) center.add(vRight.scale(xr));
+        p = (Point) center.add(vUp.scale(yu));
+        lcorner.add(new Ray(p0, p.subtract(p0)));
+        p = center;
+
+        //left down
+        p = (Point) center.add(vRight.scale(-xr));
+        p = (Point) center.add(vUp.scale(-yu));
+        lcorner.add(new Ray(p0, p.subtract(p0)));
+        p = center;
+
+        //right down
+        p = (Point) center.add(vRight.scale(xr));
+        p = (Point) center.add(vUp.scale(-yu));
+        lcorner.add(new Ray(p0, p.subtract(p0)));
+        p = center;
+
+        //left middle
+        p = (Point) center.add(vRight.scale(-xr));
+        lcorner.add(new Ray(p0, p.subtract(p0)));
+        p = center;
+
+        //right middle
+        p = (Point) center.add(vRight.scale(xr));
+        lcorner.add(new Ray(p0, p.subtract(p0)));
+        p = center;
+
+        //middle up
+        p = (Point) center.add(vUp.scale(yu));
+        lcorner.add(new Ray(p0, p.subtract(p0)));
+        p = center;
+
+        //middle down
+        p = (Point) center.add(vUp.scale(-yu));
+        lcorner.add(new Ray(p0, p.subtract(p0)));
+        p = center;
+
+
+        return lcorner;
+
+    }
+
+
     //Turn on the function of the imageWriter writeToImage
     public void writeToImage(){
 
@@ -301,21 +377,6 @@ public class Camera {
         imageWriter.writeToImage();
     }
 
-    /**
-     * Constructs a ray through a given pixel on the view plane.
-     *
-     * @param nX Total number of pixels in the x dimension.
-     * @param nY Total number of pixels in the y dimension.
-     * @param j  The index of the pixel on the x dimension.
-     * @param i  The index of the pixel on the y dimension.
-     * @return A ray going through the given pixel.
-     */
-    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
-        Point pIJ=CalculatCenterPointInPixel(nX,nY,j,i);
-        Vector vIJ=pIJ.substract(p0);
-
-        return new Ray(p0,vIJ);
-    }
 
     /**
      * Chaining method for setting the view plane's size.
@@ -345,7 +406,14 @@ public class Camera {
         return this;
     }
 
-
+    /***
+     * Constructs a ray through a given pixel on the view plane
+     * @param nX
+     * @param nY
+     * @param j
+     * @param i
+     * @return
+     */
     public LinkedList<Ray> constructRayPixel(int nX, int nY, int j, int i) {
         if (isZero(distance))
             throw new IllegalArgumentException("distance can't be 0");
@@ -358,14 +426,15 @@ public class Camera {
         double  randX,randY;
 
         Point pCenterPixel = CalculatCenterPointInPixel(nX,nY,j,i);
-        rays.add(new Ray(p0, pCenterPixel.substract(p0)));
-
+        rays.add(new Ray(p0, pCenterPixel.subtract(p0)));
+        if (focus && !isFocus(j, i))
+            rays.addAll(CalculatCornerRayInPixel(pCenterPixel, nX, nY, j, i));
         Point pInPixel;
         for (int k = 0; k < numOfRays; k++) {
             randX= random(-rX/2,rX/2);
             randY =  random(-rY/2,rY/2);
             pInPixel = new Point(pCenterPixel.getX()+randX,pCenterPixel.getY()+randY,pCenterPixel.getZ());
-            rays.add(new Ray(p0, pInPixel.substract(p0)));}
+            rays.add(new Ray(p0, pInPixel.subtract(p0)));}
         return rays;
     }
 
@@ -436,5 +505,18 @@ public class Camera {
         disFocal = length;
         focus = true;
         return this;
+    }
+
+    /**
+     * check if it's focus
+     * @param j
+     * @param i
+     * @return
+     */
+    private boolean isFocus(int j, int i) {
+        return focalPix.getX() <= j &&
+                j <= focalPix.getX() + disFocal &&
+                focalPix.getY() <= i &&
+                i <= focalPix.getY() + disFocal;
     }
 }

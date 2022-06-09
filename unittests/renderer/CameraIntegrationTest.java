@@ -90,7 +90,7 @@ public class CameraIntegrationTest {
 
             for (int j = 0; j < nX; ++j) {
 
-                Ray pixelRay = cam.constructRayThroughPixel(nX, nY, j, i);
+                Ray pixelRay = cam.constructOneRay(nX, nY, j, i);
 
                 // checking every intersectable to find intersections with each one.
                 for (int id = 0; id < intersectables.length; id++) {

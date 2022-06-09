@@ -1,4 +1,4 @@
-package multithreading;
+package multiThreding;
 
 import java.util.Arrays;
 import java.util.MissingResourceException;

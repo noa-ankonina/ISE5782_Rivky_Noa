@@ -64,7 +64,7 @@ public class Cylinder extends Tube {
             return v.scale(-1);
         }
 
-        double t = v.dotProduct(p.substract(p0));
+        double t = v.dotProduct(p.subtract(p0));
         //check if the point on the bottom
         if (isZero(t)) {
             return v.scale(-1);
@@ -75,7 +75,7 @@ public class Cylinder extends Tube {
         }
 
         Point o = (Point) p0.add(v.scale(t));
-        return p.substract(o).normlize();
+        return p.subtract(o).normlize();
     }
 
     @Override
@@ -176,7 +176,7 @@ public class Cylinder extends Tube {
             return false;
         }
 
-        return v0.dotProduct(p.substract(p0)) > 0 &&
-                v0.dotProduct(p.substract(p1)) < 0;
+        return v0.dotProduct(p.subtract(p0)) > 0 &&
+                v0.dotProduct(p.subtract(p1)) < 0;
     }
 }

@@ -45,7 +45,7 @@ public class Sphere extends Geometry {
     @Override
     public Vector getNormal(Point point)
     {
-        Vector n=point.substract(center);
+        Vector n=point.subtract(center);
         return n.normlize();
     }
 
@@ -56,7 +56,7 @@ public class Sphere extends Geometry {
         if (p0.equals(center)) {
             return List.of(ray.getPointBy(radius));
         }
-        Vector u = center.substract(p0);
+        Vector u = center.subtract(p0);
         double tm =v.dotProduct(u);
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
         if (d >= radius) {
@@ -84,7 +84,7 @@ public class Sphere extends Geometry {
         if (p0.equals(center)) {
             return List.of(new GeoPoint(this,ray.getPointBy(radius)));
         }
-        Vector u = center.substract(p0);
+        Vector u = center.subtract(p0);
         double tm =v.dotProduct(u);
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
         if (d >= radius) {
