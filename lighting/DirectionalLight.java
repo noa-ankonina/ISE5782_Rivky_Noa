@@ -7,6 +7,7 @@ import primitives.Vector;
 /**
  * Class of directional light (like sun)
  *
+ * @author Noa & Rivky
  */
 public class DirectionalLight extends Light implements LightSource{
 
@@ -14,8 +15,6 @@ public class DirectionalLight extends Light implements LightSource{
      * vector of direction of light
      */
     private Vector direction;
-
-
 
     /**
      * create the intensity and direction of the light
@@ -37,10 +36,6 @@ public class DirectionalLight extends Light implements LightSource{
         return direction;
     }
 
-    /**
-     * @param point
-     * @return
-     */
     @Override
     public double getDistance(Point point) {
         return Double.POSITIVE_INFINITY;

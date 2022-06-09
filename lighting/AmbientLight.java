@@ -5,9 +5,10 @@ import primitives.Double3;
 
 /**
  * AmbientLight of the scene
+ * *
+ *  * @author Noa & Rivky
  */
 public class AmbientLight extends Light{
-
 
     /**
      * create AmbientLight of the scene
@@ -24,7 +25,6 @@ public class AmbientLight extends Light{
     public AmbientLight(){
         super(Color.BLACK);
     }
-
 
     /**
      * create AmbientLight of the scene

@@ -154,8 +154,7 @@ class ProjectTest {
         setLights(scene);
         setGeometries(scene);
 
-                camera//.setCamera(camera) //
-               // .setMultithreading(3)
+                camera.setMultithreading(3)
                 .setRayTracer(new RayTracerBasic(scene).setGlossinessRays(20));
 
        // int frames = 16;

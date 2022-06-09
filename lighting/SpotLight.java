@@ -8,6 +8,7 @@ import primitives.Vector;
 /**
  * Class spot light
  *
+ * @author Noa & Rivky
  */
 public class SpotLight extends PointLight{
 

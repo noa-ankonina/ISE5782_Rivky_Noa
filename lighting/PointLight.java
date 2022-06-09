@@ -6,7 +6,7 @@ import primitives.Vector;
 
 /**
  *Class of point light (like lantern)
- *
+ * @author Noa & Rivky
  */
 public class PointLight extends Light implements LightSource {
 
@@ -20,7 +20,6 @@ public class PointLight extends Light implements LightSource {
      */
     private double kC = 1, kL = 0, kQ = 0;
 
-
     /**
      * create the intensity and position of the light
      *
@@ -31,7 +30,6 @@ public class PointLight extends Light implements LightSource {
         super(intensity);
         this.position = position;
     }
-
 
     /**
      * @param kC factor of the light
@@ -60,8 +58,6 @@ public class PointLight extends Light implements LightSource {
         return this;
     }
 
-
-
     @Override
     public Color getIntensity(Point p) {
         double distance = position.distance(p);
@@ -73,10 +69,6 @@ public class PointLight extends Light implements LightSource {
         return p.subtract(position).normlize();
     }
 
-    /**
-     * @param point
-     * @return
-     */
     @Override
     public double getDistance(Point point) {
         return position.distance(point);

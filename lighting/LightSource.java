@@ -7,6 +7,7 @@ import primitives.Vector;
 /**
  * Interface of all the light
  *
+ * @author Noa & Rivky
  */
 public interface LightSource {
 
@@ -23,9 +24,8 @@ public interface LightSource {
     public Vector getL(Point p);
 
     /**
-     *
-     * @param point
-     * @return
+     * @param point on the geometry
+     * @return the distance between two points.
      */
     double getDistance(Point point);
 }
