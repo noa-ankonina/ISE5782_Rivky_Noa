@@ -29,6 +29,15 @@ class Pixel {
     int row;
     int col;
 
+    public Pixel(int col, int row) {
+        this.col = col;
+        this.row = row;
+    }
+
+    public Pixel() {
+
+    }
+
     /**
      * Initialize pixel data for multi-threading
      *

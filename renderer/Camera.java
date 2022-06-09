@@ -786,20 +786,4 @@ public class Camera {
         }
     }
 
-
-    /**
-     * Helper class to represent a pixel to draw in a multithreading rendering.
-     */
-    private static class Pixel {
-        public int col, row;
-
-        public Pixel(int col, int row) {
-            this.col = col;
-            this.row = row;
-        }
-
-        public Pixel() {
-        }
-    }
-
 }

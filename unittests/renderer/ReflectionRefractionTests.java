@@ -108,7 +108,7 @@ public class ReflectionRefractionTests {
 				camera.writeToImage();
 	}
 
-	@Test
+	/**@Test
 	public void exe11() {
 		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setViewPlaneSize(600, 600).setDistance(1000);
@@ -165,7 +165,8 @@ public class ReflectionRefractionTests {
 				.renderImage(); //
 		camera.writeToImage();
 	}
-
+	*///exe11
+/**
 	@Test
 	public void Bonus() {
 		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
@@ -248,12 +249,13 @@ public class ReflectionRefractionTests {
 				.renderImage(); //
 		camera.writeToImage();
 	}
+	*///bonus
 
 	/**
 	 * Produce a picture of a few glasses with diffrent level of matte lighted by
 	 * spot light
 	 */
-	@Test
+/**	@Test
 	public void diffusedGlass() {
 		Scene scene = new Scene("my");
 		Camera camera=new Camera(new Point(-900, 50, 20), new Vector(1, 0, 0.02), new Vector(-0.02, 0, 1))
@@ -318,5 +320,5 @@ public class ReflectionRefractionTests {
 				.setRayTracer(new RayTracerBasic(scene,300))//
 		.renderImage();
 		camera.writeToImage();
-	}
+	}*///try2
 }
