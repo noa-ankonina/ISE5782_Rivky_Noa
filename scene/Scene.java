@@ -8,30 +8,36 @@ import primitives.Color;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class scene
+ * @author Noa & Rivky
+ */
 public class Scene {
 
     /**
      * Name of the scene
      */
     public String name;
+
     /**
      * Color of the background. The default is black
      */
     public Color background = Color.BLACK;
+
     /**
      * The default of ambient light is black
      */
     public static AmbientLight ambientLight = new AmbientLight();
+
     /**
      * The geometry object in context of the scene
      */
     public Geometries geometries = null;
+
     /**
      * A list of all the light source
      */
     public List<LightSource> lights= new LinkedList<LightSource>();
-
-
 
     /**
      * create Scene
@@ -59,6 +65,7 @@ public class Scene {
         this.ambientLight = ambientLight;
         return this;
     }
+
     /**
      * setter for the AmbientLight
      *

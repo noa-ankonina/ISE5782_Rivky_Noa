@@ -19,7 +19,7 @@ import primitives.*;
 class ProjectTest {
     public void glossyTest() {
         Scene scene = new Scene("Test scene");
-        Camera camera = new Camera(new Point(1000, 0, 90), new Vector(1, 0, 0.09), new Vector(0.09, 0, 1))
+        Camera camera = new Camera(new Point(-1000, 0, 90), new Vector(1, 0, -0.09), new Vector(0.09, 0, 1))
                 .setViewPlaneSize(500, 500)
                 .setDistance(1000);
         scene.setBackground(new Color(3, 3, 3));
@@ -143,12 +143,12 @@ class ProjectTest {
     @Test
     public void project() {
         Camera camera = new Camera(
-                new Point(0, 0, 1000),
-                new Vector(0, 0, -1),
+                new Point(0, 0, -1000),
+                new Vector(0, 0, 1),
                 new Vector(0, 1, 0))
                 .setViewPlaneSize(200, 125)
                 .setDistance(800)
-                .setNumOfRays(50);
+                .setNumOfRays(3);
 
         Scene scene = new Scene("Test Scene");
         setLights(scene);
@@ -197,6 +197,19 @@ class ProjectTest {
                         .setEmission(new Color(java.awt.Color.GRAY))
                         .setMaterial(new Material()
                                 .setkR(0.8).setkG(0.95)),
+                /*
+                new Sphere(new Point(-45, -45, -5), 5)
+                        .setEmission(new Color(java.awt.Color.GRAY))
+                        .setMaterial(new Material()
+                                .setkR(0.8).setkG(0.95)),
+                new Sphere(new Point(-45, -30, -5), 5)
+                        .setEmission(new Color(java.awt.Color.GRAY))
+                        .setMaterial(new Material()
+                                .setkR(0.8).setkG(0.95)),
+                new Sphere(new Point(-45, -20, -5), 5)
+                        .setEmission(new Color(java.awt.Color.GRAY))
+                        .setMaterial(new Material()
+                                .setkR(0.8).setkG(0.95)),*/
 
                 //triangles
                 new Triangle(a, g, h)
