@@ -19,24 +19,28 @@ class Pixel {
     private static volatile long pixels = 0l;
     private static volatile long last = -1l;
     private static volatile int lastPrinted = -1;
-
     private static boolean print = false;
     private static long printInterval = 100l;
     private static final String PRINT_FORMAT = "%5.1f%%\r";
     private static Object mutexNext = new Object();
     private static Object mutexPixels = new Object();
-
     int row;
     int col;
 
+    /***
+     * ctor
+     * @param col
+     * @param row
+     */
     public Pixel(int col, int row) {
         this.col = col;
         this.row = row;
     }
 
-    public Pixel() {
-
-    }
+    /***
+     * defaulr ctor
+     */
+    public Pixel() {}
 
     /**
      * Initialize pixel data for multi-threading

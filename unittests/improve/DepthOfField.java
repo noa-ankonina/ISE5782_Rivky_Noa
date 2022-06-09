@@ -37,7 +37,7 @@ public class DepthOfField {
         ImageWriter imageWriter=new ImageWriter("depth", 500, 500);
                 camera.setImageWriter(imageWriter) //
                 //.setCamera(camera) //
-                .setRayTracer(new RayTracerBasic(scene));//.setMultithreading(5);
+                .setRayTracer(new RayTracerBasic(scene)).setMultithreading(5);
         camera.renderImage();
         camera.writeToImage();
     }

@@ -3,13 +3,11 @@ package renderer;
 import lighting.LightSource;
 import lighting.SpotLight;
 import primitives.*;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import geometries.Intersectable.GeoPoint;
 import scene.Scene;
-
 import static java.lang.Math.random;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
@@ -22,7 +20,6 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * constant number for size moving first rays for shading rays
      */
-
     private static final double INITIAL_K = 1.0;
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
@@ -50,6 +47,11 @@ public class RayTracerBasic extends RayTracerBase {
         this.numOfRays = numOfRays;
     }
 
+    /***
+     * gets glossy rays
+     * @param glossinessRays
+     * @return
+     */
     public RayTracerBasic setGlossinessRays(int glossinessRays) {
         if (glossinessRays <= 0) {
             throw new IllegalArgumentException("number of glossiness rays should be greater than 0");
@@ -59,11 +61,9 @@ public class RayTracerBasic extends RayTracerBase {
         return this;
     }
 
-
     @Override
     public Color traceRay(Ray ray) {
         List<GeoPoint> points = scene.geometries.findGeoIntersections(ray);
-
         if (points != null) {
             GeoPoint closePoint = ray.findClosestGeoPoint(points);
             return calcColor(closePoint, ray);
@@ -71,7 +71,6 @@ public class RayTracerBasic extends RayTracerBase {
         //no points
         return scene.background;
     }
-
 
     /**
      * calculate the local effects of the scene
@@ -105,7 +104,8 @@ public class RayTracerBasic extends RayTracerBase {
                 double ktr = transparency(lightSource, l, n, intersection);
                 if (ktr * k > MIN_CALC_COLOR_K) {
                     Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
-                    color = color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, nl, v, nShininess, lightIntensity, specularN));
+                    color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                            calcSpecular(ks, l, n, nl, v, nShininess, lightIntensity, specularN));
                 }
             }
         }
@@ -113,6 +113,7 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
+     * clculate specular
      * @param ks             factor of the specular
      * @param l              vector of the
      * @param n              normal vector of the geometry point
@@ -131,7 +132,6 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * calculate the transparency of the geometry
-     *
      * @param ls       light source of the scene
      * @param l        vector l
      * @param n        vector n
@@ -143,13 +143,10 @@ public class RayTracerBasic extends RayTracerBase {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-
         if (intersections == null)
             return 1.0;
-
         double ktr = 1.0;
         double lightDistance = ls.getDistance(geoPoint.point);
-
         for (GeoPoint gp : intersections) {
 
             if (alignZero(gp.point.distance(geoPoint.point) - lightDistance) <= 0) {
@@ -186,7 +183,8 @@ public class RayTracerBasic extends RayTracerBase {
      * @return the color intensity
      */
     private Color calcColor(GeoPoint gPoint, Ray ray) {
-        return calcColor(gPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
+        return calcColor(gPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K)
+                .add(scene.ambientLight.getIntensity());
     }
 
     /**
@@ -224,13 +222,13 @@ public class RayTracerBasic extends RayTracerBase {
         // adds the refraction effect
         double kkt = k * material.kT;
         if (kkt > MIN_CALC_COLOR_K) {
-            Ray[] refractedRays = constructRefractedRays(gp.point, v, n.scale(-1), material.kG, glossinessRays);
+            Ray[] refractedRays = constructRefractedRays(gp.point, v, n.scale(-1),
+                    material.kG, glossinessRays);
             for (Ray refractedRay : refractedRays) {
                 color = color.add(calcGlobalEffect(refractedRay, level, material.kT, kkt)
                         .scale(1d / refractedRays.length));
             }
         }
-
         return color;
     }
     /**

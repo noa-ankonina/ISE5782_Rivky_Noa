@@ -3,7 +3,6 @@ package renderer;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
-
 import lighting.AmbientLight;
 import geometries.*;
 import org.w3c.dom.Document;
@@ -16,14 +15,10 @@ import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
 import scene.Scene;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
-
 public class ReadXMLfile {
 
     /**
@@ -36,11 +31,9 @@ public class ReadXMLfile {
 
         Scene scene = new Scene(scene_Name);
         File xmlFile = new File(file_name);
-
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
         try {
-
             dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();
@@ -110,7 +103,6 @@ public class ReadXMLfile {
         return geo;
     }
 
-
     /**
      * the function create a sphere from the node
      * @param node
@@ -172,6 +164,12 @@ public class ReadXMLfile {
         return geo;
     }
 
+    /***
+     *gets the tag value
+     * @param tag
+     * @param element
+     * @return node.getNodeValue()
+     */
     private static String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = (Node) nodeList.item(0);

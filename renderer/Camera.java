@@ -49,22 +49,8 @@ public class Camera {
     private double distance;
 
     private ImageWriter imageWriter;
-    //private RayTracerBase rayTracerBase
-    /**=new RayTracerBase(new Scene("not initialized scene")) {
-        @Override
-        public Color traceRay(Ray ray) {
-            return new Color(java.awt.Color.BLACK);
-        }
-
-        @Override
-        public Color averageColor(LinkedList<Ray> rays) {
-            return new Color(java.awt.Color.BLACK);
-        }
-    };*/
     RayTracerBasic rayTracerBasic;
-
     private int numOfRays = 0; //num of rays in every pixel(default = 1)
-
     private boolean focus = false;
     private Point focalPix = null;
     public double disFocal = 0;
@@ -88,9 +74,6 @@ public class Camera {
      */
      //Camera camera;
 
-    public void setP0(double v, int i, double v1) {
-        p0=new Point(v,i,v1);
-    }
     /**
      * @param rayTracerBasicc from the camera
      * @return this render
@@ -99,15 +82,6 @@ public class Camera {
         this.rayTracerBasic = rayTracerBasicc;
         return this;
     }
-
-    /**
-     * @param camera1 of the scene
-     * @return this render
-     */
-    /**public Camera setCamera(Camera camera1) {
-        this.camera = camera1;
-        return this;
-    }*/
 
     /**
      * Constructs a camera with location, to and up vectors.
@@ -125,7 +99,6 @@ public class Camera {
         this.p0 = p0;
         this.vTo = vTo.normlize();
         this.vUp = vUp.normlize();
-
         vRight = vTo.crossProduct(vUp);
     }
 
@@ -230,13 +203,10 @@ public class Camera {
     private Point CalculateCenterPointInPixel(int nX, int nY, int j, int i) {
         Point pC = (Point) p0.add(vTo.scale(distance));
         Point pIJ = pC;
-
         double rY = height / nY;
         double rX = width / nX;
-
         double yI = -(i - (nY - 1) / 2d) * rY;
         double xJ = (j - (nX - 1) / 2d) * rX;
-
         if (!isZero(xJ)) {
             pIJ = (Point) pIJ.add(vRight.scale(xJ));
         }
@@ -273,51 +243,6 @@ public class Camera {
     }
 
     /**
-     * Renders the image
-     *
-     * @throws UnsupportedOperationException when the render didn't receive all the arguments.
-     */
-    /*
-    public void renderImage() {
-        try {
-            if (imageWriter == null) {
-                throw new MissingResourceException("Missing resource", ImageWriter.class.getName(), "");
-            }
-            if (camera == null) {
-                throw new MissingResourceException("Missing resource", Camera.class.getName(), "");
-            }
-            if (rayTracerBasic == null) {
-                throw new MissingResourceException("Missing resource", RayTracerBase.class.getName(), "");
-            }
-
-            int nX = imageWriter.getNx();
-            int nY = imageWriter.getNy();
-
-            //rendering the image with multi-threaded
-            if (threadPool != null) {
-                nextPixel = new Pixel(0, 0);
-                threadPool.execute();
-
-                printPercentMultithreaded(); // blocks the main thread until finished and prints the progress
-
-                threadPool.join();
-                return;
-            }
-
-            // rendering the image when single-threaded
-            adaptive(0, nY / 2, nX / 2, 0, nX, nY, 1);
-
-            LinkedList<Ray> rays;
-
-            // prints the 100% percent
-            printPercent(nX * nY, nX * nY, lastPercent);
-        } catch (MissingResourceException e) {
-            throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());
-        }
-
-    }
-*/
-    /**
      * Make the image from the elements
      */
     public void renderImage(){
@@ -342,9 +267,7 @@ public class Camera {
             if (threadPool != null) {
                 nextPixel = new Pixel(0, 0);
                 threadPool.execute();
-
                 printPercentMultithreaded(); // blocks the main thread until finished and prints the progress
-
                 threadPool.join();
                 return;
             }
@@ -464,7 +387,6 @@ public class Camera {
 
     /**
      * Casts a ray through a given pixel and writes the color to the image.
-     *
      * @param nX  the number of columns in the picture
      * @param nY  the number of rows in the picture
      * @param col the column of the current pixel
@@ -493,7 +415,6 @@ public class Camera {
 
     /**
      * Calculate the corner ray in pixel
-     *
      * @param center point
      * @param nX     Total number of pixels in the x dimension.
      * @param nY     Total number of pixels in the y dimension.
@@ -559,10 +480,7 @@ public class Camera {
         p = (Point) center.add(vUp.scale(-yu));
         lcorner.add(new Ray(p0, p.subtract(p0)));
         p = center;
-
-
         return lcorner;
-
     }
 
 
@@ -614,14 +532,10 @@ public class Camera {
     public LinkedList<Ray> constructRayPixel(int nX, int nY, int j, int i) {
         if (isZero(distance))
             throw new IllegalArgumentException("distance can't be 0");
-
         LinkedList<Ray> rays = new LinkedList<>();
-
         double rX = width / nX;
         double rY = height / nY;
-
         double  randX,randY;
-
         Point pCenterPixel = CalculatCenterPointInPixel(nX,nY,j,i);
         rays.add(new Ray(p0, pCenterPixel.subtract(p0)));
         if (focus && !isFocus(j, i))
@@ -636,7 +550,7 @@ public class Camera {
     }
 
     /**
-     *
+     *calculate location of the center point
      * @param nX
      * @param nY
      * @param j
@@ -646,13 +560,10 @@ public class Camera {
     private Point CalculatCenterPointInPixel(int nX, int nY, int j, int i) {
         Point pC = (Point) p0.add(vTo.scale(distance));
         Point pIJ=pC;
-
         double rY = height / nY;
         double rX = width / nX;
-
         double yI = -(i - (nY - 1) / 2d) * rY;
         double xJ = (j - (nX - 1) / 2d) * rX;
-
         if(!isZero(xJ)){
             pIJ = (Point) pIJ.add(vRight.scale(xJ));}
         if(!isZero(yI)){
@@ -717,7 +628,6 @@ public class Camera {
             threadPool = null;
             return this;
         }
-
         threadPool = new ThreadPool<Pixel>() // the thread pool choose the number of threads (in0 case threads is 0)
                 .setParamGetter(this::getNextPixel)
                 .setTarget(this::renderImageMultithreaded);
@@ -735,8 +645,6 @@ public class Camera {
 
         // notifies the main thread in order to print the percent
         notifyAll();
-
-
         Pixel result = new Pixel();
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
@@ -765,11 +673,9 @@ public class Camera {
         if (p == null) {
             return false; // kill the thread
         }
-
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
         castRay(nX, nY, p.col, p.row);
-
         return true; // continue the rendering
     }
 
@@ -792,7 +698,6 @@ public class Camera {
                 catch (InterruptedException e) {
                 }
             }
-
             int currentPixel = nextPixel.row * nX + nextPixel.col;
             lastPercent = printPercent(currentPixel, pixels, lastPercent);
         }
