@@ -3,9 +3,9 @@ package primitives;
 /**
  * The material kind of the object
  *
+ * @author Noa & Rivky
  */
 public class Material {
-
 
     /**
      * factors of the diffuse,specular light,transparency and reflection
@@ -22,10 +22,10 @@ public class Material {
      */
     public int nShininess=0;
 
-    public double getkB() {
-        return kB;
-    }
-
+    /**
+     * @param kB factor of the  blurry glass of the material
+     * @return this Material
+     */
     public Material setkB(double kB) {
         this.kB = kB;
         return this;
@@ -48,6 +48,7 @@ public class Material {
         this.kS = kS;
         return this;
     }
+
     /**
      * @param kT factor of the Transparency of the material
      * @return this Material
@@ -56,6 +57,7 @@ public class Material {
         this.kT = kT;
         return this;
     }
+
     /**
      * @param kR factor of the reflection of the material
      * @return this Material
@@ -83,5 +85,4 @@ public class Material {
         this.nShininess = nShininess;
         return this;
     }
-
 }

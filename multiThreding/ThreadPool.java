@@ -7,7 +7,6 @@ import java.util.MissingResourceException;
  * This class is handling a thread pool.
  * @param <T> the parameter for the thread's job
  *
- * @auther
  */
 public class ThreadPool<T> {
     private static final int SPARE_THREADS = 2;
@@ -55,7 +54,6 @@ public class ThreadPool<T> {
         if (numThreads <= 0) {
             throw new IllegalArgumentException("Number of threads must be greater than 0");
         }
-
         _numThreads = numThreads;
         return this;
     }

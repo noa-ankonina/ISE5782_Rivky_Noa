@@ -1,6 +1,5 @@
 package primitives;
 
-
 /**
  * Class Point is the basic class representing a point of Euclidean geometry in Cartesian
  * point system
@@ -11,16 +10,38 @@ public class Point
     public static final Point ZERO = new Point(0,0,0);
     protected final Double3 xyz;
 
+    /**
+     * Creates a new point by  double3.
+     *
+     * @param _xyz
+     */
     public Point(Double3 _xyz) {xyz=_xyz;}
 
+    /**
+     * Creates a new point by three point.
+     *
+     * @param x .
+     * @param y .
+     * @param z .
+     */
     public Point(double x, double y, double z) {xyz = new Double3(x,y,z);}
 
-
-
+    /**
+     *
+     * @return x
+     */
     public Double getX() { return xyz.d1; }
 
+    /**
+     *
+     * @return y
+     */
     public Double getY() { return xyz.d2; }
 
+    /**
+     *
+     * @return z
+     */
     public Double getZ() { return xyz.d3; }
 
     /**
@@ -34,9 +55,7 @@ public class Point
     }
 
     /**
-     *
-     *@param p point
-     * @return new Vector
+     * return a vector between 2 points
      */
     public Vector subtract(Point p)
     {
@@ -78,8 +97,7 @@ public class Point
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if(o==null) return false;
         if (!(o instanceof Point)) return false;
@@ -87,10 +105,11 @@ public class Point
         return xyz.equals(point.xyz);
     }
 
-    public Point cutTwoNumbers()
-    {
+    /**
+     * @return the coordinates of the point are accurate up to 2 digits after the decimal point
+     */
+    public Point cutTwoNumbers() {
         return new Point(Util.cutTwoNumber(xyz.d1), Util.cutTwoNumber(xyz.d2), Util.cutTwoNumber(xyz.d3));
-
     }
 
     /**

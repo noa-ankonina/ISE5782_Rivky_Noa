@@ -9,23 +9,48 @@ import java.util.List;
 import static primitives.Util.*;
 
 /**
- * Class Ray is the basic class representing a ray of Euclidean geometry in Cartesian
- * ray system
+ * Class Ray is the basic class representing a ray
+ * point3D is the start point, Vector is the direct
  * @author Rivky Shachar and Noa Ankonina
  */
 public class Ray {
-    final Point p0;
+
+    /**
+     * Point of the ray
+     */
+    private final Point p0;
+
+    /**
+     * Direction of the ray
+     */
     final Vector dir;
+
     private static final double DELTA = 0.1;
 
+    /**
+     * Returns a point of the ray.
+     *
+     * @return A shallow copy of the point.
+     */
     public Point getP0() {
         return p0;
     }
 
+    /**
+     * Returns a vector of the ray.
+     *
+     * @return A shallow copy of the vector.
+     */
     public Vector getDir() {
         return dir;
     }
 
+    /**
+     * Creates a new ray by point and vector.
+     *
+     * @param p0 A point of the ray.
+     * @param dir A vector of the ray.
+     */
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normlize();
@@ -52,9 +77,11 @@ public class Ray {
             this.p0=p0;
     }
 
-
-
-
+    /**
+     * Returns a point of the ray.
+     *
+     * @return A shallow copy of the point.
+     */
     public Point getPoint() {
         return p0;
     }
@@ -76,9 +103,6 @@ public class Ray {
             return p0;
         }
     }
-
-
-
 
     /**
      * Gets a point on the ray by calculating p0 + t*v.
@@ -108,11 +132,10 @@ public class Ray {
                 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
 
-
     /**
-     *
+     * The function find the closest points to P0 of the ray
      * @param intersections
-     * @return
+     * @return Point3D the closes point
      */
     public Intersectable.GeoPoint findClosestGeoPoint(List<Intersectable.GeoPoint> intersections){
         double minDistance = Double.MAX_VALUE;

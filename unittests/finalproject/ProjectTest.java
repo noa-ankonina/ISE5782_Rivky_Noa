@@ -19,7 +19,7 @@ import primitives.*;
 class ProjectTest {
     public void glossyTest() {
         Scene scene = new Scene("Test scene");
-        Camera camera = new Camera(new Point(-1000, 0, 90), new Vector(1, 0, -0.09), new Vector(0.09, 0, 1))
+        Camera camera = new Camera(new Point(1000, 0, 90), new Vector(1, 0, 0.09), new Vector(0.09, 0, 1))
                 .setViewPlaneSize(500, 500)
                 .setDistance(1000);
         scene.setBackground(new Color(3, 3, 3));
@@ -135,11 +135,11 @@ class ProjectTest {
 
         ImageWriter imageWriter = new ImageWriter("MP1", 1000, 1000);
         camera.setImageWriter(imageWriter) //
-                //.setCamera(camera) //
                 .setRayTracer(new RayTracerBasic(scene))
                 .renderImage();
         camera.writeToImage();
     }
+
     @Test
     public void project() {
         Camera camera = new Camera(
@@ -148,41 +148,22 @@ class ProjectTest {
                 new Vector(0, 1, 0))
                 .setViewPlaneSize(200, 125)
                 .setDistance(800)
-                .setNumOfRays(70);
+                .setNumOfRays(50);
 
         Scene scene = new Scene("Test Scene");
         setLights(scene);
         setGeometries(scene);
 
-                camera.setMultithreading(3)
+        camera.setMultithreading(3)
                 .setRayTracer(new RayTracerBasic(scene).setGlossinessRays(20));
 
-       // int frames = 16;
-        //double angle = 360d / frames;
-        //double angleRadians = 2 * Math.PI / frames;
-
-        double radius = camera.getP0().subtract(Point.ZERO).length();
-          /*
-        for (int i = 0; i < frames; i++) {
-            System.out.println("Start frame " + (i + 1));
-
-            camera.rotate(0, angle, 0);
-            camera.setP0(
-                    Math.sin(angleRadians * (i + 1)) * radius,
-                    0,
-                    Math.cos(angleRadians * (i + 1)) * radius
-            );
-            */
-
-            //ImageWriter imageWriter = new ImageWriter("MP1", 1000, 1000);
-            ImageWriter imageWriter = new ImageWriter("MP2", 600, 450);
-            camera.setImageWriter(imageWriter);
-            camera.renderImage();
-            camera.writeToImage();
-       // }
+        ImageWriter imageWriter = new ImageWriter("MP2", 600, 450);
+        camera.setImageWriter(imageWriter);
+        camera.renderImage();
+        camera.writeToImage();
     }
 
-    private void setLights(Scene scene){
+    private void setLights(Scene scene) {
         scene.lights.add(
                 new SpotLight(
                         new Color(400, 400, 400),
@@ -191,20 +172,20 @@ class ProjectTest {
                         .setKl(0.004)
                         .setKq(0.000006)
         );
-        scene.lights.add(new SpotLight(new Color(0,250,350),new Point(-200, 100, 0), new Vector(1, 1, -2)).setSpecularN(40) //
+        scene.lights.add(new SpotLight(new Color(0, 250, 350), new Point(-200, 100, 0), new Vector(1, 1, -2)).setSpecularN(40) //
                 .setKl(0.00000005).setKq(0.000000005));
-        scene.lights.add(new SpotLight(new Color(0,250,350),new Point(-200, 50, 0), new Vector(1, 0.5, -2)).setSpecularN(20) //
+        scene.lights.add(new SpotLight(new Color(0, 250, 350), new Point(-200, 50, 0), new Vector(1, 0.5, -2)).setSpecularN(20) //
                 .setKl(0.00000005).setKq(0.000000005));
-        scene.lights.add(new SpotLight(new Color(0,250,350),new Point(-200, 55, 0), new Vector(1, 1, -2)).setSpecularN(10) //
+        scene.lights.add(new SpotLight(new Color(0, 250, 350), new Point(-200, 55, 0), new Vector(1, 1, -2)).setSpecularN(10) //
                 .setKl(0.00000005).setKq(0.000000005));
     }
 
     private void setGeometries(Scene scene) {
         //triangles
-        Point h=new Point(60,-50,30);
-        Point g=new Point(45,-30,0);
-        Point a=new Point(30,-50,30);
-        Point b=new Point(40,0,15);
+        Point h = new Point(60, -50, 30);
+        Point g = new Point(45, -30, 0);
+        Point a = new Point(30, -50, 30);
+        Point b = new Point(40, 0, 15);
 
         scene.geometries.add(
                 //sphere
@@ -218,22 +199,22 @@ class ProjectTest {
                                 .setkR(0.8).setkG(0.95)),
 
                 //triangles
-                new Triangle(a,g,h)
+                new Triangle(a, g, h)
                         .setEmission(new Color(java.awt.Color.YELLOW))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4).setkT(0.6)
                                 .setShininess(80)),
-                new Triangle(a,b,h)
+                new Triangle(a, b, h)
                         .setEmission(new Color(java.awt.Color.YELLOW))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4).setkT(0.6)
                                 .setShininess(80)),
-                new Triangle(a,b,g)
+                new Triangle(a, b, g)
                         .setEmission(new Color(java.awt.Color.YELLOW))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4).setkT(0.6)
                                 .setShininess(80)),
-                new Triangle(g,b,h)
+                new Triangle(g, b, h)
                         .setEmission(new Color(java.awt.Color.YELLOW))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4).setkT(0.6)
@@ -251,99 +232,99 @@ class ProjectTest {
 
                 //square
                 //1
-                new Polygon(new Point(-25,-50,-30),
-                        new Point(-25,-50,30),
-                        new Point(15,-50,30),
-                        new Point(15,-50,-30))
+                new Polygon(new Point(-25, -50, -30),
+                        new Point(-25, -50, 30),
+                        new Point(15, -50, 30),
+                        new Point(15, -50, -30))
                         .setEmission(new Color(java.awt.Color.BLUE))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4)
                                 .setShininess(50)),
-                new Polygon(new Point(-25,-25,-30),
-                        new Point(-25,-25,30),
-                        new Point(15,-25,30),
-                        new Point(15,-25,-30))
+                new Polygon(new Point(-25, -25, -30),
+                        new Point(-25, -25, 30),
+                        new Point(15, -25, 30),
+                        new Point(15, -25, -30))
                         .setEmission(new Color(java.awt.Color.BLUE))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4)
                                 .setShininess(50)),
-                new Polygon(new Point(-25,-50,-30),
-                        new Point(-25,-50,30),
-                        new Point(-25,-25,30),
-                        new Point(-25,-25,-30))
+                new Polygon(new Point(-25, -50, -30),
+                        new Point(-25, -50, 30),
+                        new Point(-25, -25, 30),
+                        new Point(-25, -25, -30))
                         .setEmission(new Color(java.awt.Color.BLUE))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4)
                                 .setShininess(50)),
-                new Polygon(new Point(15,-50,-30),
-                        new Point(15,-50,30),
-                        new Point(15,-25,30),
-                        new Point(15,-25,-30))
+                new Polygon(new Point(15, -50, -30),
+                        new Point(15, -50, 30),
+                        new Point(15, -25, 30),
+                        new Point(15, -25, -30))
                         .setEmission(new Color(java.awt.Color.BLUE))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4)
                                 .setShininess(50)),
-                new Polygon(new Point(-25,-50,30),
-                        new Point(15,-50,30),
-                        new Point(15,-25,30),
-                        new Point(-25,-25,30))
+                new Polygon(new Point(-25, -50, 30),
+                        new Point(15, -50, 30),
+                        new Point(15, -25, 30),
+                        new Point(-25, -25, 30))
                         .setEmission(new Color(java.awt.Color.BLUE))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4)
                                 .setShininess(50)),
-                new Polygon(new Point(-25,-50,-30),
-                        new Point(15,-50,-30),
-                        new Point(15,-25,-30),
-                        new Point(-25,-25,-30))
+                new Polygon(new Point(-25, -50, -30),
+                        new Point(15, -50, -30),
+                        new Point(15, -25, -30),
+                        new Point(-25, -25, -30))
                         .setEmission(new Color(java.awt.Color.BLUE))
                         .setMaterial(new Material()
                                 .setKd(0.6).setKs(0.4)
                                 .setShininess(50)),
                 //2
-                new Polygon(new Point(-15,-25,-20),
-                        new Point(-15,-25,20),
-                        new Point(5,-25,20),
-                        new Point(5,-25,-20))
+                new Polygon(new Point(-15, -25, -20),
+                        new Point(-15, -25, 20),
+                        new Point(5, -25, 20),
+                        new Point(5, -25, -20))
                         .setEmission(new Color(java.awt.Color.MAGENTA))
                         .setMaterial(new Material()
                                 .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
                                 .setShininess(60)),
-                new Polygon(new Point(-15,-15,-20),
-                        new Point(-15,-15,20),
-                        new Point(5,-15,20),
-                        new Point(5,-15,-20))
+                new Polygon(new Point(-15, -15, -20),
+                        new Point(-15, -15, 20),
+                        new Point(5, -15, 20),
+                        new Point(5, -15, -20))
                         .setEmission(new Color(java.awt.Color.MAGENTA))
                         .setMaterial(new Material()
                                 .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
                                 .setShininess(60)),
-                new Polygon(new Point(-15,-25,-20),
-                        new Point(-15,-25,20),
-                        new Point(-15,-15,20),
-                        new Point(-15,-15,-20))
+                new Polygon(new Point(-15, -25, -20),
+                        new Point(-15, -25, 20),
+                        new Point(-15, -15, 20),
+                        new Point(-15, -15, -20))
                         .setEmission(new Color(java.awt.Color.MAGENTA))
                         .setMaterial(new Material()
                                 .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
                                 .setShininess(60)),
-                new Polygon(new Point(5,-25,-20),
-                        new Point(5,-25,20),
-                        new Point(5,-15,20),
-                        new Point(5,-15,-20))
+                new Polygon(new Point(5, -25, -20),
+                        new Point(5, -25, 20),
+                        new Point(5, -15, 20),
+                        new Point(5, -15, -20))
                         .setEmission(new Color(java.awt.Color.MAGENTA))
                         .setMaterial(new Material()
                                 .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
                                 .setShininess(60)),
-                new Polygon(new Point(-15,-25,20),
-                        new Point(5,-25,20),
-                        new Point(5,-15,20),
-                        new Point(-15,-15,20))
+                new Polygon(new Point(-15, -25, 20),
+                        new Point(5, -25, 20),
+                        new Point(5, -15, 20),
+                        new Point(-15, -15, 20))
                         .setEmission(new Color(java.awt.Color.MAGENTA))
                         .setMaterial(new Material()
                                 .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
                                 .setShininess(30)),
-                new Polygon(new Point(-15,-25,-20),
-                        new Point(5,-25,-20),
-                        new Point(5,-15,-20),
-                        new Point(-15,-15,-20))
+                new Polygon(new Point(-15, -25, -20),
+                        new Point(5, -25, -20),
+                        new Point(5, -15, -20),
+                        new Point(-15, -15, -20))
                         .setEmission(new Color(java.awt.Color.MAGENTA))
                         .setMaterial(new Material()
                                 .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
@@ -371,96 +352,12 @@ class ProjectTest {
                 new Polygon(
                         new Point(42, -50, 75),
                         new Point(42, 30, 75),
-                        new Point(80 ,30, 75),
+                        new Point(80, 30, 75),
                         new Point(80, -50, 75))
                         .setEmission(new Color(40, 40, 40))
                         .setMaterial(new Material()
                                 .setkT(1.0).setkG(0.8))
         );
     }
-/*
-    @Test
-    public void project2() {
-        Camera camera = new Camera(
-                new Point(0, 0, 1000),
-                new Vector(0, 0, -1),
-                new Vector(0, 1, 0))
-                .setViewPlaneSize(225, 150)
-                .setDistance(800)
-                .setNumOfRays(10)
-                .setFocus(new Point(0, 0, 0), 500);
-
-        Scene scene = new Scene("Test Scene");
-        scene.lights.add(
-
-                new SpotLight(
-                        new Color(500, 500, 500),
-                        new Point(-50, 100, 100),
-                        new Vector(-0.5, -1, -0.5))
-                        .setKl(0.004)
-                        .setKq(0.000006));
-        scene.geometries.add(
-                new Sphere(new Point(50, 0, 0), 50)
-                        .setEmission(new Color(5, 5, 5))
-                        .setMaterial(new Material()
-                                .setkR(1.0).setkG(0.8)),
-                new Cylinder(new Ray(
-                        new Point(-90, -35, 0),
-                        new Vector(60, 85, 0)),
-                        25, 100)
-                        .setEmission(new Color(100, 75, 0))
-                        .setMaterial(new Material()
-                                .setKd(0.6).setKd(0.4)
-                                .setShininess(80)),
-                new Polygon(
-                        new Point(-100, -50, -150),
-                        new Point(-100, -50, 150),
-                        new Point(100, -50, 150),
-                        new Point(100, -50, -150))
-                        .setEmission(new Color(40, 40, 40))
-                        .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4)
-                                .setShininess(50)),
-                new Polygon(
-                        new Point(-100, -50, -150),
-                        new Point(-100, 75, -150),
-                        new Point(100, 75, -150),
-                        new Point(100, -50, -150))
-                        .setEmission(new Color(40, 40, 40))
-                        .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4)
-                                .setShininess(50))
-        );
-
-       // int frames = 16;
-       // double angle = 360d / frames;
-       // double angleRadians = 2 * Math.PI / frames;
-
-        double radius = camera.getP0().substract(Point.ZERO).length();
-/*
-        for (int i = 0; i < frames; i++) {
-            System.out.println("Start frame " + (i + 1));
-
-            camera.rotate(0, angle, 0);
-            camera.setP0(
-                    Math.sin(angleRadians * (i + 1)) * radius,
-                    0,
-                    Math.cos(angleRadians * (i + 1)) * radius
-            );
-*/
-            // Render render = new Render()
-    /*
-            camera.setImageWriter(
-                            new ImageWriter("Project2.", 750, 500))
-                    .setCamera(camera)
-                    //.setMultithreading(5)
-                    .setRayTracer(new RayTracerBasic(scene).setGlossinessRays(20));
-            camera.renderImage();
-            camera.writeToImage();
-        }
-
-    //}
-    */
 }
-
 

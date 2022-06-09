@@ -7,8 +7,8 @@ import primitives.Point;
  * @author Rivky Shachar and Noa Ankonina
  */
 
-public class Vector extends Point
-{
+public class Vector extends Point {
+
     /**
      * constructor- gets 3 numbers and creates a Vector
      *
@@ -21,8 +21,8 @@ public class Vector extends Point
     }
 
     /**
-     *
-     * @param xyz
+     * Constructor with parameter double 3
+     * @param xyz point
      */
     public Vector(Double3 xyz){
         super(xyz);
@@ -32,6 +32,9 @@ public class Vector extends Point
         }
     }
 
+    /**
+     *return the length squared of the vector
+     */
     public double lengthSquared()
     {
         double u1 = xyz.d1;
@@ -45,6 +48,9 @@ public class Vector extends Point
         return Math.sqrt(lengthSquared());
     }
 
+    /**
+     *return a new vector that add 2 vectors
+     */
     public Vector add(Vector v)
     {
         double v1 = v.xyz.d1+this.xyz.d1;
@@ -62,6 +68,12 @@ public class Vector extends Point
         return new Vector(xyz.scale(scalar));
     }
 
+    /**
+     * Vector multiplier
+     * @param v A vector.
+     * @return the cross product between 2 vectors
+     * @exception IllegalArgumentException When parallel vectors.
+     */
     public Vector crossProduct(Vector v)
     {
         double ax = xyz.d1;
@@ -77,6 +89,9 @@ public class Vector extends Point
         return  new Vector(cx, cy, cz);
     }
 
+    /**
+     *return the dot product between 2 vectors
+     */
     public double dotProduct(Vector v)
     {
         double u1 = this.xyz.d1;
@@ -92,6 +107,9 @@ public class Vector extends Point
 
     }
 
+    /**
+     *return the normalize vector
+     */
     public Vector normlize()
     {
         double len = this.length();
@@ -104,23 +122,15 @@ public class Vector extends Point
     public boolean equals(Object o) {
         return super.equals(o);
     }
-//  @Override
-    //public boolean equals(Object o) {
-      //  if (this == o) return true;
-        //if(o==null) return false;
-        //if (!(o instanceof Vector)) return false;
-        //if (!super.equals(o)) return false;
-        //Vector vector = (Vector) o;
-        //return this.equals(vector);
-    //}
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return super.toString();
-       // return "{" + head + "}";
     }
 
+    /**
+     *return true if zero and false if not.
+     */
     public boolean isZero(Vector v){
        return( Util.isZero(v.xyz.d1)& Util.isZero(v.xyz.d2)&Util.isZero(v.xyz.d3));
 
@@ -154,7 +164,6 @@ public class Vector extends Point
         double z = -getX() * Math.sin(radianAlpha) + getZ() * Math.cos(radianAlpha);
         return this;
     }
-
 
     /**
      * Rotates the vector around the z axis
