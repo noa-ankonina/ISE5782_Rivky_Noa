@@ -33,10 +33,11 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * A builder
      *
-     * @param scene that the ray cross
+     * @param scene1 that the ray cross
      */
-    public RayTracerBasic(Scene scene) {
-        super(scene);
+    public RayTracerBasic(Scene scene1) {
+        super(scene1);
+        this.scene=scene1;
     }
 
     /**

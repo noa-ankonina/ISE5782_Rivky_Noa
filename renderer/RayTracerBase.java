@@ -19,10 +19,10 @@ public abstract class RayTracerBase {
 
     /**
      * A builder function that get a scene
-     * @param scene
+     * @param scene1
      */
-    public RayTracerBase(Scene scene) {
-        this.scene = scene;
+    public RayTracerBase(Scene scene1) {
+        this.scene = scene1;
     }
 
     /**
