@@ -49,7 +49,8 @@ public class Camera {
     private double distance;
 
     private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase/**=new RayTracerBase(new Scene("not initialized scene")) {
+    //private RayTracerBase rayTracerBase
+    /**=new RayTracerBase(new Scene("not initialized scene")) {
         @Override
         public Color traceRay(Ray ray) {
             return new Color(java.awt.Color.BLACK);
@@ -59,7 +60,7 @@ public class Camera {
         public Color averageColor(LinkedList<Ray> rays) {
             return new Color(java.awt.Color.BLACK);
         }
-    }*/;
+    };*/
     RayTracerBasic rayTracerBasic;
 
     private int numOfRays = 0; //num of rays in every pixel(default = 1)
@@ -335,7 +336,7 @@ public class Camera {
             // pass through each pixel and calculate the color
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
-                    rays=this.constructRayPixel(nX,nY,j,i);
+                    rays=constructRayPixel(nX,nY,j,i);
                     imageWriter.writePixel(j,i,rayTracerBasic.averageColor(rays));}}
             //rendering the image with multi-threaded
             if (threadPool != null) {
@@ -386,15 +387,15 @@ public class Camera {
      * @return the number of pixel with the same color
      */
     private int sameColor(int j1, int i1, int j2, int i2, int j3, int i3, int j4, int i4, int j5, int i5, int j6, int i6, int j7, int i7, int j8, int i8, int j9, int i9, int nX, int nY) {
-        Color c1 = rayTracerBase.traceRay(this.constructOneRay(nX, nY, j1, i1));
-        Color c2 = rayTracerBase.traceRay(this.constructOneRay(nX, nY, j2, i2));
-        Color c3 = rayTracerBase.traceRay(this.constructOneRay(nX, nY, j3, i3));
-        Color c4 = rayTracerBase.traceRay(this.constructOneRay(nX, nY, j4, i4));
-        Color c5 = rayTracerBase.traceRay(this.constructOneRay(nX, nY, j5, i5));
-        Color c6 = rayTracerBase.traceRay(this.constructOneRay(nX, nY, j6, i6));
-        Color c7 = rayTracerBase.traceRay(this.constructOneRay(nX, nY, j7, i7));
-        Color c8 = rayTracerBase.traceRay(this.constructOneRay(nX, nY, j8, i8));
-        Color c9 = rayTracerBase.traceRay(this.constructOneRay(nX, nY, j9, i9));
+        Color c1 = rayTracerBasic.traceRay(constructOneRay(nX, nY, j1, i1));
+        Color c2 = rayTracerBasic.traceRay(constructOneRay(nX, nY, j2, i2));
+        Color c3 = rayTracerBasic.traceRay(constructOneRay(nX, nY, j3, i3));
+        Color c4 = rayTracerBasic.traceRay(constructOneRay(nX, nY, j4, i4));
+        Color c5 = rayTracerBasic.traceRay(constructOneRay(nX, nY, j5, i5));
+        Color c6 = rayTracerBasic.traceRay(constructOneRay(nX, nY, j6, i6));
+        Color c7 = rayTracerBasic.traceRay(constructOneRay(nX, nY, j7, i7));
+        Color c8 = rayTracerBasic.traceRay(constructOneRay(nX, nY, j8, i8));
+        Color c9 = rayTracerBasic.traceRay(constructOneRay(nX, nY, j9, i9));
         int sum = 0;
         if (c1 == c2)
             sum++;
@@ -428,7 +429,7 @@ public class Camera {
         if (numOfSame == 8) {
             LinkedList<Ray> rays;
             rays = this.constructRayPixel(nX, nY, j1, i1);
-            Color c = rayTracerBase.averageColor(rays);
+            Color c = rayTracerBasic.averageColor(rays);
             System.out.println(level);
             //color all the pixels
             for (int i = i2; i < i2 + nY / level; i++) {
@@ -471,7 +472,7 @@ public class Camera {
      */
     private void castRay(int nX, int nY, int col, int row) {
         LinkedList<Ray> rays = this.constructRayPixel(nX, nY, col, row);
-        Color pixelColor = rayTracerBase.averageColor(rays);
+        Color pixelColor = rayTracerBasic.averageColor(rays);
         imageWriter.writePixel(col, row, pixelColor);
     }
 
