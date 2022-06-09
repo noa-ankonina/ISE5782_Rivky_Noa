@@ -6,33 +6,29 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- *find intersections
+ * Gives interface for an object that is instersectable.
+ *
+ * @author Noa & Rivky
  */
 public interface Intersectable {
 
-
     /**
-     *
+     * class of geometry's points
      */
     public static class GeoPoint {
         public Geometry geometry;
         public Point point;
 
         /**
-         *
+         * Constructor with two parameters
          * @param geometry
-         * @param point
+         * @param point on the geometry
          */
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
             this.point=point;
         }
 
-        /***
-         *
-         * @param o
-         * @return
-         */
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -58,8 +54,8 @@ public interface Intersectable {
     }
 
     /**
-     * @param ray
-     * @return
+     * @param ray from the camera
+     * @return list of geometry's points
      */
     List<GeoPoint> findGeoIntersections (Ray ray);
 }

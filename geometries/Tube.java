@@ -7,29 +7,39 @@ import java.util.List;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
+/**
+ * Tube class represent a three-dimensional tube with Ray and radius
+ *
+ * @author Noa & Rivky
+ */
 public class Tube extends Geometry
 {
-    final Ray axisRay;
-    final double radius;
+    /**
+     * The axis ray of the tube
+     */
+    protected final Ray axisRay;
+
+    /**
+     * The radius of the tube
+     */
+    protected final double radius;
 
     /**
      * constructor who get Ray and number of radius
      *  @param axisRay
      * @param radius
-
      */
-    public Tube(Ray axisRay, double radius)
-    {
+    public Tube(Ray axisRay, double radius) {
         this.axisRay = axisRay;
         this.radius = radius;
     }
 
+    /**
+     * Returns the tube's axis ray.
+     * @return A shallow copy of the axis ray.
+     */
     public Ray getAxisRay() {
         return axisRay;
-    }
-
-    public double getRadius() {
-        return radius;
     }
 
     @Override

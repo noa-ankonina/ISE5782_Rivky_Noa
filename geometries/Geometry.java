@@ -5,12 +5,20 @@ import primitives.Material;
 import primitives.Point;
 import primitives.Vector;
 
-
+/**
+ * Interface for geometrics object
+ * @author Noa & Rivky
+ */
 public abstract class  Geometry implements Intersectable {
+
     /**
      * The emission light at first is black
      */
     protected Color emission =Color.BLACK;
+
+    /**
+     * The material of the geometry
+     */
     private Material material=new Material();
 
     /**

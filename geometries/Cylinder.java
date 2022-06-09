@@ -11,11 +11,25 @@ import static primitives.Util.isZero;
 
 /**
  * Cylinder class represent a three-dimensional cylinder- inherited from a tube and a height added to it
+ *
+ * @author Noa & Rivky
  */
 public class Cylinder extends Tube {
 
+    /**
+     * Cylinder's height
+     */
     protected final double height;
-    protected final Plane bottomCap, topCap;
+
+    /**
+     * Cylinder's bottomCap.
+     */
+    protected final Plane bottomCap;
+
+    /**
+     * Cylinder's topCap.
+     */
+    protected final Plane topCap;
 
     /**
      * Creates a new cylinder by a given axis ray, radius and height.
@@ -27,10 +41,8 @@ public class Cylinder extends Tube {
      */
     public Cylinder(Ray axisRay, double radius, double h) {
         super(axisRay, radius);
-
         if (h <= 0) {
-            throw new IllegalArgumentException("The height should be greater then 0");
-        }
+            throw new IllegalArgumentException("The height should be greater then 0");}
 
         height = h;
         Point p0 = axisRay.getPoint();
@@ -39,27 +51,11 @@ public class Cylinder extends Tube {
         topCap = new Plane(p1, axisRay.getDir());
     }
 
-    /**
-     * Returns the cylinder's height
-     *
-     * @return the cylinder's height
-     */
-    public double getHeight() {
-        return height;
-    }
-
     @Override
     public Vector getNormal(Point p) {
-        // Finding the normal:
-        // n = normalize(p - o)
-        // t = v * (p - p0)
-        // o = p0 + t * v
-
         Vector v = axisRay.getDir();
         Point p0 = axisRay.getPoint();
 
-        //if p=p0, then (p-p0) is zero vector
-        //returns the vector of the base as a normal
         if (p.equals(p0)) {
             return v.scale(-1);
         }
@@ -104,16 +100,14 @@ public class Cylinder extends Tube {
                 boolean q1Intersects = isBetweenCaps(q1.point);
 
                 if (q0Intersects && q1Intersects) {
-                    return tubePoints;
-                }
+                    return tubePoints; }
 
                 if (q0Intersects) {
                     result = new LinkedList<>();
-                    result.add(q0);
-                } else if (q1Intersects) {
+                    result.add(q0);}
+                else if (q1Intersects) {
                     result = new LinkedList<>();
-                    result.add(q1);
-                }
+                    result.add(q1);}
             }
 
             if (tubePoints.size() == 1) {
@@ -121,8 +115,7 @@ public class Cylinder extends Tube {
                 GeoPoint q = tubePoints.get(0);
                 if (isBetweenCaps(q.point)) {
                     result = new LinkedList<>();
-                    result.add(q);
-                }
+                    result.add(q);}
             }
         }
 
@@ -133,13 +126,11 @@ public class Cylinder extends Tube {
             GeoPoint gp = cap0Point.get(0);
             if (gp.point.distanceSquared(p0) < radius * radius) {
                 if (result == null) {
-                    result = new LinkedList<>();
-                }
+                    result = new LinkedList<>();}
 
                 result.add(gp);
                 if (result.size() == 2) {
-                    return result;
-                }
+                    return result;}
             }
         }
 
@@ -150,13 +141,11 @@ public class Cylinder extends Tube {
             GeoPoint gp = cap1Point.get(0);
             if (gp.point.distanceSquared(p1) < radius * radius) {
                 if (result == null) {
-                    return List.of(gp);
-                }
+                    return List.of(gp);}
 
                 result.add(gp);
             }
         }
-
         return result;
     }
 
@@ -173,8 +162,7 @@ public class Cylinder extends Tube {
 
         // Checks against zero vector...
         if (p.equals(p0) || p.equals(p1)) {
-            return false;
-        }
+            return false;}
 
         return v0.dotProduct(p.subtract(p0)) > 0 &&
                 v0.dotProduct(p.subtract(p1)) < 0;

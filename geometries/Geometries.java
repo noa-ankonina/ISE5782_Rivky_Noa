@@ -3,6 +3,12 @@ package geometries;
 import primitives.*;
 import java.util.*;
 
+/**
+ * Geometries class is a collection of intersectables and can calculates their intersections.
+ * It is using Composite design.
+ *
+ * @author Noa & Rivky
+ */
 public class Geometries implements Intersectable {
     public List<Intersectable> geometriesLst;
 
@@ -37,13 +43,11 @@ public class Geometries implements Intersectable {
             if (geoIntersections != null) {
 
                 if (intersections == null) {
-                    intersections = new LinkedList<>();
-                }
+                    intersections = new LinkedList<>();}
 
                 intersections.addAll(geoIntersections);
             }
         }
         return intersections;
     }
-
 }

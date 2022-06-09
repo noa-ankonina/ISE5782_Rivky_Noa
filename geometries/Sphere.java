@@ -7,12 +7,24 @@ import java.util.List;
 
 import static primitives.Util.alignZero;
 
+/**
+ * Sphere class represent a three-dimensional Sphere with a center point and radius
+ *
+ * @author Noa & Noa
+ */
 public class Sphere extends Geometry {
-    final Point center;
-    final double radius;
 
-    public Sphere(double radius, Point center )
-    {
+    /**
+     * Center point on the sphere
+     */
+    protected final Point center;
+
+    /**
+     * Radius of the sphere
+     */
+    protected final double radius;
+
+    public Sphere(double radius, Point center ) {
         this.center = center;
         this.radius = radius;
     }
@@ -24,27 +36,17 @@ public class Sphere extends Geometry {
      * @param r The sphere's radius
      * @throws IllegalArgumentException When the radius smaller or equals 0..
      */
-    public Sphere(Point c, double r)
-    {
+    public Sphere(Point c, double r) {
         if (r <= 0) {
             throw new IllegalArgumentException("The radius can't be  0 or less ");
         }
+
         this.center = c;
         this.radius = r;
     }
 
-
-    public Point getCenter() {
-        return center;
-    }
-
-    public double getRadius() {
-        return radius;
-    }
-
     @Override
-    public Vector getNormal(Point point)
-    {
+    public Vector getNormal(Point point) {
         Vector n=point.subtract(center);
         return n.normlize();
     }
@@ -54,14 +56,14 @@ public class Sphere extends Geometry {
         Point p0 = ray.getPoint();
         Vector v = ray.getDir();
         if (p0.equals(center)) {
-            return List.of(ray.getPointBy(radius));
-        }
+            return List.of(ray.getPointBy(radius));}
+
         Vector u = center.subtract(p0);
         double tm =v.dotProduct(u);
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
-        if (d >= radius) {
-            return null;
-        }
+
+        if (d >= radius) { return null; }
+
         double th = alignZero(Math.sqrt(radius * radius - d * d));
         double t1 = alignZero(tm - th);
         double t2 = alignZero(tm + th);
