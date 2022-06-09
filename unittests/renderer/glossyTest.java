@@ -23,8 +23,8 @@ public class glossyTest {
         scene.setBackground(new Color(java.awt.Color.red));
         scene.setAmbientLight(Color.BLACK, 0);
 
-        Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
-        Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
+        //Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
+        //Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
 
 
         scene.geometries.add(new Plane(new Point(300, 0, 0), new Vector(1, 0, 0))
@@ -253,7 +253,7 @@ public class glossyTest {
                     Math.cos(angleRadians * (m + 1)) * radius
             );*/
 
-            ImageWriter imageWriter = new ImageWriter("MP1", 1000, 1000);
+            ImageWriter imageWriter = new ImageWriter("MP1", 300, 300);
             camera.setImageWriter(imageWriter) //
                     //.setCamera(camera) //
                     .setRayTracer(new RayTracerBasic(scene).setGlossinessRays(20))

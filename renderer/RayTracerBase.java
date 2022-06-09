@@ -32,5 +32,10 @@ public abstract class RayTracerBase {
      */
     public abstract Color traceRay(Ray ray);
 
+    /***
+     * calculate the average color for antialiasing
+     * @param rays
+     * @return
+     */
     public abstract Color averageColor(LinkedList<Ray> rays);
 }
