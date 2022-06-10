@@ -26,8 +26,8 @@ class ProjectTest {
         scene.setBackground(new Color(java.awt.Color.red));
         scene.setAmbientLight(Color.BLACK, 0);
 
-        Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
-        Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
+       // Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
+      //  Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
 
 
         scene.geometries.add(new Plane(new Point(300, 0, 0), new Vector(1, 0, 0))
@@ -81,50 +81,46 @@ class ProjectTest {
                         .setEmission(new Color(java.awt.Color.MAGENTA))
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
 
-        double i = 250, j = 0, k = 0;
-        i = 200;
-        j = 0;
-        k = 0;
         scene.geometries.add( //
-                new Polygon(new Point(10 + i, 0 + j, 0 + k),
-                        new Point(115 + i, 45 + j, 0 + k),
-                        new Point(70 + i, 150 + j, 0 + k),
-                        new Point(-35 + i, 105 + j, 0 + k)).
+                new Polygon(new Point(210, 0, 0),
+                        new Point(315, 45, 0),
+                        new Point(270, 150, 0),
+                        new Point(165, 105, 0)).
                         setEmission(new Color(java.awt.Color.red))//front a,b,c,d
                         .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(30).setkT(0.3)),
 
-                new Polygon(new Point(10 + i, 0 + j, 114.23659658795863 + k),
-                        new Point(115 + i, 45 + j, 114.23659658795863 + k),
-                        new Point(70 + i, 150 + j, 114.23659658795863 + k),
-                        new Point(-35 + i, 105 + j, 114.23659658795863 + k)).
+                new Polygon(new Point(220, 0, 114.23659658795863),
+                        new Point(315, 45, 114.23659658795863),
+                        new Point(270, 150, 114.23659658795863),
+                        new Point(165, 105, 114.23659658795863)).
                         setEmission(new Color(java.awt.Color.green)) //back e,f,g,h
                         .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(30).setkT(0.3)),
 
-                new Polygon(new Point(115 + i, 45 + j, 0 + k),
-                        new Point(115 + i, 45 + j, 114.23659658795863 + k),
-                        new Point(70 + i, 150 + j, 114.23659658795863 + k),
-                        new Point(70 + i, 150 + j, 0 + k)).
+                new Polygon(new Point(315, 45 , 0),
+                        new Point(315, 45 , 114.23659658795863),
+                        new Point(270, 150 , 114.23659658795863),
+                        new Point(270, 150 , 0)).
                         setEmission(new Color(java.awt.Color.pink)) //right side b,f,g,c
                         .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(30).setkT(0.3)),
 
-                new Polygon(new Point(10 + i, 0 + j, 0 + k),
-                        new Point(10 + i, 0 + j, 114.23659658795863 + k),
-                        new Point(-35 + i, 105 + j, 114.23659658795863 + k),
-                        new Point(-35 + i, 105 + j, 0 + k)).
+                new Polygon(new Point(210, 0 , 0),
+                        new Point(210, 0 , 114.23659658795863 ),
+                        new Point(165, 105, 114.23659658795863),
+                        new Point(165, 105, 0 )).
                         setEmission(new Color(java.awt.Color.blue)) //left side a,e,h,d
                         .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(30).setkT(0.3)),
 
-                new Polygon(new Point(-35 + i, 105 + j, 0 + k),
-                        new Point(70 + i, 150 + j, 0 + k),
-                        new Point(70 + i, 150 + j, 114.23659658795863 + k),
-                        new Point(-35 + i, 105 + j, 114.23659658795863 + k)).
+                new Polygon(new Point(165, 105, 0),
+                        new Point(270, 150, 0 ),
+                        new Point(270, 150 , 114.23659658795863),
+                        new Point(165, 105 , 114.23659658795863 )).
                         setEmission(new Color(java.awt.Color.yellow)) //top d,c,g,h
                         .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(30).setkT(0.3)),
 
-                new Polygon(new Point(10 + i, 0 + j, 0 + k),
-                        new Point(115 + i, 45 + j, 0 + k),
-                        new Point(115 + i, 45 + j, 114.23659658795863 + k),
-                        new Point(10 + i, 0 + j, 114.23659658795863 + k)).
+                new Polygon(new Point(210, 0 , 0),
+                        new Point(315, 45, 0 ),
+                        new Point(315, 45, 114.23659658795863),
+                        new Point(210, 0 , 114.23659658795863)).
                         setEmission(new Color(java.awt.Color.orange)) //bottom a,b,f,e
                         .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(30).setkT(0.3))
         );
