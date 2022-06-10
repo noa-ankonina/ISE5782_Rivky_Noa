@@ -26,6 +26,7 @@ public class glossyTest {
         //Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
         //Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
 
+
         scene.geometries.add(new Plane(new Point(300, 0, 0), new Vector(1, 0, 0))
                         .setEmission(new Color(java.awt.Color.BLACK))
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)),
@@ -76,8 +77,102 @@ public class glossyTest {
                 new Sphere(new Point(50, 120, 20), 12)
                         .setEmission(new Color(java.awt.Color.MAGENTA))
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
+        //new Sphere(new Point(50, 0, 90), 13)
+        //        .setEmission(new Color(java.awt.Color.white))
+        //        .setMaterial(new Material().setKd(0).setKs(0).setShininess(0)));
+        double i = 250, j = 0, k = 0;/**
+         scene.geometries.add( //
+         new Polygon(new Point(10+i,0+j,0+k),
+         new Point(115+i,45+j,0+k),
+         new Point(70+i,150+j,0+k),
+         new Point(-35+i,105+j,0+k)).
+         setEmission(new Color(java.awt.Color.red))//front a,b,c,d
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
 
-        double i = 250, j = 0, k = 0;
+         new Polygon(new Point(10+i, 0+j, 114.23659658795863+k),
+         new Point(115+i, 45+j, 114.23659658795863+k),
+         new Point(70+i, 150+j, 114.23659658795863+k),
+         new Point(-35+i, 105+j, 114.23659658795863+k)).
+         setEmission(new Color(java.awt.Color.green)) //back e,f,g,h
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
+
+         new Polygon(new Point(115+i,45+j,0+k),
+         new Point(115+i, 45+j, 114.23659658795863+k),
+         new Point(70+i, 150+j, 114.23659658795863+k),
+         new Point(70+i,150+j,0+k)).
+         setEmission(new Color(java.awt.Color.pink)) //right side b,f,g,c
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
+
+         new Polygon(new Point(10+i,0+j,0+k),
+         new Point(10+i, 0+j, 114.23659658795863+k),
+         new Point(-35+i, 105+j, 114.23659658795863+k),
+         new Point(-35+i,105+j,0+k)).
+         setEmission(new Color(java.awt.Color.blue)) //left side a,e,h,d
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
+
+         new Polygon(new Point(-35+i,105+j,0+k),
+         new Point(70+i,150+j,0+k),
+         new Point(70+i, 150+j, 114.23659658795863+k),
+         new Point(-35+i, 105+j, 114.23659658795863+k)).
+         setEmission(new Color(java.awt.Color.yellow)) //top d,c,g,h
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
+
+         new Polygon(new Point(10+i,0+j, 0+k),
+         new Point(115+i,45+j,0+k),
+         new Point(115+i, 45+j, 114.23659658795863+k),
+         new Point(10+i, 0+j, 114.23659658795863+k)).
+         setEmission(new Color(java.awt.Color.orange)) //bottom a,b,f,e
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6))
+
+
+
+
+         );
+         /**i=0;
+         scene.geometries.add( //
+         new Polygon(new Point(10+i,0+j,0+k),
+         new Point(115+i,45+j,0+k),
+         new Point(70+i,150+j,0+k),
+         new Point(-35+i,105+j,0+k)).
+         setEmission(new Color(java.awt.Color.red))//front a,b,c,d
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
+
+         new Polygon(new Point(10+i, 0+j, 114.23659658795863+k),
+         new Point(115+i, 45+j, 114.23659658795863+k),
+         new Point(70+i, 150+j, 114.23659658795863+k),
+         new Point(-35+i, 105+j, 114.23659658795863+k)).
+         setEmission(new Color(java.awt.Color.green)) //back e,f,g,h
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
+
+         new Polygon(new Point(115+i,45+j,0+k),
+         new Point(115+i, 45+j, 114.23659658795863+k),
+         new Point(70+i, 150+j, 114.23659658795863+k),
+         new Point(70+i,150+j,0+k)).
+         setEmission(new Color(java.awt.Color.pink)) //right side b,f,g,c
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
+
+         new Polygon(new Point(10+i,0+j,0+k),
+         new Point(10+i, 0+j, 114.23659658795863+k),
+         new Point(-35+i, 105+j, 114.23659658795863+k),
+         new Point(-35+i,105+j,0+k)).
+         setEmission(new Color(java.awt.Color.blue)) //left side a,e,h,d
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
+
+         new Polygon(new Point(-35+i,105+j,0+k),
+         new Point(70+i,150+j,0+k),
+         new Point(70+i, 150+j, 114.23659658795863+k),
+         new Point(-35+i, 105+j, 114.23659658795863+k)).
+         setEmission(new Color(java.awt.Color.yellow)) //top d,c,g,h
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6)),
+
+         new Polygon(new Point(10+i,0+j, 0+k),
+         new Point(115+i,45+j,0+k),
+         new Point(115+i, 45+j, 114.23659658795863+k),
+         new Point(10+i, 0+j, 114.23659658795863+k)).
+         setEmission(new Color(java.awt.Color.orange)) //bottom a,b,f,e
+         .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6))
+         );
+         */
         i = 200;
         j = 0;
         k = 0;
@@ -128,6 +223,35 @@ public class glossyTest {
         scene.lights.add(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0.1, 0)));
         scene.lights.add(new SpotLight(new Color(java.awt.Color.white), new Point(200, 0, 20), new Vector(0, 0, -1))
                 .setKl(0.0000001).setKq(0.0000001));
+        //scene.lights.add(new PointLight(trCL, trPL).setKl(0.001).setKq(0.0002));
+        /**scene.lights.add(new SpotLight(new Color(0,250,350),
+         new Point(-200, 100, 0),
+         new Vector(1, 1, -2)).setSpecularN(40) ///
+         .setKl(0.00000005).setKq(0.000000005));
+         scene.lights.add(new SpotLight(new Color(0,250,350),
+         new Point(-200, 50, 0),
+         new Vector(1, 0.5, -2)).setSpecularN(20) //
+         .setKl(0.00000005).setKq(0.000000005));
+         scene.lights.add(new SpotLight(new Color(0,250,350),
+         new Point(-200, 55, 0),
+         new Vector(1, 1, -2)).setSpecularN(10) //
+         .setKl(0.00000005).setKq(0.000000005));*/
+/*
+        int frames = 16;
+        double angle = 360d / frames;
+        double angleRadians = 2 * Math.PI / frames;
+
+        double radius = camera.getP0().substract(Point.ZERO).length();
+
+        for (int m = 0; m < frames; m++) {
+            System.out.println("Start frame " + (m + 1));
+
+            camera.rotate(0, angle, 0);
+            camera.setP0(
+                    Math.sin(angleRadians * (m + 1)) * radius,
+                    0,
+                    Math.cos(angleRadians * (m + 1)) * radius
+            );*/
 
             ImageWriter imageWriter = new ImageWriter("MP1", 300, 300);
             camera.setImageWriter(imageWriter) //

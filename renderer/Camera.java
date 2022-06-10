@@ -161,6 +161,10 @@ public class Camera {
         return this;
     }
 
+    public void setP0(double v, int i, double v1) {
+        p0=new Point(v,i,v1);
+    }
+
     /**
      * Set the new view plane's height.
      *
@@ -702,5 +706,6 @@ public class Camera {
             lastPercent = printPercent(currentPixel, pixels, lastPercent);
         }
     }
+
 
 }
