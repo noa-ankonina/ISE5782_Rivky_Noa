@@ -145,7 +145,7 @@ class ProjectTest {
                 new Vector(0, 1, 0))
                 .setViewPlaneSize(200, 125)
                 .setDistance(800)
-                .setNumOfRays(1);
+                .setNumOfRays(81);
 
         Scene scene = new Scene("Test Scene");
         setLights(scene);
@@ -161,8 +161,8 @@ class ProjectTest {
     }
 
     private void setLights(Scene scene) {
-        scene.lights.add(new DirectionalLight(new Color(230,0,230),new Vector(0,-1,0)));
-        scene.lights.add(new PointLight(new Color(230,0,230),new Point(0,600,0)));
+        //scene.lights.add(new DirectionalLight(new Color(230,0,230),new Vector(0,-1,0)));
+        scene.lights.add(new PointLight(new Color(230,0,230),new Point(300,-30,300)));
         scene.lights.add(new SpotLight(
                         new Color(400, 400, 400),
                         new Point(-50, 100, 100),
@@ -180,7 +180,7 @@ class ProjectTest {
                 new Point(-200, 100, 0),
                 new Vector(1, 1, -2)).setSpecularN(40) //
                 .setKl(0.00000005).setKq(0.000000005));
-        /*scene.lights.add(new SpotLight(
+        scene.lights.add(new SpotLight(
                 new Color(0, 250, 350),
                 new Point(-200, 50, 0),
                 new Vector(1, 0.5, -2)).setSpecularN(20) //
@@ -189,8 +189,7 @@ class ProjectTest {
                 new Color(0, 250, 350),
                 new Point(-200, 55, 0),
                 new Vector(1, 1, -2)).setSpecularN(10) //
-                .setKl(0.00000005).setKq(0.000000005));*/
-
+                .setKl(0.00000005).setKq(0.000000005));
     }
 
     private void setGeometries(Scene scene) {
