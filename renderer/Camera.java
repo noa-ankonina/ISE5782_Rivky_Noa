@@ -2,12 +2,9 @@ package renderer;
 
 import multiThreding.ThreadPool;
 import primitives.*;
-import scene.Scene;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
-
 import static primitives.Util.isZero;
 import static primitives.Util.random;
 
@@ -159,13 +156,12 @@ public class Camera {
      *
      * @throws IllegalArgumentException When width illegal.
      */
-    public Camera setWidth(double width) {
+    public void  setWidth(double width) {
         if (width <= 0) {
 
             throw new IllegalArgumentException("Illegal value of width");
         }
         this.width = width;
-        return this;
     }
 
     /**
@@ -173,13 +169,11 @@ public class Camera {
      *
      * @throws IllegalArgumentException When height illegal.
      */
-    public Camera setHeight(double height) {
+    public void setHeight(double height) {
         if (height <= 0) {
-
             throw new IllegalArgumentException("Illegal value of width");
         }
         this.height = height;
-        return this;
     }
 
     /**
@@ -381,7 +375,6 @@ public class Camera {
         }
 
         else {
-            LinkedList<Ray> rays;
             //pass through each pixel and calculate the color
             for (int i = i2; i < i2 + nY / level; i++) {
                 for (int j = j1; j < j1 + nX / level; j++) {

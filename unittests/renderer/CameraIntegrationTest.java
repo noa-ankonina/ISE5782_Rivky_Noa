@@ -87,7 +87,6 @@ public class CameraIntegrationTest {
         List<List<Point>> intersections = new ArrayList<>(Collections.nCopies(intersectables.length, null));
 
         for (int i = 0; i < nY; ++i) {
-
             for (int j = 0; j < nX; ++j) {
 
                 Ray pixelRay = cam.constructOneRay(nX, nY, j, i);
