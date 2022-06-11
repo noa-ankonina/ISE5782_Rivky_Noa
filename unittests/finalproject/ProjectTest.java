@@ -231,11 +231,11 @@ class ProjectTest {
                         .setEmission(new Color(java.awt.Color.GRAY))
                         .setMaterial(new Material()
                                 .setkR(0.8).setkG(0.95)),
-                /*
-                new Sphere(new Point(-45, -45, -5), 5)
+/*
+                new Sphere(new Point(-20, -45, -5), 5)
                         .setEmission(new Color(java.awt.Color.GRAY))
                         .setMaterial(new Material()
-                                .setkR(0.8).setkG(0.95)),
+                                .setkR(0.8).setkG(0.95)),/*
                 new Sphere(new Point(-45, -30, -5), 5)
                         .setEmission(new Color(java.awt.Color.GRAY))
                         .setMaterial(new Material()

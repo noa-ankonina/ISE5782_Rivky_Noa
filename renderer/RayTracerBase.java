@@ -9,6 +9,7 @@ import java.util.LinkedList;
 /**
  * RayTracerBase abstract class that use as an interface for RayTracerBasic
  *
+ * @author Noa & Rivky
  */
 public abstract class RayTracerBase {
 

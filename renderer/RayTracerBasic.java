@@ -14,6 +14,8 @@ import static primitives.Util.isZero;
 
 /**
  *  RayTracerBasic class extends RayTracerBase and implement the abstract function traceRay
+ *
+ * @author Noa & Rivky
  */
 public class RayTracerBasic extends RayTracerBase {
 
@@ -24,27 +26,15 @@ public class RayTracerBasic extends RayTracerBase {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
     private int glossinessRays = 10;
-    private int numOfRays;
-    private static final double DISTANCE = 10;
 
     /**
      * A builder
      *
-     * @param scene1 that the ray cross
+     * @param scene that the ray cross
      */
-    public RayTracerBasic(Scene scene1) {
-        super(scene1);
-        this.scene=scene1;
-    }
-
-    /**
-     * constructor that activate the father constructor
-     *
-     * @param scene Scene
-     */
-    public RayTracerBasic(Scene scene, int numOfRays) {
+    public RayTracerBasic(Scene scene) {
         super(scene);
-        this.numOfRays = numOfRays;
+        this.scene=scene;
     }
 
     /***
@@ -87,10 +77,12 @@ public class RayTracerBasic extends RayTracerBase {
         if (nv == 0) {
             return Color.BLACK;
         }
+
         Material material = intersection.geometry.getMaterial();
         int nShininess = material.nShininess;
         double kd = material.kD, ks = material.kS;
         Color color = Color.BLACK;
+
         //for each light source calculate the diffuse and specular
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(intersection.point);
@@ -231,6 +223,7 @@ public class RayTracerBasic extends RayTracerBase {
         }
         return color;
     }
+
     /**
      *help function to the recursion
      * @param ray from the geometry
@@ -343,7 +336,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @return the randomized vectors
      */
     private Vector[] createRandomVectorsOnSphere(Vector n, int numOfVectors) {
-        // pick axis with smallest component in normal
+        // pick axis with the smallest component in normal
         // in order to prevent picking an axis parallel
         // to the normal and eventually creating zero vector
         Vector axis;
