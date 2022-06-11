@@ -166,14 +166,21 @@ class ProjectTest {
                         new Point(-50, 100, 100),
                         new Vector(-0.5, -1, -0.5))
                         .setKl(0.004)
-                        .setKq(0.000006)
-        );
+                        .setKq(0.000006));
+                scene.lights.add(
+                new SpotLight(
+                        new Color(500, 500, 500),
+                        new Point(-50, 100, 100),
+                        new Vector(-0.5, -1, -0.5))
+                        .setKl(0.004)
+                        .setKq(0.000006));
         scene.lights.add(new SpotLight(new Color(0, 250, 350), new Point(-200, 100, 0), new Vector(1, 1, -2)).setSpecularN(40) //
                 .setKl(0.00000005).setKq(0.000000005));
         scene.lights.add(new SpotLight(new Color(0, 250, 350), new Point(-200, 50, 0), new Vector(1, 0.5, -2)).setSpecularN(20) //
                 .setKl(0.00000005).setKq(0.000000005));
         scene.lights.add(new SpotLight(new Color(0, 250, 350), new Point(-200, 55, 0), new Vector(1, 1, -2)).setSpecularN(10) //
                 .setKl(0.00000005).setKq(0.000000005));
+
     }
 
     private void setGeometries(Scene scene) {
@@ -260,6 +267,11 @@ class ProjectTest {
                                 .setShininess(50))
                 ,
 
+                //else
+                new Sphere(new Point(20, 0, 10), 20)
+                        .setEmission(new Color(70,70,70))
+                        .setMaterial(new Material()
+                                .setkR(1.0).setkG(0.8)),
                 //square
                 //1
                new Polygon(new Point(-25, -50, -30),
