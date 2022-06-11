@@ -2,6 +2,7 @@ package unittests.finalproject;
 import geometries.Polygon;
 import geometries.Sphere;
 import lighting.DirectionalLight;
+import lighting.PointLight;
 import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
 import geometries.Triangle;
@@ -139,12 +140,12 @@ class ProjectTest {
     @Test
     public void project() {
         Camera camera = new Camera(
-                new Point(0, 0, -1000),
-                new Vector(0, 0, 1),
+                new Point(0, 0, 1000),
+                new Vector(0, 0, -1),
                 new Vector(0, 1, 0))
                 .setViewPlaneSize(200, 125)
                 .setDistance(800)
-                .setNumOfRays(1);
+                .setNumOfRays(81);
 
         Scene scene = new Scene("Test Scene");
         setLights(scene);
@@ -160,63 +161,72 @@ class ProjectTest {
     }
 
     private void setLights(Scene scene) {
-        scene.lights.add(
-                new SpotLight(
+        //scene.lights.add(new DirectionalLight(new Color(230,0,230),new Vector(0,-1,0)));
+        scene.lights.add(new PointLight(new Color(230,0,230),new Point(300,-30,300)));
+        scene.lights.add(new SpotLight(
                         new Color(400, 400, 400),
                         new Point(-50, 100, 100),
                         new Vector(-0.5, -1, -0.5))
                         .setKl(0.004)
                         .setKq(0.000006));
-                scene.lights.add(
-                new SpotLight(
-                        new Color(500, 500, 500),
+        scene.lights.add(new SpotLight(
+                        new Color(214,72,217),
                         new Point(-50, 100, 100),
                         new Vector(-0.5, -1, -0.5))
                         .setKl(0.004)
                         .setKq(0.000006));
-        scene.lights.add(new SpotLight(new Color(0, 250, 350), new Point(-200, 100, 0), new Vector(1, 1, -2)).setSpecularN(40) //
+        scene.lights.add(new SpotLight(
+                new Color(0, 250, 350),
+                new Point(-200, 100, 0),
+                new Vector(1, 1, -2)).setSpecularN(40) //
                 .setKl(0.00000005).setKq(0.000000005));
-        scene.lights.add(new SpotLight(new Color(0, 250, 350), new Point(-200, 50, 0), new Vector(1, 0.5, -2)).setSpecularN(20) //
+        scene.lights.add(new SpotLight(
+                new Color(0, 250, 350),
+                new Point(-200, 50, 0),
+                new Vector(1, 0.5, -2)).setSpecularN(20) //
                 .setKl(0.00000005).setKq(0.000000005));
-        scene.lights.add(new SpotLight(new Color(0, 250, 350), new Point(-200, 55, 0), new Vector(1, 1, -2)).setSpecularN(10) //
+        scene.lights.add(new SpotLight(
+                new Color(0, 250, 350),
+                new Point(-200, 55, 0),
+                new Vector(1, 1, -2)).setSpecularN(10) //
                 .setKl(0.00000005).setKq(0.000000005));
-
     }
 
     private void setGeometries(Scene scene) {
         //triangles
-        Point h = new Point(60, -50, 30);
-        Point g = new Point(45, -30, 0);
-        Point a = new Point(30, -50, 30);
-        Point b = new Point(40, 0, 15);
-        Point W_1 = new Point(69.2705098312485, 16.810981864696302,42.7597621252806);
-        Point V_1 = new Point(60, 16.810981864696302,71.2914576141351);
-        Point U_1 = new Point(30, 16.810981864696302,71.2914576141351);
-        Point T_1 = new Point(20.729490168751497, 16.810981864696302,42.7597621252806);
-        Point S_1 = new Point(45, 16.810981864696302,25.126204556506494);
-        Point R_1 = new Point(84.2705098312485, -8.708542385864902,37.885966681787096);
-        Point Q_1 = new Point(69.2705098312485, -8.708542385864902,84.05121973941601);
-        Point P_1 = new Point(20.729490168751497, -8.708542385864902,84.05121973941601);
-        Point O_1 = new Point(5.729490168751497, -8.708542385864597,37.885966681787096);
-        Point N_1 = new Point(45, -8.708542385864902,9.354271192932604);
-        Point M_1 = new Point(69.2705098312485, -24.4804757494388,17.240237874719405);
-        Point L_1 = new Point(84.2705098312485, -24.4804757494388,63.405490932348314);
-        Point K_1 = new Point(45, -24.4804757494388,91.9371864212028);
-        Point J_1 = new Point(5.729490168751497, -24.4804757494388,63.405490932348314);
-        Point I_1 = new Point(20.729490168751497, -24.4804757494388,17.240237874719405);
-        Point A_6 = new Point(30, -50, 30);
-        Point E_1 = new Point(60, -50, 30);
-        Point H_1 =new Point(69.27050983124842, -50,58.53169548885461);
-        Point G_1 =new Point(44.99999999999999, -50,76.16525305762879);
-        Point F_1 =new Point (20.72949016875158, -50,58.531695488854595);
+        int xd=-50,yd=-50,xt=10,yt=-30,xr=80,yr=80;
+        Point h = new Point(60+xt, -50, 30+yt);
+        Point g = new Point(45+xt, -30, 0+yt);
+        Point a = new Point(30+xt, -50, 30+yt);
+        Point b = new Point(40+xt, 0, 15+yt);
+        Point W_1 = new Point(69.2705098312485+xd, 16.810981864696302,42.7597621252806+yd);
+        Point V_1 = new Point(60+xd, 16.810981864696302,71.2914576141351+yd);
+        Point U_1 = new Point(30+xd, 16.810981864696302,71.2914576141351+yd);
+        Point T_1 = new Point(20.729490168751497+xd, 16.810981864696302,42.7597621252806+yd);
+        Point S_1 = new Point(45+xd, 16.810981864696302,25.126204556506494+yd);
+        Point R_1 = new Point(84.2705098312485+xd, -8.708542385864902,37.885966681787096+yd);
+        Point Q_1 = new Point(69.2705098312485+xd, -8.708542385864902,84.05121973941601+yd);
+        Point P_1 = new Point(20.729490168751497+xd, -8.708542385864902,84.05121973941601+yd);
+        Point O_1 = new Point(5.729490168751497+xd, -8.708542385864597,37.885966681787096+yd);
+        Point N_1 = new Point(45+xd, -8.708542385864902,9.354271192932604+yd);
+        Point M_1 = new Point(69.2705098312485+xd, -24.4804757494388,17.240237874719405+yd);
+        Point L_1 = new Point(84.2705098312485+xd, -24.4804757494388,63.405490932348314+yd);
+        Point K_1 = new Point(45+xd, -24.4804757494388,91.9371864212028+yd);
+        Point J_1 = new Point(5.729490168751497+xd, -24.4804757494388,63.405490932348314+yd);
+        Point I_1 = new Point(20.729490168751497+xd, -24.4804757494388,17.240237874719405+yd);
+        Point A_6 = new Point(30+xd, -50, 30+yd);
+        Point E_1 = new Point(60+xd, -50, 30+yd);
+        Point H_1 =new Point(69.27050983124842+xd, -50,58.53169548885461+yd);
+        Point G_1 =new Point(44.99999999999999+xd, -50,76.16525305762879+yd);
+        Point F_1 =new Point (20.72949016875158+xd, -50,58.531695488854595+yd);
         int S=80;
 
         scene.geometries.add(
                 //sphere
-               new Sphere(new Point(80, -28, 0), 22)
+               /*new Sphere(new Point(80, -28, 0), 22)
                         .setEmission(new Color(java.awt.Color.pink))
                         .setMaterial(new Material()
-                                .setkR(0.8)),
+                                .setkR(0.8)),*/
                 new Sphere(new Point(-45, -45, -5), 5)
                         .setEmission(new Color(java.awt.Color.GRAY))
                         .setMaterial(new Material()
@@ -237,24 +247,24 @@ class ProjectTest {
 
                 //triangles
                 new Triangle(a, g, h)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,128))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkT(0.1)
                                 .setShininess(80)),
                 new Triangle(a, b, h)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,128))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkT(0.1)
                                 .setShininess(80)),
                 new Triangle(a, b, g)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,128))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkT(0.1)
                                 .setShininess(80)),
                 new Triangle(g, b, h)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,128))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkT(0.1)
                                 .setShininess(80)),
                 //cylinder
                 new Cylinder(new Ray(
@@ -268,112 +278,112 @@ class ProjectTest {
                 ,
 
                 //else
-                new Sphere(new Point(20, 0, 10), 20)
-                        .setEmission(new Color(70,70,70))
+                new Sphere(new Point(60, -30, 10), 20)
+                        .setEmission(new Color(40, 40, 40))
                         .setMaterial(new Material()
-                                .setkR(1.0).setkG(0.8)),
+                                .setkT(1.0).setkG(0.8)),
                 //square
                 //1
-               new Polygon(new Point(-25, -50, -30),
-                        new Point(-25, -50, 30),
-                        new Point(15, -50, 30),
-                        new Point(15, -50, -30))
-                        .setEmission(new Color(java.awt.Color.BLUE))
+               new Polygon(new Point(-25+xr, -50, -30+yr),
+                        new Point(-25+xr, -50, 30+yr),
+                        new Point(15+xr, -50, 30+yr),
+                        new Point(15+xr, -50, -30+yr))
+                        .setEmission(new Color(128,128,255))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(50)),
-                new Polygon(new Point(-25, -25, -30),
-                        new Point(-25, -25, 30),
-                        new Point(15, -25, 30),
-                        new Point(15, -25, -30))
-                        .setEmission(new Color(java.awt.Color.BLUE))
+                new Polygon(new Point(-25+xr, -25, -30+yr),
+                        new Point(-25+xr, -25, 30+yr),
+                        new Point(15+xr, -25, 30+yr),
+                        new Point(15+xr, -25, -30+yr))
+                        .setEmission(new Color(128,128,255))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(50)),
-                new Polygon(new Point(-25, -50, -30),
-                        new Point(-25, -50, 30),
-                        new Point(-25, -25, 30),
-                        new Point(-25, -25, -30))
-                        .setEmission(new Color(java.awt.Color.BLUE))
+                new Polygon(new Point(-25+xr, -50, -30+yr),
+                        new Point(-25+xr, -50, 30+yr),
+                        new Point(-25+xr, -25, 30+yr),
+                        new Point(-25+xr, -25, -30+yr))
+                        .setEmission(new Color(128,128,255))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(50)),
-                new Polygon(new Point(15, -50, -30),
-                        new Point(15, -50, 30),
-                        new Point(15, -25, 30),
-                        new Point(15, -25, -30))
-                        .setEmission(new Color(java.awt.Color.BLUE))
+                new Polygon(new Point(15+xr, -50, -30+yr),
+                        new Point(15+xr, -50, 30+yr),
+                        new Point(15+xr, -25, 30+yr),
+                        new Point(15+xr, -25, -30+yr))
+                        .setEmission(new Color(128,128,255))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(50)),
-                new Polygon(new Point(-25, -50, 30),
-                        new Point(15, -50, 30),
-                        new Point(15, -25, 30),
-                        new Point(-25, -25, 30))
-                        .setEmission(new Color(java.awt.Color.BLUE))
+                new Polygon(new Point(-25+xr, -50, 30+yr),
+                        new Point(15+xr, -50, 30+yr),
+                        new Point(15+xr, -25, 30+yr),
+                        new Point(-25+xr, -25, 30+yr))
+                        .setEmission(new Color(128,128,255))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(50)),
-                new Polygon(new Point(-25, -50, -30),
-                        new Point(15, -50, -30),
-                        new Point(15, -25, -30),
-                        new Point(-25, -25, -30))
-                        .setEmission(new Color(java.awt.Color.BLUE))
+                new Polygon(new Point(-25+xr, -50, -30+yr),
+                        new Point(15+xr, -50, -30+yr),
+                        new Point(15+xr, -25, -30+yr),
+                        new Point(-25+xr, -25, -30+yr))
+                        .setEmission(new Color(128,128,255))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(50)),
                 //2
-                new Polygon(new Point(-15, -25, -20),
-                        new Point(-15, -25, 20),
-                        new Point(5, -25, 20),
-                        new Point(5, -25, -20))
-                        .setEmission(new Color(java.awt.Color.MAGENTA))
+                new Polygon(new Point(-15+xr, -25, -20+yr),
+                        new Point(-15+xr, -25, 20+yr),
+                        new Point(5+xr, -25, 20+yr),
+                        new Point(5+xr, -25, -20+yr))
+                        .setEmission(new Color(255,255,128))
                         .setMaterial(new Material()
-                                .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
-                                .setShininess(60)),
-                new Polygon(new Point(-15, -15, -20),
-                        new Point(-15, -15, 20),
-                        new Point(5, -15, 20),
-                        new Point(5, -15, -20))
-                        .setEmission(new Color(java.awt.Color.MAGENTA))
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
+                                .setShininess(50)),
+                new Polygon(new Point(-15+xr, -15, -20+yr),
+                        new Point(-15+xr, -15, 20+yr),
+                        new Point(5+xr, -15, 20+yr),
+                        new Point(5+xr, -15, -20+yr))
+                        .setEmission(new Color(255,255,128))
                         .setMaterial(new Material()
-                                .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
-                                .setShininess(60)),
-                new Polygon(new Point(-15, -25, -20),
-                        new Point(-15, -25, 20),
-                        new Point(-15, -15, 20),
-                        new Point(-15, -15, -20))
-                        .setEmission(new Color(java.awt.Color.MAGENTA))
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
+                                .setShininess(50)),
+                new Polygon(new Point(-15+xr, -25, -20+yr),
+                        new Point(-15+xr, -25, 20+yr),
+                        new Point(-15+xr, -15, 20+yr),
+                        new Point(-15+xr, -15, -20+yr))
+                        .setEmission(new Color(255,255,128))
                         .setMaterial(new Material()
-                                .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
-                                .setShininess(60)),
-                new Polygon(new Point(5, -25, -20),
-                        new Point(5, -25, 20),
-                        new Point(5, -15, 20),
-                        new Point(5, -15, -20))
-                        .setEmission(new Color(java.awt.Color.MAGENTA))
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
+                                .setShininess(50)),
+                new Polygon(new Point(5+xr, -25, -20+yr),
+                        new Point(5+xr, -25, 20+yr),
+                        new Point(5+xr, -15, 20+yr),
+                        new Point(5+xr, -15, -20+yr))
+                        .setEmission(new Color(255,255,128))
                         .setMaterial(new Material()
-                                .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
-                                .setShininess(60)),
-                new Polygon(new Point(-15, -25, 20),
-                        new Point(5, -25, 20),
-                        new Point(5, -15, 20),
-                        new Point(-15, -15, 20))
-                        .setEmission(new Color(java.awt.Color.MAGENTA))
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
+                                .setShininess(50)),
+                new Polygon(new Point(-15+xr, -25, 20+yr),
+                        new Point(5+xr, -25, 20+yr),
+                        new Point(5+xr, -15, 20+yr),
+                        new Point(-15+xr, -15, 20+yr))
+                        .setEmission(new Color(255,255,128))
                         .setMaterial(new Material()
-                                .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
-                                .setShininess(30)),
-                new Polygon(new Point(-15, -25, -20),
-                        new Point(5, -25, -20),
-                        new Point(5, -15, -20),
-                        new Point(-15, -15, -20))
-                        .setEmission(new Color(java.awt.Color.MAGENTA))
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
+                                .setShininess(50)),
+                new Polygon(new Point(-15+xr, -25, -20+yr),
+                        new Point(5+xr, -25, -20+yr),
+                        new Point(5+xr, -15, -20+yr),
+                        new Point(-15+xr, -15, -20+yr))
+                        .setEmission(new Color(255,255,128))
                         .setMaterial(new Material()
-                                .setkR(0.1).setKd(0.5).setKs(0.5).setkT(0.2)
-                                .setShininess(60)),
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
+                                .setShininess(50)),
 
                 // surface
-                new Polygon(
+                /*new Polygon(
                         new Point(-100, -50, -150),
                         new Point(-100, -50, 200),
                         new Point(100, -50, 200),
@@ -381,9 +391,30 @@ class ProjectTest {
                         .setEmission(new Color(java.awt.Color.BLACK))
                         .setMaterial(new Material()
                                 .setKd(0.5).setKs(0.5)
-                                .setShininess(100)),
-                //front block
+                                .setShininess(100)),*/
+                //back
+
                 new Polygon(
+                        new Point(-100, -50, -150),
+                        new Point(-100, -50, 150),
+                        new Point(100, -50, 150),
+                        new Point(100, -50, -150))
+                        .setEmission(new Color(java.awt.Color.BLACK))
+                        .setMaterial(new Material()
+                                .setKd(0.5).setKs(0.5)
+                                .setShininess(100)),
+
+                new Polygon(
+                        new Point(-100, -50, -150),
+                        new Point(-100, 75, -150),
+                        new Point(100, 75, -150),
+                        new Point(100, -50, -150))
+                        .setEmission(new Color(40, 40, 40))
+                        .setMaterial(new Material()
+                                        .setKd(0.5).setKs(0.5)
+                                        .setShininess(100).setkT(0).setkR(0.5).setkB(0).setkG(0.1)),
+                //front block
+                /*new Polygon(
                         new Point(0, -50, 75),
                         new Point(0, 30, 75),
                         new Point(38, 30, 75),
@@ -398,67 +429,67 @@ class ProjectTest {
                         new Point(80, -50, 75))
                         .setEmission(new Color(40, 40, 40))
                         .setMaterial(new Material()
-                                .setkT(1.0).setkG(0.8)),
+                                .setkT(1.0).setkG(0.8)),*/
                 //dodeandrom
                 new Polygon(W_1,S_1,N_1,M_1,R_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                        .setKd(0.6).setKs(0.4).setkT(0.6)
+                        .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                         .setShininess(S)),
                 new Polygon(Q_1,V_1,W_1,R_1,L_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(Q_1,L_1,H_1,G_1,K_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(U_1,V_1,Q_1,K_1,P_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(N_1,I_1,A_6,E_1,M_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(H_1,E_1,A_6,F_1,G_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(R_1,M_1,E_1,H_1,L_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(T_1,U_1,P_1,J_1,O_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(S_1,T_1,O_1,I_1,N_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(W_1,V_1,U_1,T_1,S_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(P_1,K_1,G_1,F_1,J_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S)),
                 new Polygon(O_1,J_1,F_1,A_6,I_1)
-                        .setEmission(new Color(java.awt.Color.YELLOW))
+                        .setEmission(new Color(255,128,0))
                         .setMaterial(new Material()
-                                .setKd(0.6).setKs(0.4).setkT(0.6)
+                                .setKd(0.6).setKs(0.4).setkR(0.1).setkG(0.8)
                                 .setShininess(S))
 
 
