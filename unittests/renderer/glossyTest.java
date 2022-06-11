@@ -47,8 +47,8 @@ public class glossyTest {
                         new Point(1500, 150, 0),
                         new Point(-1000, 150, 0)).setEmission(new Color(10, 10, 10))
                         .setMaterial(new Material().setKd(0.5).setKs(0.5)
-                                .setShininess(100).setkT(0).setkR(0.5).setkB(0).setkG(0.1)),
-                new Cylinder(new Ray(
+                                .setShininess(100).setkT(0).setkR(0.5).setkB(0).setkG(0.1))//,
+                /*new Cylinder(new Ray(
                         new Point(90, -65, 0),
                         new Vector(0, 3, 10)),
                         30, 150)
@@ -173,7 +173,7 @@ public class glossyTest {
          .setMaterial(new Material().setKd(1).setKs(0.2).setShininess(30).setkT(0.6))
          );
          */
-        i = 200;
+        /*i = 200;
         j = 0;
         k = 0;
         scene.geometries.add( //
@@ -217,7 +217,7 @@ public class glossyTest {
                         new Point(115 + i, 45 + j, 114.23659658795863 + k),
                         new Point(10 + i, 0 + j, 114.23659658795863 + k)).
                         setEmission(new Color(java.awt.Color.orange)) //bottom a,b,f,e
-                        .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(30).setkT(0.3))
+                        .setMaterial(new Material().setKd(0.6).setKs(0.2).setShininess(30).setkT(0.3))*/
         );
 
         scene.lights.add(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0.1, 0)));
