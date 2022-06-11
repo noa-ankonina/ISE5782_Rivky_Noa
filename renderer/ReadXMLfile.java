@@ -19,6 +19,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/**
+ * @author Rivky
+ */
 public class ReadXMLfile {
 
     /**
@@ -57,6 +61,7 @@ public class ReadXMLfile {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 geoList.add(getTriangle(nodeList.item(i)));
             }
+
             //get all the Polygon
             nodeList = doc.getElementsByTagName("polygon");
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -68,6 +73,7 @@ public class ReadXMLfile {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 geoList.add(getSphere(nodeList.item(i)));
             }
+
             //get all the plane
             nodeList = doc.getElementsByTagName("plane");
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -201,7 +207,6 @@ public class ReadXMLfile {
         }
         return new Double3(arr[0], arr[1], arr[2]);
     }
-
 }
 
 

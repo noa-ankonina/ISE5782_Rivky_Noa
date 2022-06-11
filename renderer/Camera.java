@@ -11,8 +11,13 @@ import java.util.MissingResourceException;
 import static primitives.Util.isZero;
 import static primitives.Util.random;
 
-
+/**
+ * Camera object in 3d scene for creating rays through pixels.
+ *
+ * @author Noa & Rivky
+ */
 public class Camera {
+
     /**
      * Camera's location.
      */
@@ -48,9 +53,13 @@ public class Camera {
      */
     private double distance;
 
+    /**
+     * Image writer of the scene
+     */
     private ImageWriter imageWriter;
+
     RayTracerBasic rayTracerBasic;
-    private int numOfRays = 0; //num of rays in every pixel(default = 1)
+    private int numOfRays = 0; //The number of rays sent by the camera.
     private boolean focus = false;
     private Point focalPix = null;
     public double disFocal = 0;
@@ -59,6 +68,7 @@ public class Camera {
      * ThreadPool of the scene
      */
     private ThreadPool<Pixel> threadPool = null;
+
     /**
      * Next pixel of the scene
      */
@@ -69,17 +79,13 @@ public class Camera {
      */
     public static int lastPercent = -1;
 
-    /**
-     * The camera in the scene
-     */
-     //Camera camera;
 
     /**
-     * @param rayTracerBasicc from the camera
+     * @param rayTracerBasic from the camera
      * @return this render
      */
-    public Camera setRayTracer(RayTracerBasic rayTracerBasicc) {
-        this.rayTracerBasic = rayTracerBasicc;
+    public Camera setRayTracer(RayTracerBasic rayTracerBasic) {
+        this.rayTracerBasic = rayTracerBasic;
         return this;
     }
 
@@ -138,9 +144,10 @@ public class Camera {
     }
 
     /**
+     * Chaining method for setting the image writer
      *
-     * @param imageWriter
-     * @return
+     * @param imageWriter the image writer to set
+     * @return the current render
      */
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
@@ -159,10 +166,6 @@ public class Camera {
         }
         this.width = width;
         return this;
-    }
-
-    public void setP0(double v, int i, double v1) {
-        p0=new Point(v,i,v1);
     }
 
     /**
@@ -188,8 +191,7 @@ public class Camera {
      * @param i  The index of the pixel on the y dimension.
      * @return A ray going through the given pixel.
      */
-    public Ray constructOneRay(int nX, int nY, int j, int i)
-    {
+    public Ray constructOneRay(int nX, int nY, int j, int i) {
         Point pIJ = CalculateCenterPointInPixel(nX, nY, j, i);
         Vector vIJ = pIJ.subtract(p0);
         return new Ray(p0, vIJ);
@@ -262,11 +264,13 @@ public class Camera {
             int nX = imageWriter.getNx();
             int nY = imageWriter.getNy();
             LinkedList<Ray> rays;
+
             // pass through each pixel and calculate the color
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
                     rays=constructRayPixel(nX,nY,j,i);
                     imageWriter.writePixel(j,i,rayTracerBasic.averageColor(rays));}}
+
             //rendering the image with multi-threaded
             if (threadPool != null) {
                 nextPixel = new Pixel(0, 0);
@@ -287,7 +291,6 @@ public class Camera {
 
     }
 
-
     /**
      * Prints the progress in percents only if it is greater than the last time printed the progress.
      *
@@ -305,7 +308,6 @@ public class Camera {
         }
         return lastPercent;
     }
-
 
     /**
      * Help function that check how many of the pixel has the same color, get the index (j,i) of 9 pixels
@@ -352,12 +354,14 @@ public class Camera {
      */
     public void adaptive(int j1, int i1, int j2, int i2, int nX, int nY, int level) {
         int numOfSame = sameColor(j1, i1, j2, i2, j2 * 2, i1, j2, i1 * 2, j2, i1, j2 / 2, i1, j2 + j2 / 2, i1, j2, i1 / 2, i1 + nX / (level * 2), i1 + nY / (level * 2), nX, nY);
+
         //if all the pixels has the same color
         if (numOfSame == 8) {
             LinkedList<Ray> rays;
             rays = this.constructRayPixel(nX, nY, j1, i1);
             Color c = rayTracerBasic.averageColor(rays);
             System.out.println(level);
+
             //color all the pixels
             for (int i = i2; i < i2 + nY / level; i++) {
                 for (int j = j1; j < j1 + nX / level; j++) {
@@ -367,6 +371,7 @@ public class Camera {
                 }
             }
         }
+
         //different color low level
         else if (numOfSame > 6) {
             adaptive(j1, i1 / 2, j2 / 2, i2, nX, nY, level * 2);
@@ -387,7 +392,6 @@ public class Camera {
             }
         }
     }
-
 
     /**
      * Casts a ray through a given pixel and writes the color to the image.
@@ -435,8 +439,6 @@ public class Camera {
         double yu = nY / (height * 2);
         //right
         double xr = nX / (width * 2);
-
-
         //left up
         if (!isZero(xr)) {
             p = (Point) center.add(vRight.scale(-xr));
@@ -445,52 +447,42 @@ public class Camera {
             p = (Point) center.add(vUp.scale(yu));
         }
         lcorner.add(new Ray(p0, p.subtract(p0)));
-        p = center;
 
         //right up
-        p = (Point) center.add(vRight.scale(xr));
         p = (Point) center.add(vUp.scale(yu));
         lcorner.add(new Ray(p0, p.subtract(p0)));
-        p = center;
 
         //left down
         p = (Point) center.add(vRight.scale(-xr));
         p = (Point) center.add(vUp.scale(-yu));
         lcorner.add(new Ray(p0, p.subtract(p0)));
-        p = center;
 
         //right down
         p = (Point) center.add(vRight.scale(xr));
         p = (Point) center.add(vUp.scale(-yu));
         lcorner.add(new Ray(p0, p.subtract(p0)));
-        p = center;
 
         //left middle
         p = (Point) center.add(vRight.scale(-xr));
         lcorner.add(new Ray(p0, p.subtract(p0)));
-        p = center;
 
         //right middle
         p = (Point) center.add(vRight.scale(xr));
         lcorner.add(new Ray(p0, p.subtract(p0)));
-        p = center;
 
         //middle up
         p = (Point) center.add(vUp.scale(yu));
         lcorner.add(new Ray(p0, p.subtract(p0)));
-        p = center;
 
         //middle down
         p = (Point) center.add(vUp.scale(-yu));
         lcorner.add(new Ray(p0, p.subtract(p0)));
-        p = center;
-        return lcorner;
+       return lcorner;
     }
 
 
     //Turn on the function of the imageWriter writeToImage
     public void writeToImage(){
-
         if(imageWriter==null) {
             throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");}
         imageWriter.writeToImage();
@@ -576,9 +568,10 @@ public class Camera {
     }
 
     /**
+     * Chaining method for setting the  number of rays constructed by the camera.
      *
-     * @param numOfRays
-     * @return
+     * @param numOfRays The number of rays constructed.
+     * @return The camera itself.
      */
     public Camera setNumOfRays(int numOfRays) {
         this.numOfRays = numOfRays;
@@ -641,6 +634,7 @@ public class Camera {
 
         return this;
     }
+
     /**
      * Returns the next pixel to draw on multithreaded rendering.
      * If finished to draw all pixels, returns {@code null}.
@@ -706,6 +700,4 @@ public class Camera {
             lastPercent = printPercent(currentPixel, pixels, lastPercent);
         }
     }
-
-
 }
