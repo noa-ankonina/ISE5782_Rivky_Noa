@@ -145,7 +145,7 @@ class ProjectTest {
                 new Vector(0, 1, 0))
                 .setViewPlaneSize(200, 125)
                 .setDistance(800)
-                .setNumOfRays(81);
+                .setNumOfRays(1);
 
         Scene scene = new Scene("Test Scene");
         setLights(scene);
@@ -162,7 +162,7 @@ class ProjectTest {
 
     private void setLights(Scene scene) {
         //scene.lights.add(new DirectionalLight(new Color(230,0,230),new Vector(0,-1,0)));
-        scene.lights.add(new PointLight(new Color(230,0,230),new Point(300,-30,300)));
+        scene.lights.add(new PointLight(new Color(230,0,230),new Point(350,-30,350)));
         scene.lights.add(new SpotLight(
                         new Color(400, 400, 400),
                         new Point(-50, 100, 100),
@@ -278,10 +278,12 @@ class ProjectTest {
                 ,
 
                 //else
-                new Sphere(new Point(60, -30, 10), 20)
+                new Sphere(new Point(-60, -40, 10), 10)
                         .setEmission(new Color(40, 40, 40))
                         .setMaterial(new Material()
                                 .setkT(1.0).setkG(0.8)),
+
+
                 //square
                 //1
                new Polygon(new Point(-25+xr, -50, -30+yr),
