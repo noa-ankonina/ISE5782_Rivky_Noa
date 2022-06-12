@@ -145,7 +145,7 @@ class ProjectTest {
                 new Vector(0, 1, 0))
                 .setViewPlaneSize(200, 125)
                 .setDistance(800)
-                .setNumOfRays(3);
+                .setNumOfRays(1);
 
         Scene scene = new Scene("Test Scene");
         setLights(scene);
@@ -161,32 +161,32 @@ class ProjectTest {
     }
 
     private void setLights(Scene scene) {
-       // //scene.lights.add(new DirectionalLight(new Color(230,0,230),new Vector(0,-1,0)));
-        scene.lights.add(new PointLight(new Color(88,0,88),new Point(300,-30,300)));
+        //scene.lights.add(new DirectionalLight(new Color(230,0,230),new Vector(0,-1,0)));
+        scene.lights.add(new PointLight(new Color(230,0,230),new Point(-20,-30,400)));
         scene.lights.add(new SpotLight(
-                        new Color(400, 400, 400),
+                        new Color(230,0,230),
                         new Point(-50, 100, 100),
                         new Vector(-0.5, -1, -0.5))
                         .setKl(0.004)
                         .setKq(0.000006));
         scene.lights.add(new SpotLight(
-                        new Color(214,72,217),
+                        new Color(230,0,230),
                         new Point(-50, 100, 100),
                         new Vector(-0.5, -1, -0.5))
                         .setKl(0.004)
                         .setKq(0.000006));
         scene.lights.add(new SpotLight(
-                new Color(0, 250, 350),
+                new Color(230,0,230),
                 new Point(-200, 100, 0),
                 new Vector(1, 1, -2)).setSpecularN(40) //
                 .setKl(0.00000005).setKq(0.000000005));
         scene.lights.add(new SpotLight(
-                new Color(0, 250, 350),
+                new Color(230,0,230),
                 new Point(-200, 50, 0),
                 new Vector(1, 0.5, -2)).setSpecularN(20) //
                 .setKl(0.00000005).setKq(0.000000005));
         scene.lights.add(new SpotLight(
-                new Color(0, 250, 350),
+                new Color(230,0,230),
                 new Point(-200, 55, 0),
                 new Vector(1, 1, -2)).setSpecularN(10) //
                 .setKl(0.00000005).setKq(0.000000005));
@@ -278,10 +278,12 @@ class ProjectTest {
                 ,
 
                 //else
-                new Sphere(new Point(60, -30, 10), 20)
+                new Sphere(new Point(-60, -40, 10), 10)
                         .setEmission(new Color(40, 40, 40))
                         .setMaterial(new Material()
                                 .setkT(1.0).setkG(0.8)),
+
+
                 //square
                 //1
                new Polygon(new Point(-25+xr, -50, -30+yr),
@@ -409,10 +411,10 @@ class ProjectTest {
                         new Point(-100, 75, -150),
                         new Point(100, 75, -150),
                         new Point(100, -50, -150))
-                        .setEmission(new Color(40, 40, 40))
+                        .setEmission(new Color(java.awt.Color.BLACK))
                         .setMaterial(new Material()
-                                        .setKd(0.5).setKs(0.5)
-                                        .setShininess(100).setkT(0).setkR(0.5).setkB(0).setkG(0.1)),
+                                .setKd(0.5).setKs(0.5)
+                                .setShininess(100)),
                 //front block
                 /*new Polygon(
                         new Point(0, -50, 75),
