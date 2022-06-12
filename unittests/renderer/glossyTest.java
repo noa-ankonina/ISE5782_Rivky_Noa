@@ -18,6 +18,7 @@ public class glossyTest {
         Scene scene = new Scene("Test scene");
         Camera camera = new Camera(new Point(-1000, 0, 90), new Vector(1, 0, -0.09), new Vector(0.09, 0, 1))
                 .setViewPlaneSize(500, 500)
+                .setNumOfRays(81)
                 .setDistance(1000);
         scene.setBackground(new Color(3, 3, 3));
         scene.setBackground(new Color(java.awt.Color.red));
@@ -256,6 +257,7 @@ public class glossyTest {
             ImageWriter imageWriter = new ImageWriter("MP1", 300, 300);
             camera.setImageWriter(imageWriter) //
                     .setRayTracer(new RayTracerBasic(scene).setGlossinessRays(20))
+                    .setMultithreading(5)
                     .renderImage();
             camera.writeToImage();
         }
